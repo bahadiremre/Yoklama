@@ -1,0 +1,15 @@
+C:\Users\bahad\source\repos\Yoklama\Restopos.Yoklama.DataAccess\bin\Debug\netcoreapp3.1\Restopos.Yoklama.DataAccess.deps.json
+C:\Users\bahad\source\repos\Yoklama\Restopos.Yoklama.DataAccess\bin\Debug\netcoreapp3.1\Restopos.Yoklama.DataAccess.runtimeconfig.json
+C:\Users\bahad\source\repos\Yoklama\Restopos.Yoklama.DataAccess\bin\Debug\netcoreapp3.1\Restopos.Yoklama.DataAccess.runtimeconfig.dev.json
+C:\Users\bahad\source\repos\Yoklama\Restopos.Yoklama.DataAccess\bin\Debug\netcoreapp3.1\Restopos.Yoklama.DataAccess.dll
+C:\Users\bahad\source\repos\Yoklama\Restopos.Yoklama.DataAccess\bin\Debug\netcoreapp3.1\Restopos.Yoklama.DataAccess.pdb
+C:\Users\bahad\source\repos\Yoklama\Restopos.Yoklama.DataAccess\bin\Debug\netcoreapp3.1\Restopos.Yoklama.Entities.dll
+C:\Users\bahad\source\repos\Yoklama\Restopos.Yoklama.DataAccess\bin\Debug\netcoreapp3.1\Restopos.Yoklama.Entities.pdb
+C:\Users\bahad\source\repos\Yoklama\Restopos.Yoklama.DataAccess\obj\Debug\netcoreapp3.1\Restopos.Yoklama.DataAccess.csprojAssemblyReference.cache
+C:\Users\bahad\source\repos\Yoklama\Restopos.Yoklama.DataAccess\obj\Debug\netcoreapp3.1\Restopos.Yoklama.DataAccess.AssemblyInfoInputs.cache
+C:\Users\bahad\source\repos\Yoklama\Restopos.Yoklama.DataAccess\obj\Debug\netcoreapp3.1\Restopos.Yoklama.DataAccess.AssemblyInfo.cs
+C:\Users\bahad\source\repos\Yoklama\Restopos.Yoklama.DataAccess\obj\Debug\netcoreapp3.1\Restopos.Yoklama.DataAccess.csproj.CoreCompileInputs.cache
+C:\Users\bahad\source\repos\Yoklama\Restopos.Yoklama.DataAccess\obj\Debug\netcoreapp3.1\Restopos.Yoklama.DataAccess.csproj.CopyComplete
+C:\Users\bahad\source\repos\Yoklama\Restopos.Yoklama.DataAccess\obj\Debug\netcoreapp3.1\Restopos.Yoklama.DataAccess.dll
+C:\Users\bahad\source\repos\Yoklama\Restopos.Yoklama.DataAccess\obj\Debug\netcoreapp3.1\Restopos.Yoklama.DataAccess.pdb
+C:\Users\bahad\source\repos\Yoklama\Restopos.Yoklama.DataAccess\obj\Debug\netcoreapp3.1\Restopos.Yoklama.DataAccess.genruntimeconfig.cache

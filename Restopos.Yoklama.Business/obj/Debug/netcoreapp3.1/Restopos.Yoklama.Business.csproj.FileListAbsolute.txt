@@ -1,0 +1,14 @@
+C:\Users\bahad\source\repos\Yoklama\Restopos.Yoklama.Business\bin\Debug\netcoreapp3.1\Restopos.Yoklama.Business.deps.json
+C:\Users\bahad\source\repos\Yoklama\Restopos.Yoklama.Business\bin\Debug\netcoreapp3.1\Restopos.Yoklama.Business.dll
+C:\Users\bahad\source\repos\Yoklama\Restopos.Yoklama.Business\bin\Debug\netcoreapp3.1\Restopos.Yoklama.Business.pdb
+C:\Users\bahad\source\repos\Yoklama\Restopos.Yoklama.Business\obj\Debug\netcoreapp3.1\Restopos.Yoklama.Business.csprojAssemblyReference.cache
+C:\Users\bahad\source\repos\Yoklama\Restopos.Yoklama.Business\obj\Debug\netcoreapp3.1\Restopos.Yoklama.Business.AssemblyInfoInputs.cache
+C:\Users\bahad\source\repos\Yoklama\Restopos.Yoklama.Business\obj\Debug\netcoreapp3.1\Restopos.Yoklama.Business.AssemblyInfo.cs
+C:\Users\bahad\source\repos\Yoklama\Restopos.Yoklama.Business\obj\Debug\netcoreapp3.1\Restopos.Yoklama.Business.csproj.CoreCompileInputs.cache
+C:\Users\bahad\source\repos\Yoklama\Restopos.Yoklama.Business\obj\Debug\netcoreapp3.1\Restopos.Yoklama.Business.dll
+C:\Users\bahad\source\repos\Yoklama\Restopos.Yoklama.Business\obj\Debug\netcoreapp3.1\Restopos.Yoklama.Business.pdb
+C:\Users\bahad\source\repos\Yoklama\Restopos.Yoklama.Business\bin\Debug\netcoreapp3.1\Restopos.Yoklama.DataAccess.dll
+C:\Users\bahad\source\repos\Yoklama\Restopos.Yoklama.Business\bin\Debug\netcoreapp3.1\Restopos.Yoklama.Entities.dll
+C:\Users\bahad\source\repos\Yoklama\Restopos.Yoklama.Business\bin\Debug\netcoreapp3.1\Restopos.Yoklama.DataAccess.pdb
+C:\Users\bahad\source\repos\Yoklama\Restopos.Yoklama.Business\bin\Debug\netcoreapp3.1\Restopos.Yoklama.Entities.pdb
+C:\Users\bahad\source\repos\Yoklama\Restopos.Yoklama.Business\obj\Debug\netcoreapp3.1\Restopos.Yoklama.Business.csproj.CopyComplete
