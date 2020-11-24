@@ -10,6 +10,13 @@ namespace Restopos.Yoklama.DataAccess.Concrete.EntityFrameworkCore.Repositories
 {
     public class EfUserRepository : IUserDAL
     {
+        public User GetByUsername(string username)
+        {
+            using var context = new SqlDbContext();
+            var user = context.Set<User>().FirstOrDefault(x => x.Username == username);
+            return user;
+        }
+
         public bool LoginUser(string userName, string password)
         {
             using var context = new SqlDbContext();

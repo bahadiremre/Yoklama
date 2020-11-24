@@ -32,6 +32,11 @@ namespace Restopos.Yoklama.Business.Concrete
             return crudableDAL.GetById(id);
         }
 
+        public User GetByUsername(string username)
+        {
+            return userDAL.GetByUsername(username);
+        }
+
         public bool LoginUser(string userName, string password)
         {
             return userDAL.LoginUser(userName, password);

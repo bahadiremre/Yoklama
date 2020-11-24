@@ -1,8 +1,46 @@
-﻿
+﻿@model UserDetailViewModel
+
 @{
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_PanelLayout.cshtml";
 }
 
-<h1>Hoşgeldiniz</h1>
+<h1>Hoş geldiniz</h1>
 
+
+<table class="table table-hover table-sm">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Surname)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Username)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DepartmentName)
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+
+        <tr>
+            <td>
+                @Model.Name
+            </td>
+            <td>
+                @Model.Surname
+            </td>
+            <td>
+                @Model.Username
+            </td>
+            <td>
+                @Model.DepartmentName
+            </td>
+        </tr>
+
+    </tbody>
+</table>

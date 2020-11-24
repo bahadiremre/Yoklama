@@ -43,7 +43,8 @@ namespace Restopos.Yoklama.Web.Controllers
                 {
                     List<Claim> claims = new List<Claim>
                     {
-                        new Claim(ClaimTypes.NameIdentifier, model.UserName)
+                        new Claim(ClaimTypes.Name, model.UserName),
+                        new Claim(ClaimTypes.NameIdentifier,model.UserName)
                     };
                     ClaimsIdentity identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
                     ClaimsPrincipal principal = new ClaimsPrincipal(identity);

@@ -5,13 +5,27 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - Restopos.Yoklama.Web</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/css/site.css" />
 </head>
 <body>
 
-    <div class="container">
-        <main role="main" class="pb-3">
-            @RenderBody()
+    <div class="container-fluid">
+        <main role="main">
+            <div class="row">
+                <aside class="col-4">
+                    <ul>
+                        <li><a href="#">Yoklamam</a></li>
+                        <li><a href="#">Personel Listesi</a></li>
+                        <li><a asp-controller="Department" asp-action="Index">Departmanlar</a></li>
+                        <li><a href="#">Personel Yoklaması</a></li>
+                        <li><a href="#">Rol İşlemleri</a></li>
+                        <li><a href="#">Yetki Listesi</a></li>
+                        <li><a href="#">Çıkış</a></li>
+                    </ul>
+                </aside>
+                <main role="main" class="col-8">
+                    @RenderBody()
+                </main>
+            </div>
         </main>
     </div>
 
