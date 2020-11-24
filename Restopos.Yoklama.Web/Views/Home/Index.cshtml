@@ -8,8 +8,7 @@
 <div class="row">
     <div class="col-md-4 shadow mx-auto mt-5 p-3 bg-white">
         <form asp-action="Index" >
-            <h4>Lütfen Giriş Yapın</h4>
-
+            <h4 class="text-center mb-3">Lütfen Giriş Yapın</h4>
             <div class="form-group">
                 <label asp-for="UserName" class="control-label"></label>
                 <input asp-for="UserName" class="form-control" />
@@ -26,7 +25,7 @@
             </div>
         </form>
         <div>
-            Kullanıcı hesabınız yok mu? <a asp-action="Index">Üye olun...</a>            
+            Kullanıcı hesabınız yok mu? <a asp-action="SignUp">Üye olun...</a>            
         </div>
     </div>
 </div>

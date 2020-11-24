@@ -7,12 +7,15 @@ using System.Text;
 
 namespace Restopos.Yoklama.Business.Concrete
 {
-    public class UserManager : ICrudableService<User>
+    public class UserManager : ICrudableService<User>, IUserService
     {
         private readonly ICrudableDAL<User> crudableDAL;
-        public UserManager(ICrudableDAL<User> crudableDAL)
+        private readonly IUserDAL userDAL;
+
+        public UserManager(ICrudableDAL<User> crudableDAL, IUserDAL userDAL)
         {
             this.crudableDAL = crudableDAL;
+            this.userDAL = userDAL;
         }
         public void Add(User user)
         {
@@ -27,6 +30,11 @@ namespace Restopos.Yoklama.Business.Concrete
         public User GetById(int id)
         {
             return crudableDAL.GetById(id);
+        }
+
+        public bool LoginUser(string userName, string password)
+        {
+            return userDAL.LoginUser(userName, password);
         }
 
         public void Remove(User user)

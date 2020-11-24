@@ -153,3 +153,6 @@ C:\Users\bahad\source\repos\Yoklama\Restopos.Yoklama.Web\bin\Debug\netcoreapp3.1
 C:\Users\bahad\source\repos\Yoklama\Restopos.Yoklama.Web\bin\Debug\netcoreapp3.1\zh-Hans\Microsoft.CodeAnalysis.Workspaces.resources.dll
 C:\Users\bahad\source\repos\Yoklama\Restopos.Yoklama.Web\bin\Debug\netcoreapp3.1\zh-Hant\Microsoft.CodeAnalysis.Workspaces.resources.dll
 C:\Users\bahad\source\repos\Yoklama\Restopos.Yoklama.Web\obj\Debug\netcoreapp3.1\Razor\Views\Home\Index.cshtml.g.cs
+C:\Users\bahad\source\repos\Yoklama\Restopos.Yoklama.Web\obj\Debug\netcoreapp3.1\Razor\Views\Home\SignUp.cshtml.g.cs
+C:\Users\bahad\source\repos\Yoklama\Restopos.Yoklama.Web\obj\Debug\netcoreapp3.1\Razor\Views\Shared\_PanelLayout.cshtml.g.cs
+C:\Users\bahad\source\repos\Yoklama\Restopos.Yoklama.Web\obj\Debug\netcoreapp3.1\Razor\Views\Panel\Index.cshtml.g.cs

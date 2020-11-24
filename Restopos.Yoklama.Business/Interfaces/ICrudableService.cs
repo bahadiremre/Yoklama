@@ -9,6 +9,6 @@ namespace Restopos.Yoklama.Business.Interfaces
     {
         void Add(CrudableTable crudableTable);
 
-        void Remove(CrudableTable crudableTable);
+        void Remove(CrudableTable crudableTable);        
     }
 }
