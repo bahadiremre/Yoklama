@@ -1,7 +1,36 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
+﻿@model Restopos.Yoklama.Web.Models.UserSignInViewModel
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<div>
-    USER LOGIN
+<div class="row">
+    <div class="col-md-4 shadow mx-auto mt-5 p-3 bg-white">
+        <form asp-action="Index" >
+            <h4>Lütfen Giriş Yapın</h4>
+
+            <div class="form-group">
+                <label asp-for="UserName" class="control-label"></label>
+                <input asp-for="UserName" class="form-control" />
+                <span asp-validation-for="UserName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Password" class="control-label"></label>
+                <input asp-for="Password" class="form-control" />
+                <span asp-validation-for="Password" class="text-danger"></span>
+            </div>
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <input type="submit" value="Giriş Yap" class="btn btn-primary" />
+            </div>
+        </form>
+        <div>
+            Kullanıcı hesabınız yok mu? <a asp-action="Index">Üye olun...</a>            
+        </div>
+    </div>
 </div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

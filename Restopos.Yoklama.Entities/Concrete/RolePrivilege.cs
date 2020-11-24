@@ -1,10 +1,11 @@
-﻿using System;
+﻿using Restopos.Yoklama.Entities.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace Restopos.Yoklama.Entities.Concrete
 {
-    public class RolePrivilege
+    public class RolePrivilege : ICrudable
     {
         public int Id { get; set; }
 
