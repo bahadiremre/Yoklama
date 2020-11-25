@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Restopos.Yoklama.Entities.Concrete
 {
-    public class Privilege : IReadable, IUpdatable
+    public class Privilege : ICreatable, IUpdatable
     {
         public int Id { get; set; }
         public string Name { get; set; }

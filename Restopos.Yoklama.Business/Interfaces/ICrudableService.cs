@@ -5,10 +5,10 @@ using System.Text;
 
 namespace Restopos.Yoklama.Business.Interfaces
 {
-    public interface ICrudableService<CrudableTable> : IUpdatableService<CrudableTable> where CrudableTable : class, ICrudable, new()
+    public interface ICrudableService<CrudableTable> : IUpdatableService<CrudableTable>, 
+        ICreatableService<CrudableTable>,
+        IRemovableService<CrudableTable> where CrudableTable : class, ICrudable, new()
     {
-        void Add(CrudableTable crudableTable);
-
-        void Remove(CrudableTable crudableTable);        
+                  
     }
 }

@@ -14,8 +14,9 @@ namespace Restopos.Yoklama.DataAccess.Concrete.EntityFrameworkCore.Mapping
             builder.HasKey(x => x.Id);
             builder.Property(x => x.Id).UseIdentityColumn();
             builder.Property(x => x.Description).HasMaxLength(200);
-
+            
             builder.Property(x => x.Name).HasMaxLength(100);
+            builder.Property(x => x.Name).ValueGeneratedOnUpdate().Metadata.SetIsStored(true);
         }
     }
 }

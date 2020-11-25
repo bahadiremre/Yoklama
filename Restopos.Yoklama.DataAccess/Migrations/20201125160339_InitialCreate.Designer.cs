@@ -10,7 +10,7 @@ using Restopos.Yoklama.DataAccess.Concrete.EntityFrameworkCore.Contexts;
 namespace Restopos.Yoklama.DataAccess.Migrations
 {
     [DbContext(typeof(SqlDbContext))]
-    [Migration("20201123210240_InitialCreate")]
+    [Migration("20201125160339_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -56,8 +56,13 @@ namespace Restopos.Yoklama.DataAccess.Migrations
                         .HasColumnType("int")
                         .UseIdentityColumn();
 
+                    b.Property<bool>("IsHourly")
+                        .HasColumnType("bit");
+
                     b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.HasKey("Id");
 
@@ -82,12 +87,18 @@ namespace Restopos.Yoklama.DataAccess.Migrations
             modelBuilder.Entity("Restopos.Yoklama.Entities.Concrete.Privilege", b =>
                 {
                     b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .UseIdentityColumn();
 
+                    b.Property<string>("Description")
+                        .HasMaxLength(199)
+                        .HasColumnType("nvarchar(199)");
+
                     b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
+                        .ValueGeneratedOnUpdate()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)")
+                        .HasAnnotation("Relational:IsStored", true);
 
                     b.HasKey("Id");
 
@@ -102,7 +113,8 @@ namespace Restopos.Yoklama.DataAccess.Migrations
                         .UseIdentityColumn();
 
                     b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.HasKey("Id");
 
@@ -142,13 +154,24 @@ namespace Restopos.Yoklama.DataAccess.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<string>("Password")
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
 
                     b.Property<string>("Surname")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<string>("Username")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.HasKey("Id");
 
@@ -201,13 +224,13 @@ namespace Restopos.Yoklama.DataAccess.Migrations
             modelBuilder.Entity("Restopos.Yoklama.Entities.Concrete.RolePrivilege", b =>
                 {
                     b.HasOne("Restopos.Yoklama.Entities.Concrete.Privilege", "Privilege")
-                        .WithMany()
+                        .WithMany("RolePrivileges")
                         .HasForeignKey("PrivilegeId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("Restopos.Yoklama.Entities.Concrete.Role", "Role")
-                        .WithMany()
+                        .WithMany("RolePrivileges")
                         .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -229,13 +252,13 @@ namespace Restopos.Yoklama.DataAccess.Migrations
             modelBuilder.Entity("Restopos.Yoklama.Entities.Concrete.UserRole", b =>
                 {
                     b.HasOne("Restopos.Yoklama.Entities.Concrete.Role", "Role")
-                        .WithMany()
+                        .WithMany("UserRoles")
                         .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("Restopos.Yoklama.Entities.Concrete.User", "User")
-                        .WithMany()
+                        .WithMany("UserRoles")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -255,9 +278,23 @@ namespace Restopos.Yoklama.DataAccess.Migrations
                     b.Navigation("Users");
                 });
 
+            modelBuilder.Entity("Restopos.Yoklama.Entities.Concrete.Privilege", b =>
+                {
+                    b.Navigation("RolePrivileges");
+                });
+
+            modelBuilder.Entity("Restopos.Yoklama.Entities.Concrete.Role", b =>
+                {
+                    b.Navigation("RolePrivileges");
+
+                    b.Navigation("UserRoles");
+                });
+
             modelBuilder.Entity("Restopos.Yoklama.Entities.Concrete.User", b =>
                 {
                     b.Navigation("AbsenceStatuses");
+
+                    b.Navigation("UserRoles");
                 });
 #pragma warning restore 612, 618
         }

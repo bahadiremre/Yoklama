@@ -10,8 +10,8 @@ using Restopos.Yoklama.DataAccess.Concrete.EntityFrameworkCore.Contexts;
 namespace Restopos.Yoklama.DataAccess.Migrations
 {
     [DbContext(typeof(SqlDbContext))]
-    [Migration("20201123220122_TableMapping")]
-    partial class TableMapping
+    [Migration("20201125161746_PrivDescriptionMaxLength")]
+    partial class PrivDescriptionMaxLength
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -56,6 +56,9 @@ namespace Restopos.Yoklama.DataAccess.Migrations
                         .HasColumnType("int")
                         .UseIdentityColumn();
 
+                    b.Property<bool>("IsHourly")
+                        .HasColumnType("bit");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(100)
@@ -88,9 +91,15 @@ namespace Restopos.Yoklama.DataAccess.Migrations
                         .HasColumnType("int")
                         .UseIdentityColumn();
 
+                    b.Property<string>("Description")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
                     b.Property<string>("Name")
+                        .ValueGeneratedOnUpdate()
                         .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                        .HasColumnType("nvarchar(100)")
+                        .HasAnnotation("Relational:IsStored", true);
 
                     b.HasKey("Id");
 
@@ -149,6 +158,11 @@ namespace Restopos.Yoklama.DataAccess.Migrations
                         .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
+
+                    b.Property<string>("Password")
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
 
                     b.Property<string>("Surname")
                         .IsRequired()

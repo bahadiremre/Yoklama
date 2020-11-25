@@ -7,20 +7,46 @@ using System.Text;
 
 namespace Restopos.Yoklama.DataAccess.Concrete.EntityFrameworkCore.Repositories
 {
-    public class EfCrudableRepository<CrudableTable> : EfUpdatableRepository<CrudableTable>, ICrudableDAL<CrudableTable> where CrudableTable : class, ICrudable, new()
+    public class EfCrudableRepository<CrudableTable> : ICrudableDAL<CrudableTable> where CrudableTable : class, ICrudable, new()
     {
-        public void Add(CrudableTable crudableTable)
+        private readonly ICreatableDAL<CrudableTable> creatableDAL;
+        private readonly IUpdatableDAL<CrudableTable> updatableDAL;
+        private readonly IRemovableDAL<CrudableTable> removableDAL;
+        private readonly IReadableDAL<CrudableTable> readableDAL;
+
+        public EfCrudableRepository(
+            ICreatableDAL<CrudableTable> creatableDAL, IUpdatableDAL<CrudableTable> updatableDAL,
+            IRemovableDAL<CrudableTable> removableDAL, IReadableDAL<CrudableTable> readableDAL)
         {
-            var context = new SqlDbContext();
-            context.Set<CrudableTable>().Add(crudableTable);
-            context.SaveChanges();
+            this.creatableDAL = creatableDAL;
+            this.updatableDAL = updatableDAL;
+            this.removableDAL = removableDAL;
+            this.readableDAL = readableDAL;
         }
 
-        public void Remove(CrudableTable crudableTable)
+        public void Add(CrudableTable creatableTable)
         {
-            var context = new SqlDbContext();
-            context.Set<CrudableTable>().Remove(crudableTable);
-            context.SaveChanges();
+            creatableDAL.Add(creatableTable);
+        }
+
+        public List<CrudableTable> GetAll()
+        {
+            return readableDAL.GetAll();
+        }
+
+        public CrudableTable GetById(int id)
+        {
+            return readableDAL.GetById(id);
+        }
+
+        public void Remove(CrudableTable removableTable)
+        {
+            removableDAL.Remove(removableTable);
+        }
+
+        public void Update(CrudableTable updatableTable)
+        {
+            updatableDAL.Update(updatableTable);
         }
     }
 }

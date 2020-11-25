@@ -7,29 +7,28 @@ using System.Text;
 
 namespace Restopos.Yoklama.Business.Concrete
 {
-    public class UserManager : ICrudableService<User>, IUserService
+    public class UserManager : IUserService
     {
-        private readonly ICrudableDAL<User> crudableDAL;
         private readonly IUserDAL userDAL;
 
-        public UserManager(ICrudableDAL<User> crudableDAL, IUserDAL userDAL)
+        public UserManager(IUserDAL userDAL)
         {
-            this.crudableDAL = crudableDAL;
             this.userDAL = userDAL;
         }
+
         public void Add(User user)
         {
-            crudableDAL.Add(user);
+            userDAL.Add(user);
         }
 
         public List<User> GetAll()
         {
-            return crudableDAL.GetAll();
+            return userDAL.GetAll();
         }
 
         public User GetById(int id)
         {
-            return crudableDAL.GetById(id);
+            return userDAL.GetById(id);
         }
 
         public User GetByUsername(string username)
@@ -44,12 +43,12 @@ namespace Restopos.Yoklama.Business.Concrete
 
         public void Remove(User user)
         {
-            crudableDAL.Remove(user);
+            userDAL.Remove(user);
         }
 
         public void Update(User user)
         {
-            crudableDAL.Update(user);
+            userDAL.Update(user);
         }
     }
 }

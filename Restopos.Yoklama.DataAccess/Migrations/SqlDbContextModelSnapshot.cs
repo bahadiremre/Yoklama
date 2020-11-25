@@ -94,8 +94,10 @@ namespace Restopos.Yoklama.DataAccess.Migrations
                         .HasColumnType("nvarchar(200)");
 
                     b.Property<string>("Name")
+                        .ValueGeneratedOnUpdate()
                         .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                        .HasColumnType("nvarchar(100)")
+                        .HasAnnotation("Relational:IsStored", true);
 
                     b.HasKey("Id");
 

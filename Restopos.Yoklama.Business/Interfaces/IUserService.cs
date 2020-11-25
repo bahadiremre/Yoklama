@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Restopos.Yoklama.Business.Interfaces
 {
-    public interface IUserService
+    public interface IUserService : ICrudableService<User>
     {
         bool LoginUser(string userName, string password);
         User GetByUsername(string username);

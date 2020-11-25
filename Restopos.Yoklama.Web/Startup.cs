@@ -12,6 +12,7 @@ using Restopos.Yoklama.Business.Interfaces;
 using Restopos.Yoklama.DataAccess.Concrete.EntityFrameworkCore.Repositories;
 using Restopos.Yoklama.DataAccess.Interfaces;
 using Restopos.Yoklama.Entities.Concrete;
+using Restopos.Yoklama.Web.Initializer;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -41,18 +42,42 @@ namespace Restopos.Yoklama.Web
                 opt.ExpireTimeSpan = TimeSpan.FromDays(20);
             });
 
+
+            services.AddScoped<IPrivilegeDAL, EfPrivilegeRepository>();
+            services.AddScoped<IPrivilegeService, PrivilegeManager>();
+            services.AddScoped(typeof(ICreatableService<Privilege>), typeof(PrivilegeManager));
+            services.AddScoped(typeof(IReadableService<Privilege>), typeof(PrivilegeManager));
+            services.AddScoped(typeof(IUpdatableService<Privilege>), typeof(PrivilegeManager));
+            services.AddScoped(typeof(IReadableDAL<Privilege>), typeof(EfReadableRepository<Privilege>));
+            services.AddScoped(typeof(IUpdatableDAL<Privilege>), typeof(EfUpdatableRepository<Privilege>));
+            services.AddScoped(typeof(ICreatableDAL<Privilege>), typeof(EfCreatableRepository<Privilege>));
+
             services.AddScoped<IUserDAL, EfUserRepository>();
             services.AddScoped<IUserService, UserManager>();
             services.AddScoped(typeof(ICrudableService<User>), typeof(UserManager));
-            services.AddScoped(typeof(ICrudableService<Department>), typeof(DepartmentManager));
             services.AddScoped(typeof(ICrudableDAL<User>), typeof(EfCrudableRepository<User>));
+            services.AddScoped(typeof(ICreatableDAL<User>), typeof(EfCreatableRepository<User>));
+            services.AddScoped(typeof(IUpdatableDAL<User>), typeof(EfUpdatableRepository<User>));
+            services.AddScoped(typeof(IRemovableDAL<User>), typeof(EfRemovableRepository<User>));
+            services.AddScoped(typeof(IReadableDAL<User>), typeof(EfReadableRepository<User>));
+
+
+            services.AddScoped(typeof(ICrudableService<Department>), typeof(DepartmentManager));
+            services.AddScoped(typeof(ICreatableService<Department>), typeof(DepartmentManager));
+            services.AddScoped(typeof(IUpdatableService<Department>), typeof(DepartmentManager));
+            services.AddScoped(typeof(IRemovableService<Department>), typeof(DepartmentManager));
+
             services.AddScoped(typeof(ICrudableDAL<Department>), typeof(EfCrudableRepository<Department>));
+            services.AddScoped(typeof(ICreatableDAL<Department>), typeof(EfCreatableRepository<Department>));
+            services.AddScoped(typeof(IUpdatableDAL<Department>), typeof(EfUpdatableRepository<Department>));
+            services.AddScoped(typeof(IRemovableDAL<Department>), typeof(EfRemovableRepository<Department>));
+            services.AddScoped(typeof(IReadableDAL<Department>), typeof(EfReadableRepository<Department>));
 
             services.AddControllersWithViews();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env,IPrivilegeService privilegeService)
         {
             if (env.IsDevelopment())
             {
@@ -68,6 +93,8 @@ namespace Restopos.Yoklama.Web
             app.UseStaticFiles();
 
             app.UseRouting();
+
+            PrivilegeInitializer.SeedData(privilegeService);
 
             app.UseAuthorization();
             app.UseAuthentication();

@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Restopos.Yoklama.DataAccess.Interfaces
 {
-    public interface IUserDAL
+    public interface IUserDAL : ICrudableDAL<User>
     {
         bool LoginUser(string userName, string password);
 

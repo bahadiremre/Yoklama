@@ -1,5 +1,7 @@
-﻿using System;
+﻿using Restopos.Yoklama.Entities.Concrete;
+using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -7,16 +9,21 @@ namespace Restopos.Yoklama.Web.Models
 {
     public class UserListViewModel
     {
-        [Display(Name = "Ad:")]
+        public int Id { get; set; }
+
+        [Display(Name = "Ad")]
         public string Name { get; set; }
 
-        [Display(Name = "Soyad:")]
+        [Display(Name = "Soyad")]
         public string Surname { get; set; }
 
-        [Display(Name = "Kullanıcı Adı:")]
+        [Display(Name = "Kullanıcı Adı")]
         public string Username { get; set; }
 
         [Display(Name = "Departman")]
         public Department Department { get; set; }
+
+        [Display(Name = "Rolleri")]
+        public List<Role> Roles { get; set; }
     }
 }

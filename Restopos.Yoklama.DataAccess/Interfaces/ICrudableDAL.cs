@@ -5,10 +5,9 @@ using System.Text;
 
 namespace Restopos.Yoklama.DataAccess.Interfaces
 {
-    public interface ICrudableDAL<CrudableTable> : IUpdatableDAL<CrudableTable> where CrudableTable : class, ICrudable, new()
+    public interface ICrudableDAL<CrudableTable> : IUpdatableDAL<CrudableTable>, ICreatableDAL<CrudableTable>,
+        IRemovableDAL<CrudableTable> where CrudableTable : class, ICrudable, new()
     {
-        void Add(CrudableTable crudableTable);
 
-        void Remove(CrudableTable crudableTable);
     }
 }

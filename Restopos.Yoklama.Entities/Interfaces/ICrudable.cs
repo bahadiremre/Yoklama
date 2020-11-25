@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Restopos.Yoklama.Entities.Interfaces
 {
-    public interface ICrudable : IUpdatable
+    public interface ICrudable : ICreatable, IUpdatable, IRemovable
     {
     }
 }

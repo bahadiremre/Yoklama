@@ -160,3 +160,4 @@ C:\Users\bahad\source\repos\Yoklama\Restopos.Yoklama.Web\obj\Debug\netcoreapp3.1
 C:\Users\bahad\source\repos\Yoklama\Restopos.Yoklama.Web\obj\Debug\netcoreapp3.1\Razor\Views\Department\Add.cshtml.g.cs
 C:\Users\bahad\source\repos\Yoklama\Restopos.Yoklama.Web\obj\Debug\netcoreapp3.1\Razor\Views\Department\Update.cshtml.g.cs
 C:\Users\bahad\source\repos\Yoklama\Restopos.Yoklama.Web\obj\Debug\netcoreapp3.1\Razor\Views\Shared\_CustomModal.cshtml.g.cs
+C:\Users\bahad\source\repos\Yoklama\Restopos.Yoklama.Web\obj\Debug\netcoreapp3.1\Razor\Views\User\Index.cshtml.g.cs
