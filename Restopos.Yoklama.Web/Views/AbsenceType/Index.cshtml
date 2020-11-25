@@ -1,23 +1,26 @@
-﻿@model IEnumerable<DepartmentViewModel>
+﻿@model IEnumerable<Restopos.Yoklama.Web.Models.AbsenceTypeViewModel>
 
 @{
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_PanelLayout.cshtml";
 }
 
-<h4>Departmanlar</h4>
+<h4>Devamsızlık Türleri</h4>
 
 <p>
-    <a asp-action="Add">Yeni Departman Oluştur</a>
+    <a asp-action="Add">Yeni bir devamsızlık türü oluşturun...</a>
 </p>
 
 @if (Model.Count() > 0)
 {
-    <table class="table table-hover table-sm">
+    <table class="table">
         <thead>
             <tr>
                 <th>
                     @Html.DisplayNameFor(model => model.Name)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.IsHourly)
                 </th>
                 <th></th>
             </tr>
@@ -26,24 +29,36 @@
             @foreach (var item in Model)
             {
                 <tr>
-                    @Html.HiddenFor(modelItem => item.Id)
                     <td>
                         @Html.DisplayFor(modelItem => item.Name)
                     </td>
                     <td>
-                        <a asp-action="Update" asp-route-id="@item.Id" class="btn btn-warning btn-sm">Güncelle</a>
-                        <a href="#" data-toggle="modal" data-target="#customModal" data-id="@item.Id" class="btn btn-danger btn-sm">Sil</a>
+                        @(item.IsHourly?"Saatlik":"Günlük")
+                    </td>
+                    <td>
+                        <a asp-action="Update" class="btn btn-sm btn-warning" asp-route-id="@item.Id">Güncelle</a>
+                        <a asp-action="Delete" class="btn btn-sm btn-danger" data-toggle="modal" 
+                           data-target="#customModal" data-id="@item.Id">Sil</a>
                     </td>
                 </tr>
             }
         </tbody>
     </table>
+}
+else
+{
+    <div class="text-center mt-3">
+        <p class="lead">
+            Herhangi bir devamsızlık türü bulunamadı.
+        </p>
+    </div>
+}
 
-    <partial name="_CustomModal" model='("Silme İşlemi","Departman kalıcı olarak silinecektir. Devam edilsin mi?")' />
+<partial name="_CustomModal" model='("Silme İşlemi","Devamsızlık türü kalıcı olarak silinecektir. Devam edilsin mi?")' />
 
-    @section Scripts{
+@section Scripts{
 
-        <script>
+    <script>
             $(document).ready(() => {
 
                 $("#customModal").on("show.bs.modal", event => {
@@ -52,7 +67,7 @@
                     $("#btnYes").click(() => {
                         $.ajax({
                             type: "GET",
-                            url: "./Department/Delete",
+                            url: "./AbsenceType/Delete",
                             data: { id: id },
                             dataType: "json",
                             contentType: "application/json; charset=utf8",
@@ -67,15 +82,8 @@
                     })
                 })
             })
-        </script>
+    </script>
 
-    }
 }
-else
-{
-<div class="text-center mt-3">
-    <p class="lead">
-        Departman bilgisi bulunamadı.
-    </p>
-</div>
-}
+
+

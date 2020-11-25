@@ -61,7 +61,6 @@ namespace Restopos.Yoklama.Web
             services.AddScoped(typeof(IRemovableDAL<User>), typeof(EfRemovableRepository<User>));
             services.AddScoped(typeof(IReadableDAL<User>), typeof(EfReadableRepository<User>));
 
-
             services.AddScoped(typeof(ICrudableService<Department>), typeof(DepartmentManager));
             services.AddScoped(typeof(ICreatableService<Department>), typeof(DepartmentManager));
             services.AddScoped(typeof(IUpdatableService<Department>), typeof(DepartmentManager));
@@ -72,6 +71,17 @@ namespace Restopos.Yoklama.Web
             services.AddScoped(typeof(IUpdatableDAL<Department>), typeof(EfUpdatableRepository<Department>));
             services.AddScoped(typeof(IRemovableDAL<Department>), typeof(EfRemovableRepository<Department>));
             services.AddScoped(typeof(IReadableDAL<Department>), typeof(EfReadableRepository<Department>));
+            //////////
+            services.AddScoped(typeof(ICrudableService<AbsenceType>), typeof(AbsenceTypeManager));
+            services.AddScoped(typeof(ICreatableService<AbsenceType>), typeof(AbsenceTypeManager));
+            services.AddScoped(typeof(IUpdatableService<AbsenceType>), typeof(AbsenceTypeManager));
+            services.AddScoped(typeof(IRemovableService<AbsenceType>), typeof(AbsenceTypeManager));
+
+            services.AddScoped(typeof(ICrudableDAL<AbsenceType>), typeof(EfCrudableRepository<AbsenceType>));
+            services.AddScoped(typeof(ICreatableDAL<AbsenceType>), typeof(EfCreatableRepository<AbsenceType>));
+            services.AddScoped(typeof(IUpdatableDAL<AbsenceType>), typeof(EfUpdatableRepository<AbsenceType>));
+            services.AddScoped(typeof(IRemovableDAL<AbsenceType>), typeof(EfRemovableRepository<AbsenceType>));
+            services.AddScoped(typeof(IReadableDAL<AbsenceType>), typeof(EfReadableRepository<AbsenceType>));
 
             services.AddControllersWithViews();
         }
