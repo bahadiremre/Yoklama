@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Restopos.Yoklama.Entities.Concrete.Department>
+﻿@model IEnumerable<DepartmentViewModel>
 
 @{
     ViewData["Title"] = "Index";
@@ -7,33 +7,75 @@
 
 <h4>Departmanlar</h4>
 
-
 <p>
     <a asp-action="Add">Yeni Departman Oluştur</a>
 </p>
 
-<table class="table table-hover table-sm">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Name)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
+@if (Model.Count() > 0)
+{
+    <table class="table table-hover table-sm">
+        <thead>
             <tr>
-                @Html.HiddenFor(modelItem => item.Id)
-                <td>
-                    @Html.DisplayFor(modelItem => item.Name)
-                </td>
-                <td>
-                    <a asp-action="Update" asp-route-id="@item.Id" class="btn btn-outline-warning btn-sm">Güncelle</a>
-                    <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-outline-danger btn-sm">Sil</a>
-                </td>
+                <th>
+                    @Html.DisplayNameFor(model => model.Name)
+                </th>
+                <th></th>
             </tr>
-        }
-    </tbody>
-</table>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    @Html.HiddenFor(modelItem => item.Id)
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Name)
+                    </td>
+                    <td>
+                        <a asp-action="Update" asp-route-id="@item.Id" class="btn btn-warning btn-sm">Güncelle</a>
+                        <a href="#" data-toggle="modal" data-target="#customModal" data-id="@item.Id" class="btn btn-danger btn-sm">Sil</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <partial name="_CustomModal" model='("Silme İşlemi","Departman kalıcı olarak silinecektir. Devam edilsin mi?")' />
+
+    @section Scripts{
+
+        <script>
+            $(document).ready(() => {
+
+                $("#customModal").on("show.bs.modal", event => {
+                    var button = $(event.relatedTarget);
+                    var id = button.data('id');
+                    $("#btnYes").click(() => {
+                        $.ajax({
+                            type: "GET",
+                            url: "./Department/Delete",
+                            data: { id: id },
+                            dataType: "json",
+                            contentType: "application/json; charset=utf8",
+                            success: (data) => {
+                                window.location.reload();
+                            },
+                            error: (err) => {
+                                console.log(err);
+                                alert(err.statusText);
+                            }
+                        });
+                    })
+                })
+            })
+        </script>
+
+    }
+}
+else
+{
+    <div class="text-center mt-3">
+        <p class="lead">
+            Departman bilgisi bulunamadı.
+        </p>
+    </div>
+}

@@ -17,6 +17,7 @@ namespace Restopos.Yoklama.Web.Models
         public string Surname { get; set; }
 
         [Display(Name = "Kullanıcı Adı:")]
+        [MinLength(3,ErrorMessage ="Kullanıcı adı en az 3 harfli olmalıdır")]
         [Required(ErrorMessage = "Kullanıcı Adı alanı boş geçilemez")]
         public string Username { get; set; }
 

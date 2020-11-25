@@ -21,7 +21,16 @@ namespace Restopos.Yoklama.Web.Controllers
         public ActionResult Index()
         {
             List<Department> departments = departmentService.GetAll();
-            return View(departments);
+            List<DepartmentViewModel> model = new List<DepartmentViewModel>();
+            foreach (var item in departments)
+            {
+                model.Add(new DepartmentViewModel
+                {
+                    Id = item.Id,
+                    Name = item.Name
+                });
+            }
+            return View(model);
         }
 
         public ActionResult Add()
@@ -29,61 +38,50 @@ namespace Restopos.Yoklama.Web.Controllers
             return View(new DepartmentViewModel());
         }
 
-        // POST: DepartmentController/Create
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+        public ActionResult Add(DepartmentViewModel model)
         {
-            try
+            if (ModelState.IsValid)
             {
+                departmentService.Add(new Department { Name = model.Name });
+
                 return RedirectToAction(nameof(Index));
             }
-            catch
-            {
-                return View();
-            }
+
+            return View(model);
         }
 
-        // GET: DepartmentController/Edit/5
-        public ActionResult Edit(int id)
+
+        public ActionResult Update(int id)
         {
+            var department = departmentService.GetById(id);
+            DepartmentViewModel model = new DepartmentViewModel
+            {
+                Id = department.Id,
+                Name = department.Name
+            };
+            return View(model);
+        }
+
+        [HttpPost]
+        public ActionResult Update(DepartmentViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                departmentService.Update(new Department
+                {
+                    Id = model.Id,
+                    Name = model.Name
+                });
+                return RedirectToAction(nameof(Index));
+            }
             return View();
         }
 
-        // POST: DepartmentController/Edit/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        public JsonResult Delete(int id)
         {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        // GET: DepartmentController/Delete/5
-        public ActionResult Delete(int id)
-        {
-            return View();
-        }
-
-        // POST: DepartmentController/Delete/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
+            departmentService.Remove(new Department { Id = id });
+            return Json(null);
         }
     }
 }
