@@ -15,5 +15,12 @@ namespace Restopos.Yoklama.DataAccess.Concrete.EntityFrameworkCore.Repositories
             context.Set<CreatableTable>().Add(creatableTable);
             context.SaveChanges();
         }
+
+        public void AddRange(List<CreatableTable> creatableTables)
+        {
+            var context = new SqlDbContext();
+            context.Set<CreatableTable>().AddRange(creatableTables);
+            context.SaveChanges();
+        }
     }
 }

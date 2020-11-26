@@ -62,26 +62,25 @@ namespace Restopos.Yoklama.Web
             services.AddScoped(typeof(IReadableDAL<User>), typeof(EfReadableRepository<User>));
 
             services.AddScoped(typeof(ICrudableService<Department>), typeof(DepartmentManager));
-            services.AddScoped(typeof(ICreatableService<Department>), typeof(DepartmentManager));
-            services.AddScoped(typeof(IUpdatableService<Department>), typeof(DepartmentManager));
-            services.AddScoped(typeof(IRemovableService<Department>), typeof(DepartmentManager));
-
             services.AddScoped(typeof(ICrudableDAL<Department>), typeof(EfCrudableRepository<Department>));
             services.AddScoped(typeof(ICreatableDAL<Department>), typeof(EfCreatableRepository<Department>));
             services.AddScoped(typeof(IUpdatableDAL<Department>), typeof(EfUpdatableRepository<Department>));
             services.AddScoped(typeof(IRemovableDAL<Department>), typeof(EfRemovableRepository<Department>));
             services.AddScoped(typeof(IReadableDAL<Department>), typeof(EfReadableRepository<Department>));
-            //////////
+            
             services.AddScoped(typeof(ICrudableService<AbsenceType>), typeof(AbsenceTypeManager));
-            services.AddScoped(typeof(ICreatableService<AbsenceType>), typeof(AbsenceTypeManager));
-            services.AddScoped(typeof(IUpdatableService<AbsenceType>), typeof(AbsenceTypeManager));
-            services.AddScoped(typeof(IRemovableService<AbsenceType>), typeof(AbsenceTypeManager));
-
             services.AddScoped(typeof(ICrudableDAL<AbsenceType>), typeof(EfCrudableRepository<AbsenceType>));
             services.AddScoped(typeof(ICreatableDAL<AbsenceType>), typeof(EfCreatableRepository<AbsenceType>));
             services.AddScoped(typeof(IUpdatableDAL<AbsenceType>), typeof(EfUpdatableRepository<AbsenceType>));
             services.AddScoped(typeof(IRemovableDAL<AbsenceType>), typeof(EfRemovableRepository<AbsenceType>));
             services.AddScoped(typeof(IReadableDAL<AbsenceType>), typeof(EfReadableRepository<AbsenceType>));
+
+            services.AddScoped(typeof(ICrudableService<Role>), typeof(RoleManager));
+            services.AddScoped(typeof(ICrudableDAL<Role>), typeof(EfCrudableRepository<Role>));
+            services.AddScoped(typeof(ICreatableDAL<Role>), typeof(EfCreatableRepository<Role>));
+            services.AddScoped(typeof(IUpdatableDAL<Role>), typeof(EfUpdatableRepository<Role>));
+            services.AddScoped(typeof(IRemovableDAL<Role>), typeof(EfRemovableRepository<Role>));
+            services.AddScoped(typeof(IReadableDAL<Role>), typeof(EfReadableRepository<Role>));
 
             services.AddControllersWithViews();
         }

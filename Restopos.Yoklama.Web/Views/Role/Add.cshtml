@@ -1,0 +1,59 @@
+﻿@model RoleWithPrivilegesViewModel
+
+@{
+    ViewData["Title"] = "Add";
+    Layout = "~/Views/Shared/_PanelLayout.cshtml";
+}
+
+<h4>Yeni Bir Rol Ekleyin</h4>
+<hr />
+<div class="row">
+    <div class="col-md-12">
+        <form asp-action="Add">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <div class="form-group">
+                <label asp-for="Name" class="control-label"></label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+
+            <table class="table table-sm table-hover">
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th>Yetki Adı</th>
+                        <th>Açıklama</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @for (int i = 0; i < Model.PrivilegesWithSelection.Count; i++)
+                    {
+                        <tr>
+                            <td>
+                                <input type="hidden" asp-for="@Model.PrivilegesWithSelection[i].Id" />
+                                <input type="checkbox" asp-for="@Model.PrivilegesWithSelection[i].isSelected" />
+                            </td>
+                            <td>
+                                @Model.PrivilegesWithSelection[i].Name
+                                <input type="hidden" asp-for="@Model.PrivilegesWithSelection[i].Name" />
+                            </td>
+                            <td>
+                                @Model.PrivilegesWithSelection[i].Description
+                                <input type="hidden" asp-for="@Model.PrivilegesWithSelection[i].Description" />
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+            <div class="form-group">
+                <input type="submit" value="Kaydet" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Roller Listesine Geri Dönün</a>
+</div>
+

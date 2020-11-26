@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Restopos.Yoklama.Entities.Concrete.Privilege>
+﻿@model IEnumerable<PrivilegeViewModel>
 
 @{
     ViewData["Title"] = "Index";
@@ -11,10 +11,10 @@
     <thead>
         <tr>
             <th>
-                Yetki
+                @Html.DisplayNameFor(modelItem=>modelItem.Name)
             </th>
             <th>
-                Açıklama
+                @Html.DisplayNameFor(modelItem => modelItem.Description)
             </th>
             <th></th>
         </tr>

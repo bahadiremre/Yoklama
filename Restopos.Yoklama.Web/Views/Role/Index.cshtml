@@ -1,0 +1,82 @@
+﻿@model IEnumerable<RoleViewModel>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_PanelLayout.cshtml";
+}
+
+<h4>Roller</h4>
+
+<p>
+    <a asp-action="Add">Yeni Rol Oluştur</a>
+</p>
+
+@if (Model.Count() > 0)
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Name)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Name)
+                    </td>
+                    <td>
+                        <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-warning btn-sm">Ayrıntılar</a>
+                        <a asp-action="Update" asp-route-id="@item.Id" class="btn btn-warning btn-sm">Güncelle</a>
+                        <a href="#" data-toggle="modal" data-target="#customModal" data-id="@item.Id" class="btn btn-danger btn-sm">Sil</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <div class="text-center mt-3">
+        <p class="lead">
+            Hiç rol bulunamadı.
+        </p>
+    </div>
+}
+
+
+<partial name="_CustomModal" model='("Silme İşlemi","Seçilen rol kalıcı olarak silinecektir. Devam edilsin mi?")' />
+
+@section Scripts{
+
+    <script>
+        $(document).ready(() => {
+
+            $("#customModal").on("show.bs.modal", event => {
+                var button = $(event.relatedTarget);
+                var id = button.data('id');
+                $("#btnYes").click(() => {
+                    $.ajax({
+                        type: "GET",
+                        url: "./Role/Delete",
+                        data: { id: id },
+                        dataType: "json",
+                        contentType: "application/json; charset=utf8",
+                        success: (data) => {
+                            window.location.reload();
+                        },
+                        error: (err) => {
+                            console.log(err);
+                            alert(err.statusText);
+                        }
+                    });
+                })
+            })
+        })
+    </script>
+
+}
