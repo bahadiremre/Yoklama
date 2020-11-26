@@ -15,6 +15,7 @@ namespace Restopos.Yoklama.Web.Controllers
         private readonly IAbsenceStatusService absenceService;
         private readonly IUserService userService;
         private readonly ICrudableService<AbsenceType> absenceTypeCrudService;
+
         public AbsenceStatusController(IAbsenceStatusService absenceService,
             IUserService userService, ICrudableService<AbsenceType> absenceTypeCrudService)
         {
