@@ -10,15 +10,22 @@ namespace Restopos.Yoklama.Business.Concrete
     public class UserManager : IUserService
     {
         private readonly IUserDAL userDAL;
+        private readonly IUserRoleService userRoleService;
 
-        public UserManager(IUserDAL userDAL)
+        public UserManager(IUserDAL userDAL, IUserRoleService userRoleService)
         {
             this.userDAL = userDAL;
+            this.userRoleService = userRoleService;
         }
 
         public void Add(User user)
         {
             userDAL.Add(user);
+        }
+
+        public void ChangePassword(User user)
+        {
+            userDAL.ChangePassword(user);
         }
 
         public List<User> GetAll()
@@ -29,6 +36,11 @@ namespace Restopos.Yoklama.Business.Concrete
         public User GetById(int id)
         {
             return userDAL.GetById(id);
+        }
+
+        public User GetByIdWithDetails(int id)
+        {
+            return userDAL.GetByIdWithDetails(id);
         }
 
         public User GetByUsername(string username)
@@ -48,7 +60,24 @@ namespace Restopos.Yoklama.Business.Concrete
 
         public void Update(User user)
         {
+            List<UserRole> userRoles = new List<UserRole>();
+
+            if (user.UserRoles?.Count > 0)
+            {
+                foreach (var item in user.UserRoles)
+                {
+                    userRoles.Add(new UserRole
+                    {
+                        RoleId = item.RoleId,
+                        UserId = user.Id
+                    });
+                }
+
+                userRoleService.RemoveByUserId(user.Id);
+            }
+
             userDAL.Update(user);
         }
+
     }
 }

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Restopos.Yoklama.Web.Models
 {
-    public class UserDetailViewModel
+    public class UserSummaryViewModel
     {
         [Display(Name = "Ad")]
         public string Name { get; set; }

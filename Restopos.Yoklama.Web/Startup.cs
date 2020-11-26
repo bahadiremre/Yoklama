@@ -94,6 +94,16 @@ namespace Restopos.Yoklama.Web
             services.AddScoped(typeof(IRemovableDAL<RolePrivilege>), typeof(EfRemovableRepository<RolePrivilege>));
             services.AddScoped(typeof(IReadableDAL<RolePrivilege>), typeof(EfReadableRepository<RolePrivilege>));
 
+            services.AddScoped(typeof(IUserRoleService), typeof(UserRoleManager));
+            services.AddScoped(typeof(ICrudableService<UserRole>), typeof(UserRoleManager));
+            services.AddScoped(typeof(IUserRoleDAL), typeof(EfUserRoleRepository));
+            services.AddScoped(typeof(ICrudableDAL<UserRole>), typeof(EfCrudableRepository<UserRole>));
+            services.AddScoped(typeof(IMultipleAddableDAL<UserRole>), typeof(EfMultipleAddableRepository<UserRole>));
+            services.AddScoped(typeof(IMultipleRemovableDAL<UserRole>), typeof(EfMultipleRemovableRepository<UserRole>));
+            services.AddScoped(typeof(ICreatableDAL<UserRole>), typeof(EfCreatableRepository<UserRole>));
+            services.AddScoped(typeof(IUpdatableDAL<UserRole>), typeof(EfUpdatableRepository<UserRole>));
+            services.AddScoped(typeof(IRemovableDAL<UserRole>), typeof(EfRemovableRepository<UserRole>));
+            services.AddScoped(typeof(IReadableDAL<UserRole>), typeof(EfReadableRepository<UserRole>));
 
             services.AddControllersWithViews();
         }

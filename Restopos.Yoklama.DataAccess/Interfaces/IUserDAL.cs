@@ -10,5 +10,9 @@ namespace Restopos.Yoklama.DataAccess.Interfaces
         bool LoginUser(string userName, string password);
 
         User GetByUsername(string username);
+
+        User GetByIdWithDetails(int id);
+                
+        void ChangePassword(User user);
     }
 }

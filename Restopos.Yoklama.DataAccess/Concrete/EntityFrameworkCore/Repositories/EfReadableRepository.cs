@@ -1,4 +1,5 @@
-﻿using Restopos.Yoklama.DataAccess.Concrete.EntityFrameworkCore.Contexts;
+﻿using Microsoft.EntityFrameworkCore;
+using Restopos.Yoklama.DataAccess.Concrete.EntityFrameworkCore.Contexts;
 using Restopos.Yoklama.DataAccess.Interfaces;
 using Restopos.Yoklama.Entities.Interfaces;
 using System;

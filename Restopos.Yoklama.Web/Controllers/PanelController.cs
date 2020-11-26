@@ -19,7 +19,7 @@ namespace Restopos.Yoklama.Web.Controllers
         {
             var user = userService.GetByUsername(User.Identity.Name);
 
-            UserDetailViewModel model = new UserDetailViewModel
+            UserSummaryViewModel model = new UserSummaryViewModel
             {
                 Name = user.Name,
                 Surname = user.Surname,

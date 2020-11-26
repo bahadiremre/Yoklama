@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Restopos.Yoklama.Business.Interfaces;
 using Restopos.Yoklama.Entities.Concrete;
 using Restopos.Yoklama.Web.Models;
@@ -11,15 +12,21 @@ namespace Restopos.Yoklama.Web.Controllers
 {
     public class UserController : Controller
     {
-        private readonly ICrudableService<User> crudService;
-        public UserController(ICrudableService<User> crudService)
+        private readonly IUserService userService;
+        private readonly IRoleService roleService;
+        private readonly ICrudableService<Department> departmentService;
+        public UserController(IUserService userService,
+            IRoleService roleService,
+            ICrudableService<Department> departmentService)
         {
-            this.crudService = crudService;
+            this.userService = userService;
+            this.roleService = roleService;
+            this.departmentService = departmentService;
         }
 
         public IActionResult Index()
         {
-            List<User> users = crudService.GetAll();
+            List<User> users = userService.GetAll();
             List<UserListViewModel> model = new List<UserListViewModel>();
             foreach (var item in users)
             {
@@ -31,20 +38,104 @@ namespace Restopos.Yoklama.Web.Controllers
                     Surname = item.Surname,
                     Username = item.Username
                 };
-                //Kullaniciya ait rolleri getir
-                List<UserRole> userRoles = item.UserRoles?.FindAll(x => x.UserId == item.Id);
-                if (userRoles != null)
-                {
-                    foreach (var userrole in userRoles)
-                    {
-                        modelItem.Roles.Add(userrole.Role);
-                    }
-                }
 
                 model.Add(modelItem);
             }
 
             return View(model);
+        }
+
+        public ActionResult Details(int id)
+        {
+            User user = userService.GetByIdWithDetails(id);
+
+            UserDetailsViewModel model = new UserDetailsViewModel();
+            model.AbsenceStatuses = user.AbsenceStatuses;
+            model.Department = user.Department;
+            model.Id = user.Id;
+            model.Name = user.Name;
+            model.Surname = user.Surname;
+            model.Username = user.Username;
+            model.Roles = user.UserRoles?.Count > 0 ? SetUserRolestoRoleList(user.UserRoles) : null;
+
+            return View(model);
+        }
+
+        public ActionResult Update(int id)
+        {
+            User user = userService.GetByIdWithDetails(id);
+            RoleSelectionViewModel roleModel = new RoleSelectionViewModel();
+            List<Role> roles = roleService.GetAll();
+            ViewBag.Departments = new SelectList(departmentService.GetAll(), "Id", "Name");
+
+            UserWithRoleSelectViewModel model = new UserWithRoleSelectViewModel
+            {
+                Department = user.Department,
+                Id = user.Id,
+                Name = user.Name,
+                Surname = user.Surname,
+                Username = user.Username
+            };
+
+            model.RoleSelections = new List<RoleSelectionViewModel>();
+            foreach (var item in roles)
+            {
+                model.RoleSelections.Add(new RoleSelectionViewModel
+                {
+                    Id = item.Id,
+                    Name = item.Name,
+                    isSelected = user.UserRoles?.FirstOrDefault(x => x.RoleId == item.Id) != null
+                });
+            }
+
+            return View(model);
+        }
+
+        [HttpPost]
+        public ActionResult Update(UserWithRoleSelectViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                User user = new User
+                {
+                    Id = model.Id,
+                    Name = model.Name,
+                    Surname = model.Surname,
+                    Username = model.Username,
+                    DepartmentId = model.Department?.Id > 0 ? (int?)model.Department.Id : null
+                };
+
+                model.RoleSelections = model.RoleSelections.FindAll(x => x.isSelected);
+
+                if (model.RoleSelections?.Count > 0)
+                {
+                    user.UserRoles = new List<UserRole>();
+                    foreach (var item in model.RoleSelections)
+                    {
+                        user.UserRoles.Add(new UserRole
+                        {
+                            RoleId = item.Id
+                        });
+                    }
+                }
+
+                userService.Update(user);
+
+                return RedirectToAction("Index");
+            }
+            return View(model);
+        }
+
+
+        private List<Role> SetUserRolestoRoleList(List<UserRole> userRoles)
+        {
+            List<Role> roles = new List<Role>();
+            foreach (var item in userRoles)
+            {
+                roles.Add(item.Role);
+            }
+
+            return roles;
         }
     }
 }

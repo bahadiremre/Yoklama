@@ -1,14 +1,12 @@
 ﻿@model RoleDetailsViewModel
 
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = "Rol Ayrıntıları";
     Layout = "~/Views/Shared/_PanelLayout.cshtml";
 }
 
-
-
 <div>
-    <h4>Rol Ayrıntıları</h4>
+    <h4>@ViewData["Title"]</h4>
     <hr />
     <dl class="row mb-4">
         <dt class="col-sm-2">
@@ -96,11 +94,11 @@
         <div class="col-md-12">
             <a asp-action="Update" asp-route-id="@Model.Id" class="btn btn-warning btn-sm">Güncelle</a>
         </div>
-        
+
     </div>
     <div class="row">
         <div class="col-md-12">
             <a asp-action="Index">Roller Listesine Geri Dön</a>
-        </div>        
+        </div>
     </div>
 </div>

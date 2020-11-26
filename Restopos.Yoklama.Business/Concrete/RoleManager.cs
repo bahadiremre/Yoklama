@@ -21,16 +21,6 @@ namespace Restopos.Yoklama.Business.Concrete
         public void Add(Role role)
         {
             crudableDAL.Add(role);
-            //List<RolePrivilege> rolePrivileges = new List<RolePrivilege>();
-
-            //if (role.RolePrivileges?.Count > 0)
-            //{
-            //    foreach (var item in role.RolePrivileges)
-            //    {
-            //        rolePrivileges.Add(new RolePrivilege { RoleId = role.Id, PrivilegeId = item.PrivilegeId });
-            //    }
-            //    rolePrivilegeService.AddRange(rolePrivileges);
-            //}
         }
 
         public List<Role> GetAll()

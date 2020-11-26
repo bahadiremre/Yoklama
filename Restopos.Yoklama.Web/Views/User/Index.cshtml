@@ -1,16 +1,16 @@
 ﻿@model IEnumerable<Restopos.Yoklama.Web.Models.UserListViewModel>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Kullanıcılar";
     Layout = "~/Views/Shared/_PanelLayout.cshtml";
 }
 
-<h1>Index</h1>
+<h4>@ViewData["Title"]</h4>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-action="Add">Yeni Kullanıcı Oluştur</a>
 </p>
-<table class="table">
+<table class="table table-sm table-hover">
     <thead>
         <tr>
             <th>
@@ -23,7 +23,7 @@
                 @Html.DisplayNameFor(model => model.Username)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Roles)
+                @Html.DisplayNameFor(model => model.Department)
             </th>
             <th></th>
         </tr>
@@ -42,17 +42,12 @@
                     @item.Username
                 </td>
                 <td>
-                    @if (item.Roles?.Count() > 0)
-                    {
-                        foreach (var role in item.Roles)
-                        {
-                            @role.Name
-                        }
-                    }
+                    @item.Department?.Name
                 </td>
                 <td>
+                    <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-info btn-sm">Ayrıntılar</a>
                     <a asp-action="Update" asp-route-id="@item.Id" class="btn btn-warning btn-sm">Güncelle</a>
-                    <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger btn-sm">Sil</a>
+                    <a href="#" data-toggle="modal" data-target="#customModal" data-id="@item.Id" class="btn btn-danger btn-sm">Sil</a>
                 </td>
             </tr>
         }

@@ -9,5 +9,7 @@ namespace Restopos.Yoklama.Business.Interfaces
     {
         bool LoginUser(string userName, string password);
         User GetByUsername(string username);
+        User GetByIdWithDetails(int id);
+        void ChangePassword(User user);
     }
 }

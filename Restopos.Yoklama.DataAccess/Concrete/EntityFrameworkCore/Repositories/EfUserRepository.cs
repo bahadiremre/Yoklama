@@ -23,12 +23,24 @@ namespace Restopos.Yoklama.DataAccess.Concrete.EntityFrameworkCore.Repositories
 
         public List<User> GetAll()
         {
-            return crudableDAL.GetAll();
+            using var context = new SqlDbContext();
+            return context.Set<User>().Include(x => x.Department).ToList();
         }
 
         public User GetById(int id)
         {
             return crudableDAL.GetById(id);
+        }
+
+        public User GetByIdWithDetails(int id)
+        {
+            using var context = new SqlDbContext();
+            User user = context.Set<User>().
+                Include(x => x.UserRoles).ThenInclude(x => x.Role).
+                Include(x => x.AbsenceStatuses).ThenInclude(x => x.AbsenceType).
+                Include(X => X.Department).FirstOrDefault(x => x.Id == id);
+
+            return user;
         }
 
         public User GetByUsername(string username)
@@ -51,9 +63,18 @@ namespace Restopos.Yoklama.DataAccess.Concrete.EntityFrameworkCore.Repositories
             crudableDAL.Remove(user);
         }
 
+        public void ChangePassword(User user)
+        {
+            throw new Exception("Bu kısım daha yazılmadı");
+        }
+
         public void Update(User user)
         {
-            crudableDAL.Update(user);
+            using var context = new SqlDbContext();
+            context.Set<User>().Attach(user);
+            context.Entry(user).State = EntityState.Modified;
+            context.Entry(user).Property(x => x.Password).IsModified = false;
+            context.SaveChanges();
         }
     }
 }
