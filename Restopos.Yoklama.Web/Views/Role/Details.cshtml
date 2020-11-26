@@ -10,17 +10,97 @@
 <div>
     <h4>Rol Ayrıntıları</h4>
     <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
+    <dl class="row mb-4">
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Name)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Name)
         </dd>
     </dl>
-</div>
-<div>
+    <div class="row mb-4">
+        <div class="col-md-12">
+            <h5>Rolde Bulunan Yetkiler</h5>
+            @if (Model.RolePrivileges?.Count > 0)
+            {
+                <table class="table table-sm table-hover">
+                    <thead>
+                        <tr>
+                            <th>Yetki Adı</th>
+                            <th>Açıklama</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.RolePrivileges)
+                        {
+                            <tr>
+                                <td>
+                                    @item.Privilege.Name
+                                </td>
+                                <td>
+                                    @item.Privilege.Description
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            }
+            else
+            {
+                <div class="col-md-12 text-center">
+                    <p class="lead">Role ait yetki bulunmamaktadır.</p>
+                </div>
+            }
+        </div>
+    </div>
+    <div class="row mb-4">
+        <div class="col-md-12">
+            <h5>Role Sahip Kullanıcılar</h5>
+            @if (Model.UserRoles?.Count > 0)
+            {
+                <table class="table table-sm table-hover">
+                    <thead>
+                        <tr>
+                            <th>Kullanıcı Adı</th>
+                            <th>Ad Soyad</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.UserRoles)
+                        {
+                            <tr>
+                                <td>
+                                    @item.User.Username
+                                </td>
+                                <td>
+                                    @item.User.Name @item.User.Surname
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            }
+            else
+            {
+                <div class="col-md-12 text-center">
+                    <p class="lead">Bu role sahip kullanıcı bulunmamaktadır.</p>
+                </div>
+            }
 
-    <a asp-action="Update" asp-route-id="@Model.Id" class="btn btn-warning btn-sm">Güncelle</a>
-    <a asp-action="Index">Roller Listesine Geri Dön</a>
+        </div>
+    </div>
+</div>
+<hr />
+<div>
+    <div class="row mb-3">
+        <div class="col-md-12">
+            <a asp-action="Update" asp-route-id="@Model.Id" class="btn btn-warning btn-sm">Güncelle</a>
+        </div>
+        
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <a asp-action="Index">Roller Listesine Geri Dön</a>
+        </div>        
+    </div>
 </div>

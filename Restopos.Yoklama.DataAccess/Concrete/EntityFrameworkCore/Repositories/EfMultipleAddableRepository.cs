@@ -1,19 +1,19 @@
 ﻿using Restopos.Yoklama.DataAccess.Concrete.EntityFrameworkCore.Contexts;
 using Restopos.Yoklama.DataAccess.Interfaces;
 using Restopos.Yoklama.Entities.Interfaces;
-using System.Linq;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace Restopos.Yoklama.DataAccess.Concrete.EntityFrameworkCore.Repositories
 {
-    public class EfUpdatableRepository<UpdatableTable> : EfReadableRepository<UpdatableTable>, IUpdatableDAL<UpdatableTable> where UpdatableTable : class, IUpdatable, new()
+    public class EfMultipleAddableRepository<MultipleAddableTable> : IMultipleAddableDAL<MultipleAddableTable> where
+        MultipleAddableTable : class, ICreatable, new()
     {
-        public void Update(UpdatableTable updatableTable)
+        public void AddRange(List<MultipleAddableTable> multipleAddableTables)
         {
             using var context = new SqlDbContext();
-            context.Set<UpdatableTable>().Update(updatableTable);
+            context.Set<MultipleAddableTable>().AddRange(multipleAddableTables);
             context.SaveChanges();
         }
     }

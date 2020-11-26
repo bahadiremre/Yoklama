@@ -1,19 +1,19 @@
 ﻿using Restopos.Yoklama.DataAccess.Concrete.EntityFrameworkCore.Contexts;
 using Restopos.Yoklama.DataAccess.Interfaces;
 using Restopos.Yoklama.Entities.Interfaces;
-using System.Linq;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace Restopos.Yoklama.DataAccess.Concrete.EntityFrameworkCore.Repositories
 {
-    public class EfUpdatableRepository<UpdatableTable> : EfReadableRepository<UpdatableTable>, IUpdatableDAL<UpdatableTable> where UpdatableTable : class, IUpdatable, new()
+    public class EfMultipleRemovableRepository<MultipleRemovableTable> : IMultipleRemovableDAL<MultipleRemovableTable> where
+        MultipleRemovableTable : class, IRemovable, new()
     {
-        public void Update(UpdatableTable updatableTable)
+        public void RemoveAll(List<MultipleRemovableTable> multipleRemovableTables)
         {
             using var context = new SqlDbContext();
-            context.Set<UpdatableTable>().Update(updatableTable);
+            context.Set<MultipleRemovableTable>().RemoveRange(multipleRemovableTables);
             context.SaveChanges();
         }
     }

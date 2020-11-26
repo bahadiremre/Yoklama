@@ -169,3 +169,4 @@ C:\Users\bahad\source\repos\Yoklama\Restopos.Yoklama.Web\bin\Debug\netcoreapp3.1
 C:\Users\bahad\source\repos\Yoklama\Restopos.Yoklama.Web\obj\Debug\netcoreapp3.1\Restopos.Yoklama.Web.Views.pdb
 C:\Users\bahad\source\repos\Yoklama\Restopos.Yoklama.Web\obj\Debug\netcoreapp3.1\Restopos.Yoklama.Web.csproj.CopyComplete
 C:\Users\bahad\source\repos\Yoklama\Restopos.Yoklama.Web\obj\Debug\netcoreapp3.1\Restopos.Yoklama.Web.genruntimeconfig.cache
+C:\Users\bahad\source\repos\Yoklama\Restopos.Yoklama.Web\obj\Debug\netcoreapp3.1\Razor\Views\Role\Update.cshtml.g.cs

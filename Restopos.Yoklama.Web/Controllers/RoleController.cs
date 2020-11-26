@@ -11,16 +11,13 @@ namespace Restopos.Yoklama.Web.Controllers
 {
     public class RoleController : Controller
     {
-        private readonly ICrudableService<Role> roleService;
+        private readonly IRoleService roleService;
         private readonly IPrivilegeService privilegeService;
-        private readonly ICrudableService<RolePrivilege> rolePrivilegeService;
 
-        public RoleController(ICrudableService<Role> roleService,
-            IPrivilegeService privilegeService, ICrudableService<RolePrivilege> rolePrivilegeService)
+        public RoleController(IRoleService roleService, IPrivilegeService privilegeService)
         {
             this.roleService = roleService;
             this.privilegeService = privilegeService;
-            this.rolePrivilegeService = rolePrivilegeService;
         }
 
         public IActionResult Index()
@@ -75,30 +72,25 @@ namespace Restopos.Yoklama.Web.Controllers
                 {
                     Name = model.Name
                 };
-                roleService.Add(role);
 
-
-                List<PrivilegeSelectionViewModel> selectedPrivilegeModels = model.PrivilegesWithSelection.FindAll(x => x.isSelected);
+                List<PrivilegeSelectionViewModel> selectedPrivilegeModels =
+                    model.PrivilegesWithSelection.FindAll(x => x.isSelected);
 
                 if (selectedPrivilegeModels?.Count > 0)
                 {
-                    List<Privilege> privileges = new List<Privilege>();
+                    List<RolePrivilege> rolePrivileges = new List<RolePrivilege>();
 
                     foreach (var item in selectedPrivilegeModels)
                     {
-                        privileges.Add(new Privilege
-                        {
-                            Id=item.Id                            
-                        });
-
-
+                        rolePrivileges.Add(new RolePrivilege { PrivilegeId = item.Id });
                     }
 
-                    rolePrivilegeService.Add(new RolePrivilege {  }
-                        );
+                    role.RolePrivileges = rolePrivileges;
                 }
 
-                
+                roleService.Add(role);
+
+                return RedirectToAction("Index");
             }
 
             return View(model);
@@ -106,7 +98,7 @@ namespace Restopos.Yoklama.Web.Controllers
 
         public IActionResult Details(int id)
         {
-            Role role = roleService.GetById(id);
+            Role role = roleService.GetByIdWithDetails(id);
             RoleDetailsViewModel model = new RoleDetailsViewModel();
             model.Id = role.Id;
             model.Name = role.Name;
@@ -114,6 +106,74 @@ namespace Restopos.Yoklama.Web.Controllers
             model.UserRoles = role.UserRoles;
 
             return View(model);
+        }
+
+        public IActionResult Update(int id)
+        {
+            Role role = roleService.GetByIdWithDetails(id);
+
+            RoleWithPrivilegesViewModel model = new RoleWithPrivilegesViewModel();
+            model.Id = role.Id;
+            model.Name = role.Name;
+
+            List<Privilege> privileges = privilegeService.GetAll();
+            model.PrivilegesWithSelection = new List<PrivilegeSelectionViewModel>();
+
+            if (privileges?.Count > 0)
+            {
+                foreach (var item in privileges)
+                {
+                    model.PrivilegesWithSelection.Add(new PrivilegeSelectionViewModel
+                    {
+                        Description = item.Description,
+                        Id = item.Id,
+                        Name = item.Name,
+                        isSelected = role.RolePrivileges?.FirstOrDefault(x => x.PrivilegeId == item.Id) != null
+                    });
+                }
+            }
+
+            return View(model);
+        }
+
+        [HttpPost]
+        public IActionResult Update(RoleWithPrivilegesViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                Role role = new Role
+                {
+                    Id=model.Id,
+                    Name = model.Name
+                };
+
+                List<PrivilegeSelectionViewModel> selectedPrivilegeModels =
+                    model.PrivilegesWithSelection.FindAll(x => x.isSelected);
+
+                if (selectedPrivilegeModels?.Count > 0)
+                {
+                    List<RolePrivilege> rolePrivileges = new List<RolePrivilege>();
+
+                    foreach (var item in selectedPrivilegeModels)
+                    {
+                        rolePrivileges.Add(new RolePrivilege { PrivilegeId = item.Id });
+                    }
+
+                    role.RolePrivileges = rolePrivileges;
+                }
+
+                roleService.Update(role);
+
+
+                return RedirectToAction("Index");
+            }
+            return View(model);
+        }
+
+        public JsonResult Delete(int id)
+        {
+            roleService.Remove(new Role { Id = id });
+            return Json(null);
         }
     }
 }

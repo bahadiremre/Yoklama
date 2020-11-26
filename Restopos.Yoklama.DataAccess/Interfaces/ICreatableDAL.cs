@@ -8,7 +8,5 @@ namespace Restopos.Yoklama.DataAccess.Interfaces
     public interface ICreatableDAL<CreatableTable> where CreatableTable : class, ICreatable, new()
     {
         void Add(CreatableTable creatableTable);
-
-        void AddRange(List<CreatableTable> creatableTables);
     }
 }

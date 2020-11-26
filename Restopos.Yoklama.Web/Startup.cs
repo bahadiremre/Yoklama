@@ -75,12 +75,25 @@ namespace Restopos.Yoklama.Web
             services.AddScoped(typeof(IRemovableDAL<AbsenceType>), typeof(EfRemovableRepository<AbsenceType>));
             services.AddScoped(typeof(IReadableDAL<AbsenceType>), typeof(EfReadableRepository<AbsenceType>));
 
-            services.AddScoped(typeof(ICrudableService<Role>), typeof(RoleManager));
+            services.AddScoped(typeof(IRoleService), typeof(RoleManager));
+            services.AddScoped(typeof(IRoleDAL), typeof(EfRoleRepository));
             services.AddScoped(typeof(ICrudableDAL<Role>), typeof(EfCrudableRepository<Role>));
             services.AddScoped(typeof(ICreatableDAL<Role>), typeof(EfCreatableRepository<Role>));
             services.AddScoped(typeof(IUpdatableDAL<Role>), typeof(EfUpdatableRepository<Role>));
             services.AddScoped(typeof(IRemovableDAL<Role>), typeof(EfRemovableRepository<Role>));
             services.AddScoped(typeof(IReadableDAL<Role>), typeof(EfReadableRepository<Role>));
+
+            services.AddScoped(typeof(IRolePrivilegeService), typeof(RolePrivilegeManager));            
+            services.AddScoped(typeof(ICrudableService<RolePrivilege>), typeof(RolePrivilegeManager));
+            services.AddScoped(typeof(IRolePrivilegeDAL), typeof(EfRolePrivilegeRepository));
+            services.AddScoped(typeof(ICrudableDAL<RolePrivilege>), typeof(EfCrudableRepository<RolePrivilege>));
+            services.AddScoped(typeof(IMultipleAddableDAL<RolePrivilege>), typeof(EfMultipleAddableRepository<RolePrivilege>));
+            services.AddScoped(typeof(IMultipleRemovableDAL<RolePrivilege>), typeof(EfMultipleRemovableRepository<RolePrivilege>));
+            services.AddScoped(typeof(ICreatableDAL<RolePrivilege>), typeof(EfCreatableRepository<RolePrivilege>));
+            services.AddScoped(typeof(IUpdatableDAL<RolePrivilege>), typeof(EfUpdatableRepository<RolePrivilege>));
+            services.AddScoped(typeof(IRemovableDAL<RolePrivilege>), typeof(EfRemovableRepository<RolePrivilege>));
+            services.AddScoped(typeof(IReadableDAL<RolePrivilege>), typeof(EfReadableRepository<RolePrivilege>));
+
 
             services.AddControllersWithViews();
         }
