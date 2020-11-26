@@ -1,9 +1,0 @@
-C:\Users\bahad\source\repos\Yoklama\Restopos.Yoklama.Entities\bin\Debug\netcoreapp3.1\Restopos.Yoklama.Entities.deps.json
-C:\Users\bahad\source\repos\Yoklama\Restopos.Yoklama.Entities\bin\Debug\netcoreapp3.1\Restopos.Yoklama.Entities.dll
-C:\Users\bahad\source\repos\Yoklama\Restopos.Yoklama.Entities\bin\Debug\netcoreapp3.1\Restopos.Yoklama.Entities.pdb
-C:\Users\bahad\source\repos\Yoklama\Restopos.Yoklama.Entities\obj\Debug\netcoreapp3.1\Restopos.Yoklama.Entities.AssemblyInfoInputs.cache
-C:\Users\bahad\source\repos\Yoklama\Restopos.Yoklama.Entities\obj\Debug\netcoreapp3.1\Restopos.Yoklama.Entities.AssemblyInfo.cs
-C:\Users\bahad\source\repos\Yoklama\Restopos.Yoklama.Entities\obj\Debug\netcoreapp3.1\Restopos.Yoklama.Entities.csproj.CoreCompileInputs.cache
-C:\Users\bahad\source\repos\Yoklama\Restopos.Yoklama.Entities\obj\Debug\netcoreapp3.1\Restopos.Yoklama.Entities.dll
-C:\Users\bahad\source\repos\Yoklama\Restopos.Yoklama.Entities\obj\Debug\netcoreapp3.1\Restopos.Yoklama.Entities.pdb
-C:\Users\bahad\source\repos\Yoklama\Restopos.Yoklama.Entities\obj\Debug\netcoreapp3.1\Restopos.Yoklama.Entities.csprojAssemblyReference.cache
