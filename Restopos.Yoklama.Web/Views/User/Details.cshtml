@@ -56,20 +56,14 @@
             <h5>Devamsızlıklar</h5>
             @if (Model.AbsenceStatuses?.Count > 0)
             {
-                <table>
-                    <thead>
-                        <tr>
-                            <th></th>
-                        </tr>
-                    </thead>
+                <table class="table table-sm table-hover">
                     <tbody>
                         @foreach (var item in Model.AbsenceStatuses)
                         {
                             <tr>
                                 <td>@item.AbsenceType.Name</td>
-                                <td>@item.StartDate</td>
-                                <td>@item.EndDate</td>
-                                <td>@(item.AbsenceType.IsHourly ? "Saatlik" : "Günlük")</td>
+                                <td>@item.StartDate.ToString("dd.MM.yyyy HH:mm")</td>
+                                <td>@item.EndDate.ToString("dd.MM.yyyy HH:mm")</td>
                             </tr>
                         }
                     </tbody>

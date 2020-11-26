@@ -21,10 +21,10 @@ namespace Restopos.Yoklama.Web.Controllers
 
             UserSummaryViewModel model = new UserSummaryViewModel
             {
-                Name = user.Name,
-                Surname = user.Surname,
-                Username = user.Username,
-                DepartmentName = user.Department?.Name
+                Name = user?.Name,
+                Surname = user?.Surname,
+                Username = user?.Username,
+                DepartmentName = user?.Department?.Name
             };
 
             return View(model);

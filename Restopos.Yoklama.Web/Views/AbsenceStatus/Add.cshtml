@@ -1,0 +1,68 @@
+﻿@model AbsenceStatusViewModel
+
+@{
+    ViewData["Title"] = "Yoklama Girişi";
+    Layout = "~/Views/Shared/_PanelLayout.cshtml";
+}
+
+<h4>@ViewData["Title"]</h4>
+<hr />
+<div class="row">
+    <div class="col-md-12 pl-0">
+        <form asp-action="Add">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group col-md-4">
+                <label asp-for="StartDate" class="control-label"></label>
+                <input asp-for="StartDate" class="form-control" />
+                <span asp-validation-for="StartDate" class="text-danger"></span>
+            </div>
+            <div class="form-group col-md-4">
+                <label asp-for="EndDate" class="control-label"></label>
+                <input asp-for="EndDate" class="form-control" />
+                <span asp-validation-for="EndDate" class="text-danger"></span>
+            </div>
+
+            <div class="form-group col-md-4">
+                <label>Devamsızlık Türü</label>
+                <select asp-for="@Model.AbsenceType.Id" class="form-control" asp-items=" ViewBag.AbsenceTypes">
+                </select>
+                <span asp-validation-for="@Model.AbsenceType.Id" class="text-danger"></span>
+            </div>
+
+            <div class="form-group col-md-6">
+                <label>Personel Listesi</label>
+                <input type="text" placeholder="Personel arayın..." class="form-control " id="personnelPicker" autocomplete="off"/>
+                <select asp-for="@Model.User.Id" class="form-control" asp-items=" ViewBag.Users">
+                    <option hidden>Bir Personel Seçin</option>
+                </select>
+                <span asp-validation-for="@Model.User.Id" class="text-danger"></span>
+            </div>
+            <div class="form-group col-md-4">
+                <input type="submit" value="Kaydet" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Yoklama Sayfasıne Geri Dönün...</a>
+</div>
+
+@section Scripts{
+    <script>
+        $(document).ready(() => {
+            $("#personnelPicker").keyup(() => {
+                //console.log(e);
+                let option = $("#User_Id > option").toArray();
+                let searchValue = $("#personnelPicker").val().toLowerCase();
+                console.log(searchValue);
+                for (var i = 1; i < option.length; i++) {
+                    if (searchValue && option[i].innerHTML.toLowerCase().indexOf(searchValue) > -1) {
+                        $("#User_Id").val(option[i].value);
+                        break;
+                    }
+                }
+            })
+        })
+    </script>
+}

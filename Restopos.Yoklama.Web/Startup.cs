@@ -105,6 +105,15 @@ namespace Restopos.Yoklama.Web
             services.AddScoped(typeof(IRemovableDAL<UserRole>), typeof(EfRemovableRepository<UserRole>));
             services.AddScoped(typeof(IReadableDAL<UserRole>), typeof(EfReadableRepository<UserRole>));
 
+            services.AddScoped(typeof(IAbsenceStatusService), typeof(AbsenceStatusManager));
+            services.AddScoped(typeof(ICrudableService<AbsenceStatus>), typeof(AbsenceStatusManager));
+            services.AddScoped(typeof(IAbsenceStatusDAL), typeof(EfAbsenceStatusRepository));
+            services.AddScoped(typeof(ICrudableDAL<AbsenceStatus>), typeof(EfCrudableRepository<AbsenceStatus>));
+            services.AddScoped(typeof(ICreatableDAL<AbsenceStatus>), typeof(EfCreatableRepository<AbsenceStatus>));
+            services.AddScoped(typeof(IUpdatableDAL<AbsenceStatus>), typeof(EfUpdatableRepository<AbsenceStatus>));
+            services.AddScoped(typeof(IRemovableDAL<AbsenceStatus>), typeof(EfRemovableRepository<AbsenceStatus>));
+            services.AddScoped(typeof(IReadableDAL<AbsenceStatus>), typeof(EfReadableRepository<AbsenceStatus>));
+
             services.AddControllersWithViews();
         }
 
