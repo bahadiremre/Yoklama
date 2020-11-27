@@ -7,10 +7,12 @@
 
 <h2>@ViewData["Title"]</h2>
 
-<p>
-    <a asp-action="Add">Yeni Bir Yoklama Girin</a>
-</p>
-
+@if (User.HasClaim(x => x.Value == ConstPrivileges.ADD_USERS_ABSENCE))
+{
+    <p>
+        <a asp-action="Add">Yeni Bir Yoklama Girin</a>
+    </p>
+}
 
 <form class="col-md-12 px-0" asp-action="Index">
     <label class="control-label">Gün Seçin</label>

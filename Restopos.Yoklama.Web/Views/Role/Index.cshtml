@@ -7,9 +7,13 @@
 
 <h2>@ViewData["Title"]</h2>
 
-<p>
-    <a asp-action="Add">Yeni Rol Oluştur</a>
-</p>
+@if (User.HasClaim(x => x.Value == ConstPrivileges.ADD_ROLE))
+{
+    <p>
+        <a asp-action="Add">Yeni Rol Oluştur</a>
+    </p>
+}
+
 
 @if (Model.Count() > 0)
 {
