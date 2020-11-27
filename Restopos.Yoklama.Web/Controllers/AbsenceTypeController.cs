@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Restopos.Yoklama.Business.Interfaces;
 using Restopos.Yoklama.Entities.Concrete;
+using Restopos.Yoklama.Entities.Concrete.Constants;
 using Restopos.Yoklama.Web.Models;
 using System;
 using System.Collections.Generic;

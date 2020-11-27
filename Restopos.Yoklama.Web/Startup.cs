@@ -12,6 +12,7 @@ using Restopos.Yoklama.Business.Interfaces;
 using Restopos.Yoklama.DataAccess.Concrete.EntityFrameworkCore.Repositories;
 using Restopos.Yoklama.DataAccess.Interfaces;
 using Restopos.Yoklama.Entities.Concrete;
+using Restopos.Yoklama.Entities.Concrete.Constants;
 using Restopos.Yoklama.Web.Initializer;
 using System;
 using System.Collections.Generic;

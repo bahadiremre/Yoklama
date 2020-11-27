@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - Restopos.Yoklama.Web</title>
+    <title>@ViewData["Title"]</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
 </head>
 <body>
@@ -13,14 +13,35 @@
             <div class="row">
                 <div class="col-4">
                     <ul>
+
                         <li><a asp-controller="Panel" asp-action="Index">Ana Sayfa</a></li>
                         <li><a asp-controller="MyAbsences" asp-action="Index">Yoklamam</a></li>
-                        <li><a asp-controller="User" asp-action="Index">Personel Listesi</a></li>
-                        <li><a asp-controller="AbsenceType" asp-action="Index">Devamsızlık Türleri</a></li>
-                        <li><a asp-controller="Department" asp-action="Index">Departmanlar</a></li>
-                        <li><a asp-controller="AbsenceStatus" asp-action="Index">Personel Yoklaması</a></li>
-                        <li><a asp-controller="Role" asp-action="Index">Rol İşlemleri</a></li>
-                        <li><a asp-controller="Privilege" asp-action="Index">Yetki Listesi</a></li>
+                        @{
+                            if (User.HasClaim(x => x.Value == ConstPrivileges.LIST_USERS))
+                            {
+                                <li><a asp-controller="User" asp-action="Index">Personel Listesi</a></li>
+                            }
+                            if (User.HasClaim(x => x.Value == ConstPrivileges.LIST_DEPARTMENTS))
+                            {
+                                <li><a asp-controller="Department" asp-action="Index">Departmanlar</a></li>
+                            }
+                            if (User.HasClaim(x => x.Value == ConstPrivileges.LIST_ABSENCETYPES))
+                            {
+                                <li><a asp-controller="AbsenceType" asp-action="Index">Devamsızlık Türleri</a></li>
+                            }
+                            if (User.HasClaim(x => x.Value == ConstPrivileges.LIST_USERS_ABSENCES))
+                            {
+                                <li><a asp-controller="AbsenceStatus" asp-action="Index">Personel Yoklaması</a></li>
+                            }
+                            if (User.HasClaim(x => x.Value == ConstPrivileges.LIST_ROLES))
+                            {
+                                <li><a asp-controller="Role" asp-action="Index">Rol İşlemleri</a></li>
+                            }
+                            if (User.HasClaim(x => x.Value == ConstPrivileges.LIST_PRIVILEGES))
+                            {
+                                <li><a asp-controller="Privilege" asp-action="Index">Yetki Listesi</a></li>
+                            }
+                        }
                         <li><a href="#" class="btn disabled">Çıkış</a></li>
                     </ul>
                 </div>

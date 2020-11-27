@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Restopos.Yoklama.Entities.Concrete
+namespace Restopos.Yoklama.Entities.Concrete.Constants
 {
     public static class ConstPrivileges
     {
