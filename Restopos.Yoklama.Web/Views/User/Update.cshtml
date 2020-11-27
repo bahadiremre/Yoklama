@@ -5,7 +5,7 @@
     Layout = "~/Views/Shared/_PanelLayout.cshtml";
 }
 
-<h4>@ViewData["Title"]</h4>
+<h2>@ViewData["Title"]</h2>
 <hr />
 <div class="row">
     <div class="col-md-12">
@@ -47,7 +47,7 @@
             }
 
             <div class="form-group mt-3">
-                <input type="submit" value="Kaydet" class="btn btn-primary" />
+                <input type="submit" value="Kaydet" class="btn btn-success" />
             </div>
         </form>
     </div>
@@ -57,3 +57,6 @@
     <a asp-action="Index">Kullanıcı Listesine Geri Dön...</a>
 </div>
 
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

@@ -16,4 +16,8 @@
     <ProjectReference Include="..\Restopos.Yoklama.Business\Restopos.Yoklama.Business.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="wwwroot\lib\" />
+  </ItemGroup>
+
 </Project>

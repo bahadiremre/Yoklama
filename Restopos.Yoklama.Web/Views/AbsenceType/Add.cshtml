@@ -5,7 +5,7 @@
     Layout = "~/Views/Shared/_PanelLayout.cshtml";
 }
 
-<h4>Yeni Bir Devamsızlık Türü Ekleyin</h4>
+<h2>Yeni Bir Devamsızlık Türü Ekleyin</h2>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -22,7 +22,7 @@
             </div>
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <input type="submit" value="Kaydet" class="btn btn-primary" />
+                <input type="submit" value="Kaydet" class="btn btn-success" />
             </div>
 
         </form>
@@ -33,3 +33,6 @@
     <a asp-action="Index">Devamsızlık türleri listesine geri dönün...</a>
 </div>
 
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

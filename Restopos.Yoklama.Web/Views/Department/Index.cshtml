@@ -5,7 +5,7 @@
     Layout = "~/Views/Shared/_PanelLayout.cshtml";
 }
 
-<h4>Departmanlar</h4>
+<h2>Departmanlar</h2>
 
 <p>
     <a asp-action="Add">Yeni Departman Oluştur</a>
@@ -13,7 +13,7 @@
 
 @if (Model.Count() > 0)
 {
-    <table class="table table-hover table-sm">
+    <table class="table table-hover">
         <thead>
             <tr>
                 <th>

@@ -6,7 +6,7 @@
 }
 
 
-<h4>Devamsızlık Türünü Güncelleyin</h4>
+<h2>Devamsızlık Türünü Güncelleyin</h2>
 <hr />
 <div class="row">
     <div class="col-md-6">
@@ -24,7 +24,7 @@
             </div>
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <input type="submit" value="Kaydet" class="btn btn-primary" />
+                <input type="submit" value="Kaydet" class="btn btn-success" />
             </div>
         </form>
     </div>
@@ -34,3 +34,6 @@
     <a asp-action="Index">Devamsızlık türleri listesine geri dönün...</a>
 </div>
 
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

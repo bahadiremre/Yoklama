@@ -4,48 +4,49 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"]</title>
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link href="~/lib/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/css/panel.css" rel="stylesheet" />
 </head>
-<body>
+<body class="h-100">
 
-    <div class="container-fluid">
-        <main role="main">
-            <div class="row">
-                <div class="col-4">
-                    <ul>
+    <div class="container-fluid h-100">
+        <main role="main" class="h-100">
+            <div class="row h-100">
+                <div class="col-3 form-group p-0 bg-info m-0">
+                    <div class="sticky-top">
 
-                        <li><a asp-controller="Panel" asp-action="Index">Ana Sayfa</a></li>
-                        <li><a asp-controller="MyAbsences" asp-action="Index">Yoklamam</a></li>
+                        <a asp-controller="Panel" asp-action="Index" class="form-control btn btn-info btn-lg rounded-0">Ana Sayfa</a>
+                        <a asp-controller="MyAbsences" asp-action="Index" class="form-control btn btn-info btn-lg rounded-0">Yoklamam</a>
                         @{
                             if (User.HasClaim(x => x.Value == ConstPrivileges.LIST_USERS))
                             {
-                                <li><a asp-controller="User" asp-action="Index">Personel Listesi</a></li>
+                                <a asp-controller="User" asp-action="Index" class="form-control btn btn-info btn-lg rounded-0">Personel Listesi</a>
                             }
                             if (User.HasClaim(x => x.Value == ConstPrivileges.LIST_DEPARTMENTS))
                             {
-                                <li><a asp-controller="Department" asp-action="Index">Departmanlar</a></li>
+                                <a asp-controller="Department" asp-action="Index" class="form-control btn btn-info btn-lg rounded-0">Departmanlar</a>
                             }
                             if (User.HasClaim(x => x.Value == ConstPrivileges.LIST_ABSENCETYPES))
                             {
-                                <li><a asp-controller="AbsenceType" asp-action="Index">Devamsızlık Türleri</a></li>
+                                <a asp-controller="AbsenceType" asp-action="Index" class="form-control btn btn-info btn-lg rounded-0">Devamsızlık Türleri</a>
                             }
                             if (User.HasClaim(x => x.Value == ConstPrivileges.LIST_USERS_ABSENCES))
                             {
-                                <li><a asp-controller="AbsenceStatus" asp-action="Index">Personel Yoklaması</a></li>
+                                <a asp-controller="AbsenceStatus" asp-action="Index" class="form-control btn btn-info btn-lg rounded-0">Personel Yoklaması</a>
                             }
                             if (User.HasClaim(x => x.Value == ConstPrivileges.LIST_ROLES))
                             {
-                                <li><a asp-controller="Role" asp-action="Index">Rol İşlemleri</a></li>
+                                <a asp-controller="Role" asp-action="Index" class="form-control btn btn-info btn-lg rounded-0">Rol İşlemleri</a>
                             }
                             if (User.HasClaim(x => x.Value == ConstPrivileges.LIST_PRIVILEGES))
                             {
-                                <li><a asp-controller="Privilege" asp-action="Index">Yetki Listesi</a></li>
+                                <a asp-controller="Privilege" asp-action="Index" class="form-control btn btn-info btn-lg rounded-0">Yetki Listesi</a>
                             }
                         }
-                        <li><a href="#" class="btn disabled">Çıkış</a></li>
-                    </ul>
+                        <a href="#" class="form-control btn btn-info btn-lg rounded-0">Çıkış</a>
+                    </div>
                 </div>
-                <div class="col-8 pt-2">
+                <div class="col-8 pt-2 pb-3 text-dark">
                     @RenderBody()
                 </div>
             </div>
@@ -53,8 +54,8 @@
     </div>
 
 
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/lib/jquery/jquery.js"></script>
+    <script src="~/lib/bootstrap/js/bootstrap.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
     @RenderSection("Scripts", required: false)
 </body>
