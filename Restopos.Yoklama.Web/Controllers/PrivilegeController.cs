@@ -41,6 +41,7 @@ namespace Restopos.Yoklama.Web.Controllers
             return View(model);
         }
 
+        [Authorize(Policy = ConstPrivileges.UPDATE_PRIVILEGES_DESC)]
         public IActionResult Update(int id)
         {
             Privilege privilege = privilegeService.GetById(id);
@@ -54,6 +55,7 @@ namespace Restopos.Yoklama.Web.Controllers
             return View(model);
         }
 
+        [Authorize(Policy = ConstPrivileges.UPDATE_PRIVILEGES_DESC)]
         [HttpPost]
         public IActionResult Update(PrivilegeViewModel model)
         {

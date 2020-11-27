@@ -64,6 +64,7 @@ namespace Restopos.Yoklama.Web.Controllers
             return View(model);
         }
 
+        [Authorize(Policy = ConstPrivileges.UPDATE_USER)]
         public ActionResult Update(int id)
         {
             User user = userService.GetByIdWithDetails(id);
@@ -94,6 +95,7 @@ namespace Restopos.Yoklama.Web.Controllers
             return View(model);
         }
 
+        [Authorize(Policy = ConstPrivileges.UPDATE_USER)]
         [HttpPost]
         public ActionResult Update(UserWithRoleSelectViewModel model)
         {

@@ -43,6 +43,7 @@ namespace Restopos.Yoklama.Web.Controllers
             return View(model);
         }
 
+        [Authorize(Policy = ConstPrivileges.ADD_ROLE)]
         public IActionResult Add()
         {
             RoleWithPrivilegesViewModel model = new RoleWithPrivilegesViewModel();
@@ -66,6 +67,7 @@ namespace Restopos.Yoklama.Web.Controllers
             return View(model);
         }
 
+        [Authorize(Policy = ConstPrivileges.ADD_ROLE)]
         [HttpPost]
         public IActionResult Add(RoleWithPrivilegesViewModel model)
         {
@@ -111,6 +113,7 @@ namespace Restopos.Yoklama.Web.Controllers
             return View(model);
         }
 
+        [Authorize(Policy = ConstPrivileges.UPDATE_ROLE)]
         public IActionResult Update(int id)
         {
             Role role = roleService.GetByIdWithDetails(id);
@@ -139,6 +142,7 @@ namespace Restopos.Yoklama.Web.Controllers
             return View(model);
         }
 
+        [Authorize(Policy = ConstPrivileges.UPDATE_ROLE)]
         [HttpPost]
         public IActionResult Update(RoleWithPrivilegesViewModel model)
         {
@@ -146,7 +150,7 @@ namespace Restopos.Yoklama.Web.Controllers
             {
                 Role role = new Role
                 {
-                    Id=model.Id,
+                    Id = model.Id,
                     Name = model.Name
                 };
 
@@ -173,6 +177,7 @@ namespace Restopos.Yoklama.Web.Controllers
             return View(model);
         }
 
+        [Authorize(Policy = ConstPrivileges.DELETE_ROLE)]
         public JsonResult Delete(int id)
         {
             roleService.Remove(new Role { Id = id });
