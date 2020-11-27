@@ -37,9 +37,6 @@ namespace Restopos.Yoklama.Web.Controllers
 
             List<AbsenceStatus> absenceStatuses = absenceService.GetAllByDate(model.SearchingStartDate,model.SearchingEndDate);
 
-            //AbsenceStatusesByDateViewModel model = new AbsenceStatusesByDateViewModel();
-
-            //model.SearchingDate = dateTime;
             model.absenceStatuses = new List<AbsenceStatusViewModel>();
             if (absenceStatuses?.Count > 0)
             {

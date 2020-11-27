@@ -73,25 +73,7 @@
 
         @section Scripts{
             <script>
-                var getDateTime = () => {
-                    return document.getElementById("datetimepicker").value;
-                }
-
-                function setDefaultDate(elId) {
-                    var now = new Date();
-                    now.setMinutes(now.getMinutes() - now.getTimezoneOffset());
-                    document.getElementById(elId).value = now.toISOString().slice(0, 16);
-                }
-
                 $(document).ready(() => {
-                    if (!getDateTime()) {
-                        setDefaultDate("datetimepicker");
-                    }
-
-                    $("#getAbsenceByDate").click(() => {
-                        window.location.href += "/" + getDateTime().toISOString();
-                    });
-
                     $("#customModal").on("show.bs.modal", event => {
                         var button = $(event.relatedTarget);
                         var id = button.data('id');
