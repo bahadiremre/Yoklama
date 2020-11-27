@@ -6,8 +6,7 @@ namespace Restopos.Yoklama.Entities.Concrete.Constants
 {
     public static class ConstPrivileges
     {
-        public const string LIST_USERS = "list_users";
-        public const string ADD_USER = "add_user";
+        public const string LIST_USERS = "list_users";        
         public const string UPDATE_USER = "update_user";
         public const string DELETE_USER = "delete_user";
         public const string LIST_USERS_ABSENCES = "list_users_absences";
@@ -30,7 +29,6 @@ namespace Restopos.Yoklama.Entities.Concrete.Constants
         public const string DELETE_ABSENCETYPE = "delete_absencetype";
 
         public static Privilege P_LIST_USERS { get; } = new Privilege { Name = LIST_USERS };
-        public static Privilege P_ADD_USER { get; } = new Privilege { Name = ADD_USER };
         public static Privilege P_UPDATE_USER { get; } = new Privilege { Name = UPDATE_USER };
         public static Privilege P_DELETE_USER { get; } = new Privilege { Name = DELETE_USER };
         public static Privilege P_LIST_USERS_ABSENCES { get; } = new Privilege { Name = LIST_USERS_ABSENCES };

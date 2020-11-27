@@ -32,7 +32,6 @@ namespace Restopos.Yoklama.Business.Concrete
 
             privileges.Add(ConstPrivileges.P_ADD_DEPARTMENT);
             privileges.Add(ConstPrivileges.P_ADD_ROLE);
-            privileges.Add(ConstPrivileges.P_ADD_USER);
             privileges.Add(ConstPrivileges.P_ADD_USERS_ABSENCE);
             privileges.Add(ConstPrivileges.P_ADD_ABSENCETYPE);
             privileges.Add(ConstPrivileges.P_DELETE_DEPARTMENT);

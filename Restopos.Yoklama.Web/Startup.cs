@@ -49,7 +49,6 @@ namespace Restopos.Yoklama.Web
             {
                 conf.AddPolicy(ConstPrivileges.ADD_DEPARTMENT, policy => policy.RequireClaim(ConstPrivileges.ADD_DEPARTMENT));
                 conf.AddPolicy(ConstPrivileges.ADD_ROLE, policy => policy.RequireClaim(ConstPrivileges.ADD_ROLE));
-                conf.AddPolicy(ConstPrivileges.ADD_USER, policy => policy.RequireClaim(ConstPrivileges.ADD_USER));
                 conf.AddPolicy(ConstPrivileges.ADD_USERS_ABSENCE, policy => policy.RequireClaim(ConstPrivileges.ADD_USERS_ABSENCE));
                 conf.AddPolicy(ConstPrivileges.ADD_ABSENCETYPE, policy => policy.RequireClaim(ConstPrivileges.ADD_ABSENCETYPE));
                 conf.AddPolicy(ConstPrivileges.DELETE_DEPARTMENT, policy => policy.RequireClaim(ConstPrivileges.DELETE_DEPARTMENT));
