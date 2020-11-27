@@ -9,6 +9,6 @@ namespace Restopos.Yoklama.Business.Interfaces
     {
         Role GetByIdWithDetails(int id);
 
-        List<Role> GetDefaultRoles();
+        List<Privilege> GetPrivileges(int roleId);
     }
 }

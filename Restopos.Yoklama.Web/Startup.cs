@@ -36,10 +36,37 @@ namespace Restopos.Yoklama.Web
             {
                 opt.LoginPath = "/Home/Index";
                 opt.LogoutPath = "/Panel/Logout";
+                opt.AccessDeniedPath = "/Panel/Index";
                 opt.Cookie.HttpOnly = true;
                 opt.Cookie.Name = "Rstps";
                 opt.Cookie.SameSite = SameSiteMode.Strict;
                 opt.ExpireTimeSpan = TimeSpan.FromDays(20);
+            });
+
+            //AddControllersWithViews kismina kadar olan alani refactor et
+            services.AddAuthorization(conf =>
+            {
+                conf.AddPolicy(ConstPrivileges.ADD_DEPARTMENT, policy => policy.RequireClaim(ConstPrivileges.ADD_DEPARTMENT));
+                conf.AddPolicy(ConstPrivileges.ADD_ROLE, policy => policy.RequireClaim(ConstPrivileges.ADD_ROLE));
+                conf.AddPolicy(ConstPrivileges.ADD_USER, policy => policy.RequireClaim(ConstPrivileges.ADD_USER));
+                conf.AddPolicy(ConstPrivileges.ADD_USERS_ABSENCE, policy => policy.RequireClaim(ConstPrivileges.ADD_USERS_ABSENCE));
+                conf.AddPolicy(ConstPrivileges.ADD_ABSENCETYPE, policy => policy.RequireClaim(ConstPrivileges.ADD_ABSENCETYPE));
+                conf.AddPolicy(ConstPrivileges.DELETE_DEPARTMENT, policy => policy.RequireClaim(ConstPrivileges.DELETE_DEPARTMENT));
+                conf.AddPolicy(ConstPrivileges.DELETE_ROLE, policy => policy.RequireClaim(ConstPrivileges.DELETE_ROLE));
+                conf.AddPolicy(ConstPrivileges.DELETE_USER, policy => policy.RequireClaim(ConstPrivileges.DELETE_USER));
+                conf.AddPolicy(ConstPrivileges.DELETE_ABSENCETYPE, policy => policy.RequireClaim(ConstPrivileges.DELETE_ABSENCETYPE));
+                conf.AddPolicy(ConstPrivileges.LIST_DEPARTMENTS, policy => policy.RequireClaim(ConstPrivileges.LIST_DEPARTMENTS));
+                conf.AddPolicy(ConstPrivileges.LIST_PRIVILEGES, policy => policy.RequireClaim(ConstPrivileges.LIST_PRIVILEGES));
+                conf.AddPolicy(ConstPrivileges.LIST_ROLES, policy => policy.RequireClaim(ConstPrivileges.LIST_ROLES));
+                conf.AddPolicy(ConstPrivileges.LIST_USERS, policy => policy.RequireClaim(ConstPrivileges.LIST_USERS));
+                conf.AddPolicy(ConstPrivileges.LIST_USERS_ABSENCES, policy => policy.RequireClaim(ConstPrivileges.LIST_USERS_ABSENCES));
+                conf.AddPolicy(ConstPrivileges.LIST_ABSENCETYPES, policy => policy.RequireClaim(ConstPrivileges.LIST_ABSENCETYPES));
+                conf.AddPolicy(ConstPrivileges.UPDATE_DEPARTMENT, policy => policy.RequireClaim(ConstPrivileges.UPDATE_DEPARTMENT));
+                conf.AddPolicy(ConstPrivileges.UPDATE_PRIVILEGES_DESC, policy => policy.RequireClaim(ConstPrivileges.UPDATE_PRIVILEGES_DESC));
+                conf.AddPolicy(ConstPrivileges.UPDATE_ROLE, policy => policy.RequireClaim(ConstPrivileges.UPDATE_ROLE));
+                conf.AddPolicy(ConstPrivileges.UPDATE_USER, policy => policy.RequireClaim(ConstPrivileges.UPDATE_USER));
+                conf.AddPolicy(ConstPrivileges.UPDATE_USERS_ABSENCE, policy => policy.RequireClaim(ConstPrivileges.UPDATE_USERS_ABSENCE));
+                conf.AddPolicy(ConstPrivileges.UPDATE_ABSENCETYPE, policy => policy.RequireClaim(ConstPrivileges.UPDATE_ABSENCETYPE));
             });
 
 
@@ -140,8 +167,8 @@ namespace Restopos.Yoklama.Web
             PrivilegeInitializer.SeedData(privilegeService);
             UserRoleInitializer.SeedData(privilegeService, userService, roleService);
 
-            app.UseAuthorization();
             app.UseAuthentication();
+            app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {

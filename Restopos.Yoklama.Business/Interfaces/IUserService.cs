@@ -12,5 +12,6 @@ namespace Restopos.Yoklama.Business.Interfaces
         User GetByIdWithDetails(int id);
         void ChangePassword(User user);
         List<User> GetByRoleName(string roleName);
+        List<Role> GetRoles(int userId);
     }
 }

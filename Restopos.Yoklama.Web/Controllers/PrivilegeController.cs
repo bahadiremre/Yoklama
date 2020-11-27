@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Restopos.Yoklama.Business.Interfaces;
 using Restopos.Yoklama.Entities.Concrete;
 using Restopos.Yoklama.Web.Models;
@@ -9,6 +10,7 @@ using System.Threading.Tasks;
 
 namespace Restopos.Yoklama.Web.Controllers
 {
+    [Authorize(Policy = ConstPrivileges.LIST_PRIVILEGES)]
     public class PrivilegeController : Controller
     {
         private readonly IPrivilegeService privilegeService;

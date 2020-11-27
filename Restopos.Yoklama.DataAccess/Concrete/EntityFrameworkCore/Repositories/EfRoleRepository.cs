@@ -43,6 +43,14 @@ namespace Restopos.Yoklama.DataAccess.Concrete.EntityFrameworkCore.Repositories
             return role;
         }
 
+        public List<Privilege> GetPrivileges(int roleId)
+        {
+            using var context = new SqlDbContext();
+            List<Privilege> privileges = context.Set<Privilege>().
+                Where(x => x.RolePrivileges.Any(rp => rp.RoleId == roleId)).ToList();
+            return privileges;
+        }
+
         public void Remove(Role role)
         {
             crudableDAL.Remove(role);

@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Restopos.Yoklama.Business.Interfaces;
 using Restopos.Yoklama.Entities.Concrete;
 using Restopos.Yoklama.Web.Models;
@@ -9,6 +10,7 @@ using System.Threading.Tasks;
 
 namespace Restopos.Yoklama.Web.Controllers
 {
+    [Authorize]
     public class PanelController : Controller
     {
         private readonly IUserService userService;

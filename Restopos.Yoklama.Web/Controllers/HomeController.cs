@@ -17,16 +17,16 @@ namespace Restopos.Yoklama.Web.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ICrudableService<User> userCrudService;
         private readonly ICrudableService<Department> departmentCrudService;
         private readonly IUserService userService;
-
-        public HomeController(ICrudableService<User> userCrudService,
-            ICrudableService<Department> departmentCrudService, IUserService userService)
+        private readonly IRoleService roleService;
+        public HomeController(ICrudableService<Department> departmentCrudService,
+            IUserService userService,
+            IRoleService roleService)
         {
-            this.userCrudService = userCrudService;
             this.departmentCrudService = departmentCrudService;
             this.userService = userService;
+            this.roleService = roleService;
         }
 
         public IActionResult Index()
@@ -41,11 +41,29 @@ namespace Restopos.Yoklama.Web.Controllers
             {
                 if (LoginUser(model))
                 {
+                    User user = userService.GetByUsername(model.UserName);
+                    List<Role> roles = userService.GetRoles(user.Id);
+
+                    List<Privilege> privileges = new List<Privilege>();
+
+                    if (roles?.Count > 0)
+                    {
+                        privileges = GetRolesPrivileges(roles);
+                    }
+
                     List<Claim> claims = new List<Claim>
                     {
-                        new Claim(ClaimTypes.Name, model.UserName),
-                        new Claim(ClaimTypes.NameIdentifier,model.UserName)
+                        new Claim(ClaimTypes.Name, model.UserName)
                     };
+
+                    if (privileges?.Count > 0)
+                    {
+                        foreach (var priv in privileges)
+                        {
+                            claims.Add(new Claim(priv.Name,priv.Name));
+                        }
+                    }
+
                     ClaimsIdentity identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
                     ClaimsPrincipal principal = new ClaimsPrincipal(identity);
                     await HttpContext.SignInAsync(principal);
@@ -58,6 +76,31 @@ namespace Restopos.Yoklama.Web.Controllers
             }
             return View(model);
         }
+
+        private List<Privilege> GetRolesPrivileges(List<Role> roles)
+        {
+            List<Privilege> privileges = new List<Privilege>();
+            foreach (var role in roles)
+            {
+                List<Privilege> privilegesFromService = roleService.GetPrivileges(role.Id);
+                if (privileges.Count > 0)
+                {
+                    foreach (var privFromService in privilegesFromService)
+                    {
+                        if (privileges.Find(x => x.Id == privFromService.Id) == null)
+                        {
+                            privileges.Add(privFromService);
+                        }
+                    }
+                }
+                else
+                {
+                    privileges.AddRange(roleService.GetPrivileges(role.Id));
+                }
+            }
+            return privileges;
+        }
+
         private bool LoginUser(UserSignInViewModel model)
         {
             return userService.LoginUser(model.UserName, model.Password);
@@ -82,7 +125,7 @@ namespace Restopos.Yoklama.Web.Controllers
                     Surname = model.Surname,
                     Username = model.Username
                 };
-                userCrudService.Add(user);
+                userService.Add(user);
 
                 ViewBag.SuccessMessage = "Kullanıcınız başarılı bir şekilde kaydedildi";
                 return View();

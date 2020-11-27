@@ -46,7 +46,8 @@ namespace Restopos.Yoklama.DataAccess.Concrete.EntityFrameworkCore.Repositories
         public User GetByUsername(string username)
         {
             using var context = new SqlDbContext();
-            var user = context.Users.Include(x => x.Department).FirstOrDefault(x => x.Username == username);
+            var user = context.Users.Include(x => x.Department).Include(x=>x.UserRoles)
+                .FirstOrDefault(x => x.Username == username);
             return user;
         }
 
@@ -86,6 +87,13 @@ namespace Restopos.Yoklama.DataAccess.Concrete.EntityFrameworkCore.Repositories
             List<User> users = context.Users.Where(x => x.UserRoles.Any(r => r.Role.Name == roleName)).ToList();
 
             return users;
+        }
+
+        public List<Role> GetRoles(int userId)
+        {
+            using var context = new SqlDbContext();
+            List<Role> roles = context.Roles.Where(x => x.UserRoles.Any(ur => ur.UserId == userId)).ToList();
+            return roles;
         }
     }
 }

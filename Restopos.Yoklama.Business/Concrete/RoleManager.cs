@@ -11,28 +11,26 @@ namespace Restopos.Yoklama.Business.Concrete
 {
     public class RoleManager : IRoleService, ICrudableService<Role>
     {
-        private readonly ICrudableDAL<Role> crudableDAL;
         private readonly IRoleDAL roleDAL;
         private readonly IRolePrivilegeService rolePrivilegeService;
-        public RoleManager(ICrudableDAL<Role> crudableDAL, IRolePrivilegeService rolePrivilegeService, IRoleDAL roleDAL)
+        public RoleManager(IRolePrivilegeService rolePrivilegeService, IRoleDAL roleDAL)
         {
-            this.crudableDAL = crudableDAL;
             this.rolePrivilegeService = rolePrivilegeService;
             this.roleDAL = roleDAL;
         }
         public void Add(Role role)
         {
-            crudableDAL.Add(role);
+            roleDAL.Add(role);
         }
 
         public List<Role> GetAll()
         {
-            return crudableDAL.GetAll();
+            return roleDAL.GetAll();
         }
 
         public Role GetById(int id)
         {
-            return crudableDAL.GetById(id);
+            return roleDAL.GetById(id);
         }
 
         public Role GetByIdWithDetails(int id)
@@ -40,20 +38,14 @@ namespace Restopos.Yoklama.Business.Concrete
             return roleDAL.GetByIdWithDetails(id);
         }
 
-        public List<Role> GetDefaultRoles()
+        public List<Privilege> GetPrivileges(int roleId)
         {
-            List<Role> roles = new List<Role>();
-            ConstRoles defaultRoles = new ConstRoles();
-
-            roles.Add(defaultRoles.Admin);
-            roles.Add(defaultRoles.Member);
-
-            return roles;
+            return roleDAL.GetPrivileges(roleId);
         }
 
         public void Remove(Role role)
         {
-            crudableDAL.Remove(role);
+            roleDAL.Remove(role);
         }
 
         public void Update(Role role)
@@ -70,7 +62,7 @@ namespace Restopos.Yoklama.Business.Concrete
                 rolePrivilegeService.RemoveByRoleId(role.Id);
             }
 
-            crudableDAL.Update(role);
+            roleDAL.Update(role);
         }
     }
 }

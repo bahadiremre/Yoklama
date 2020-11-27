@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Restopos.Yoklama.Business.Interfaces;
 using Restopos.Yoklama.Entities.Concrete;
@@ -10,6 +11,7 @@ using System.Threading.Tasks;
 
 namespace Restopos.Yoklama.Web.Controllers
 {
+    [Authorize(Policy = ConstPrivileges.LIST_USERS)]
     public class UserController : Controller
     {
         private readonly IUserService userService;

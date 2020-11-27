@@ -1,15 +1,13 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Restopos.Yoklama.Business.Interfaces;
 using Restopos.Yoklama.Entities.Concrete;
 using Restopos.Yoklama.Web.Models;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Restopos.Yoklama.Web.Controllers
 {
+    [Authorize(Policy = ConstPrivileges.LIST_DEPARTMENTS)]
     public class DepartmentController : Controller
     {
         private readonly ICrudableService<Department> departmentService;
