@@ -83,10 +83,7 @@ namespace Restopos.Yoklama.DataAccess.Concrete.EntityFrameworkCore.Repositories
         public List<User> GetByRoleName(string roleName)
         {
             using var context = new SqlDbContext();
-            //List<User> users = context.Users.Where(x => x.UserRoles.Any(r => r.Role.Name == roleName)).ToList();
-            List<User> users = context.Users.Include(x => x.UserRoles).ThenInclude(x => x.Role).
-                Where(x => x.UserRoles.Any(r => r.Role.Name == roleName)).ToList();
-
+            List<User> users = context.Users.Where(x => x.UserRoles.Any(r => r.Role.Name == roleName)).ToList();
 
             return users;
         }
