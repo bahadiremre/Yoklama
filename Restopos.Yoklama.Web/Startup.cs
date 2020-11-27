@@ -67,7 +67,7 @@ namespace Restopos.Yoklama.Web
             services.AddScoped(typeof(IUpdatableDAL<Department>), typeof(EfUpdatableRepository<Department>));
             services.AddScoped(typeof(IRemovableDAL<Department>), typeof(EfRemovableRepository<Department>));
             services.AddScoped(typeof(IReadableDAL<Department>), typeof(EfReadableRepository<Department>));
-            
+
             services.AddScoped(typeof(ICrudableService<AbsenceType>), typeof(AbsenceTypeManager));
             services.AddScoped(typeof(ICrudableDAL<AbsenceType>), typeof(EfCrudableRepository<AbsenceType>));
             services.AddScoped(typeof(ICreatableDAL<AbsenceType>), typeof(EfCreatableRepository<AbsenceType>));
@@ -83,7 +83,7 @@ namespace Restopos.Yoklama.Web
             services.AddScoped(typeof(IRemovableDAL<Role>), typeof(EfRemovableRepository<Role>));
             services.AddScoped(typeof(IReadableDAL<Role>), typeof(EfReadableRepository<Role>));
 
-            services.AddScoped(typeof(IRolePrivilegeService), typeof(RolePrivilegeManager));            
+            services.AddScoped(typeof(IRolePrivilegeService), typeof(RolePrivilegeManager));
             services.AddScoped(typeof(ICrudableService<RolePrivilege>), typeof(RolePrivilegeManager));
             services.AddScoped(typeof(IRolePrivilegeDAL), typeof(EfRolePrivilegeRepository));
             services.AddScoped(typeof(ICrudableDAL<RolePrivilege>), typeof(EfCrudableRepository<RolePrivilege>));
@@ -118,7 +118,7 @@ namespace Restopos.Yoklama.Web
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env,IPrivilegeService privilegeService)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IPrivilegeService privilegeService)
         {
             if (env.IsDevelopment())
             {

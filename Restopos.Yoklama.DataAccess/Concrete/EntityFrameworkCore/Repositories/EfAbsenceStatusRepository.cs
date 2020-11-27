@@ -27,12 +27,13 @@ namespace Restopos.Yoklama.DataAccess.Concrete.EntityFrameworkCore.Repositories
             return crudableDAL.GetAll();
         }
 
-        public List<AbsenceStatus> GetAllByDate(DateTime dateTime)
+        public List<AbsenceStatus> GetAllByDate(DateTime startDate, DateTime endDate)
         {
             using var context = new SqlDbContext();
             List<AbsenceStatus> absenceStatuses = context.Set<AbsenceStatus>().
                 Include(x => x.AbsenceType).Include(x => x.User).
-                Where(x => x.StartDate.Date <= dateTime.Date && x.EndDate.Date >= dateTime.Date).ToList();
+                Where(x => x.StartDate >= startDate && x.StartDate <= endDate
+                || x.EndDate >= startDate && x.EndDate <= endDate).ToList();
             return absenceStatuses;
         }
 

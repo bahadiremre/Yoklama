@@ -24,17 +24,28 @@ namespace Restopos.Yoklama.Web.Controllers
             this.absenceTypeCrudService = absenceTypeCrudService;
         }
 
-        public IActionResult Index()
+        public IActionResult Index(AbsenceStatusesByDateViewModel model)
         {
-            List<AbsenceStatus> absenceStatuses = absenceService.GetAllByDate(DateTime.Now);
+            if (model.SearchingStartDate == DateTime.MinValue)
+            {
+                model.SearchingStartDate = DateTime.Now.Date;
+            }
+            if (model.SearchingEndDate==DateTime.MinValue)
+            {
+                model.SearchingEndDate = DateTime.Now.Date.AddHours(23).AddMinutes(59);
+            }
 
-            List<AbsenceStatusViewModel> model = new List<AbsenceStatusViewModel>();
+            List<AbsenceStatus> absenceStatuses = absenceService.GetAllByDate(model.SearchingStartDate,model.SearchingEndDate);
 
+            //AbsenceStatusesByDateViewModel model = new AbsenceStatusesByDateViewModel();
+
+            //model.SearchingDate = dateTime;
+            model.absenceStatuses = new List<AbsenceStatusViewModel>();
             if (absenceStatuses?.Count > 0)
             {
                 foreach (var item in absenceStatuses)
                 {
-                    model.Add(new AbsenceStatusViewModel
+                    model.absenceStatuses.Add(new AbsenceStatusViewModel
                     {
                         AbsenceType = item.AbsenceType,
                         EndDate = item.EndDate,
@@ -86,7 +97,43 @@ namespace Restopos.Yoklama.Web.Controllers
 
         public IActionResult Update(int id)
         {
-            return View();
+            AbsenceStatus absenceStatus = absenceService.GetById(id);
+
+            AbsenceStatusViewModel model = new AbsenceStatusViewModel { };
+            model.AbsenceType = absenceStatus.AbsenceType;
+            model.EndDate = absenceStatus.EndDate;
+            model.Id = absenceStatus.Id;
+            model.StartDate = absenceStatus.StartDate;
+            model.User = absenceStatus.User;
+
+            ViewBag.AbsenceTypes = new SelectList(absenceTypeCrudService.GetAll(), "Id", "Name", absenceStatus.AbsenceTypeId);
+
+            return View(model);
+        }
+
+        [HttpPost]
+        public IActionResult Update(AbsenceStatusViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                AbsenceStatus absenceStatus = new AbsenceStatus();
+                absenceStatus.AbsenceTypeId = model.AbsenceType.Id;
+                absenceStatus.StartDate = model.StartDate;
+                absenceStatus.EndDate = model.EndDate;
+                absenceStatus.Id = model.Id;
+                absenceStatus.UserId = model.User.Id;
+
+                absenceService.Update(absenceStatus);
+
+                return RedirectToAction("Index");
+            }
+            return View(model);
+        }
+
+        public JsonResult Delete(int id)
+        {
+            absenceService.Remove(new AbsenceStatus { Id = id });
+            return Json(null);
         }
     }
 }
