@@ -51,6 +51,7 @@ namespace Restopos.Yoklama.Business.Concrete
         public void Update(Role role)
         {
             List<RolePrivilege> rolePrivileges = new List<RolePrivilege>();
+            rolePrivilegeService.RemoveByRoleId(role.Id);
 
             if (role.RolePrivileges?.Count > 0)
             {
@@ -58,8 +59,6 @@ namespace Restopos.Yoklama.Business.Concrete
                 {
                     rolePrivileges.Add(new RolePrivilege { RoleId = role.Id, PrivilegeId = item.PrivilegeId });
                 }
-
-                rolePrivilegeService.RemoveByRoleId(role.Id);
             }
 
             roleDAL.Update(role);

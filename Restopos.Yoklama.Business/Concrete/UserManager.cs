@@ -71,6 +71,8 @@ namespace Restopos.Yoklama.Business.Concrete
         public void Update(User user)
         {
             List<UserRole> userRoles = new List<UserRole>();
+            
+            userRoleService.RemoveByUserId(user.Id);
 
             if (user.UserRoles?.Count > 0)
             {
@@ -81,9 +83,7 @@ namespace Restopos.Yoklama.Business.Concrete
                         RoleId = item.RoleId,
                         UserId = user.Id
                     });
-                }
-
-                userRoleService.RemoveByUserId(user.Id);
+                }               
             }
 
             userDAL.Update(user);

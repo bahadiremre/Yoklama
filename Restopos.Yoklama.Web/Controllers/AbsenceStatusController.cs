@@ -33,12 +33,12 @@ namespace Restopos.Yoklama.Web.Controllers
             {
                 model.SearchingStartDate = DateTime.Now.Date;
             }
-            if (model.SearchingEndDate==DateTime.MinValue)
+            if (model.SearchingEndDate == DateTime.MinValue)
             {
                 model.SearchingEndDate = DateTime.Now.Date.AddHours(23).AddMinutes(59);
             }
 
-            List<AbsenceStatus> absenceStatuses = absenceService.GetAllByDate(model.SearchingStartDate,model.SearchingEndDate);
+            List<AbsenceStatus> absenceStatuses = absenceService.GetAllByDate(model.SearchingStartDate, model.SearchingEndDate);
 
             model.absenceStatuses = new List<AbsenceStatusViewModel>();
             if (absenceStatuses?.Count > 0)
@@ -59,6 +59,8 @@ namespace Restopos.Yoklama.Web.Controllers
             return View(model);
         }
 
+
+        [Authorize(Policy = ConstPrivileges.ADD_USERS_ABSENCE)]
         public IActionResult Add()
         {
             AbsenceStatusViewModel model =
@@ -75,6 +77,7 @@ namespace Restopos.Yoklama.Web.Controllers
             return View(model);
         }
 
+        [Authorize(Policy = ConstPrivileges.ADD_USERS_ABSENCE)]
         [HttpPost]
         public IActionResult Add(AbsenceStatusViewModel model)
         {
@@ -95,6 +98,7 @@ namespace Restopos.Yoklama.Web.Controllers
             return View();
         }
 
+        [Authorize(Policy = ConstPrivileges.UPDATE_USERS_ABSENCE)]
         public IActionResult Update(int id)
         {
             AbsenceStatus absenceStatus = absenceService.GetById(id);
@@ -111,6 +115,7 @@ namespace Restopos.Yoklama.Web.Controllers
             return View(model);
         }
 
+        [Authorize(Policy = ConstPrivileges.UPDATE_USERS_ABSENCE)]
         [HttpPost]
         public IActionResult Update(AbsenceStatusViewModel model)
         {
@@ -130,10 +135,12 @@ namespace Restopos.Yoklama.Web.Controllers
             return View(model);
         }
 
+        [Authorize(Policy = ConstPrivileges.DELETE_USERS_ABSENCE)]
         public JsonResult Delete(int id)
         {
             absenceService.Remove(new AbsenceStatus { Id = id });
             return Json(null);
+
         }
     }
 }

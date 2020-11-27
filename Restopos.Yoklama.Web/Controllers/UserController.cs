@@ -110,9 +110,10 @@ namespace Restopos.Yoklama.Web.Controllers
 
                 model.RoleSelections = model.RoleSelections.FindAll(x => x.isSelected);
 
+                user.UserRoles = new List<UserRole>();
                 if (model.RoleSelections?.Count > 0)
                 {
-                    user.UserRoles = new List<UserRole>();
+
                     foreach (var item in model.RoleSelections)
                     {
                         user.UserRoles.Add(new UserRole
