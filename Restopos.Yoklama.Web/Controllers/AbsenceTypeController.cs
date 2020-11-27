@@ -42,11 +42,13 @@ namespace Restopos.Yoklama.Web.Controllers
             return View(model);
         }
 
+        [Authorize(Policy = ConstPrivileges.ADD_ABSENCETYPE)]
         public IActionResult Add()
         {
             return View(new AbsenceTypeViewModel());
         }
 
+        [Authorize(Policy = ConstPrivileges.ADD_ABSENCETYPE)]
         [HttpPost]
         public IActionResult Add(AbsenceTypeViewModel model)
         {
@@ -64,6 +66,7 @@ namespace Restopos.Yoklama.Web.Controllers
             return View(model);
         }
 
+        [Authorize(Policy = ConstPrivileges.UPDATE_ABSENCETYPE)]
         public IActionResult Update(int id)
         {
             AbsenceType absenceType = absenceTypeService.GetById(id);
@@ -78,6 +81,7 @@ namespace Restopos.Yoklama.Web.Controllers
             return View(model);
         }
 
+        [Authorize(Policy = ConstPrivileges.UPDATE_ABSENCETYPE)]
         [HttpPost]
         public IActionResult Update(AbsenceTypeViewModel model)
         {
@@ -94,6 +98,7 @@ namespace Restopos.Yoklama.Web.Controllers
             return View(model);
         }
 
+        [Authorize(Policy = ConstPrivileges.DELETE_ABSENCETYPE)]
         public JsonResult Delete(int id)
         {
             absenceTypeService.Remove(new AbsenceType { Id = id });
