@@ -12,6 +12,8 @@ namespace Restopos.Yoklama.DataAccess.Interfaces
         User GetByUsername(string username);
 
         User GetByIdWithDetails(int id);
+
+        List<User> GetByRoleName(string roleName);
                 
         void ChangePassword(User user);
     }

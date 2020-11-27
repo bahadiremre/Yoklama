@@ -43,6 +43,11 @@ namespace Restopos.Yoklama.Business.Concrete
             return userDAL.GetByIdWithDetails(id);
         }
 
+        public List<User> GetByRoleName(string roleName)
+        {
+            return userDAL.GetByRoleName(roleName);
+        }
+
         public User GetByUsername(string username)
         {
             return userDAL.GetByUsername(username);

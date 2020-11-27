@@ -118,7 +118,9 @@ namespace Restopos.Yoklama.Web
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IPrivilegeService privilegeService)
+        public void Configure(IApplicationBuilder app,
+            IWebHostEnvironment env, IPrivilegeService privilegeService,
+            IUserService userService, IRoleService roleService)
         {
             if (env.IsDevelopment())
             {
@@ -136,6 +138,7 @@ namespace Restopos.Yoklama.Web
             app.UseRouting();
 
             PrivilegeInitializer.SeedData(privilegeService);
+            UserRoleInitializer.SeedData(privilegeService, userService, roleService);
 
             app.UseAuthorization();
             app.UseAuthentication();

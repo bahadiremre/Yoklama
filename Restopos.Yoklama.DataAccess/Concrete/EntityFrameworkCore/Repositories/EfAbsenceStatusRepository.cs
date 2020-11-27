@@ -37,6 +37,17 @@ namespace Restopos.Yoklama.DataAccess.Concrete.EntityFrameworkCore.Repositories
             return absenceStatuses;
         }
 
+        public List<AbsenceStatus> GetAllByDate(DateTime startDate, DateTime endDate, int userId)
+        {
+            using var context = new SqlDbContext();
+            List<AbsenceStatus> absenceStatuses = context.Set<AbsenceStatus>().
+                Include(x => x.AbsenceType).Include(x => x.User).
+                Where(x => x.StartDate >= startDate && x.StartDate <= endDate
+                || x.EndDate >= startDate && x.EndDate <= endDate
+                && x.UserId == userId).ToList();
+            return absenceStatuses;
+        }
+
         public AbsenceStatus GetById(int id)
         {
             using var context = new SqlDbContext();

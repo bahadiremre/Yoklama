@@ -8,6 +8,8 @@ namespace Restopos.Yoklama.Web.Models
 {
     public class UserSummaryViewModel
     {
+        public int Id { get; set; }
+
         [Display(Name = "Ad")]
         public string Name { get; set; }
 

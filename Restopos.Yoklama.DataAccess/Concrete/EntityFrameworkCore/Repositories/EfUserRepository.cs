@@ -65,7 +65,10 @@ namespace Restopos.Yoklama.DataAccess.Concrete.EntityFrameworkCore.Repositories
 
         public void ChangePassword(User user)
         {
-            throw new Exception("Bu kısım daha yazılmadı");
+            using var context = new SqlDbContext();
+            context.Set<User>().Attach(user);
+            context.Entry(user).Property(x => x.Password).IsModified = true;
+            context.SaveChanges();
         }
 
         public void Update(User user)
@@ -75,6 +78,17 @@ namespace Restopos.Yoklama.DataAccess.Concrete.EntityFrameworkCore.Repositories
             context.Entry(user).State = EntityState.Modified;
             context.Entry(user).Property(x => x.Password).IsModified = false;
             context.SaveChanges();
+        }
+
+        public List<User> GetByRoleName(string roleName)
+        {
+            using var context = new SqlDbContext();
+            //List<User> users = context.Users.Where(x => x.UserRoles.Any(r => r.Role.Name == roleName)).ToList();
+            List<User> users = context.Users.Include(x => x.UserRoles).ThenInclude(x => x.Role).
+                Where(x => x.UserRoles.Any(r => r.Role.Name == roleName)).ToList();
+
+
+            return users;
         }
     }
 }

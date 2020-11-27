@@ -8,5 +8,6 @@ namespace Restopos.Yoklama.DataAccess.Interfaces
     public interface IAbsenceStatusDAL : ICrudableDAL<AbsenceStatus>
     {
         List<AbsenceStatus> GetAllByDate(DateTime startDate, DateTime endDate);
+        List<AbsenceStatus> GetAllByDate(DateTime startDate, DateTime endDate, int userId);
     }
 }

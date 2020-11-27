@@ -7,40 +7,47 @@
 
 <h1>Hoş geldiniz</h1>
 
+<div class="row pl-0">
+    <div class="col-md-12">
+        <table class="table table-hover table-sm">
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Name)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Surname)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Username)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.DepartmentName)
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
 
-<table class="table table-hover table-sm">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Name)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Surname)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Username)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.DepartmentName)
-            </th>
-        </tr>
-    </thead>
-    <tbody>
+                <tr>
+                    <td>
+                        @Model.Name
+                    </td>
+                    <td>
+                        @Model.Surname
+                    </td>
+                    <td>
+                        @Model.Username
+                    </td>
+                    <td>
+                        @Model.DepartmentName
+                    </td>
+                </tr>
 
-        <tr>
-            <td>
-                @Model.Name
-            </td>
-            <td>
-                @Model.Surname
-            </td>
-            <td>
-                @Model.Username
-            </td>
-            <td>
-                @Model.DepartmentName
-            </td>
-        </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="col-md-12 mt-5">
+        <a class="btn btn-sm btn-info" asp-route-id="@Model.Id" asp-action="ChangePassword" >Şifre Değiştir</a>
+    </div>
+</div>
 
-    </tbody>
-</table>

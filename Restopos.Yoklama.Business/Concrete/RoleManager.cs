@@ -1,8 +1,10 @@
 ﻿using Restopos.Yoklama.Business.Interfaces;
 using Restopos.Yoklama.DataAccess.Interfaces;
 using Restopos.Yoklama.Entities.Concrete;
+using Restopos.Yoklama.Entities.Concrete.Constant;
 using System;
 using System.Collections.Generic;
+using System.Reflection;
 using System.Text;
 
 namespace Restopos.Yoklama.Business.Concrete
@@ -38,13 +40,24 @@ namespace Restopos.Yoklama.Business.Concrete
             return roleDAL.GetByIdWithDetails(id);
         }
 
+        public List<Role> GetDefaultRoles()
+        {
+            List<Role> roles = new List<Role>();
+            ConstRoles defaultRoles = new ConstRoles();
+
+            roles.Add(defaultRoles.Admin);
+            roles.Add(defaultRoles.Member);
+
+            return roles;
+        }
+
         public void Remove(Role role)
         {
             crudableDAL.Remove(role);
         }
 
         public void Update(Role role)
-        {   
+        {
             List<RolePrivilege> rolePrivileges = new List<RolePrivilege>();
 
             if (role.RolePrivileges?.Count > 0)
@@ -54,7 +67,7 @@ namespace Restopos.Yoklama.Business.Concrete
                     rolePrivileges.Add(new RolePrivilege { RoleId = role.Id, PrivilegeId = item.PrivilegeId });
                 }
 
-                rolePrivilegeService.RemoveByRoleId(role.Id);                
+                rolePrivilegeService.RemoveByRoleId(role.Id);
             }
 
             crudableDAL.Update(role);

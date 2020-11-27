@@ -8,5 +8,7 @@ namespace Restopos.Yoklama.Business.Interfaces
     public interface IRoleService : ICrudableService<Role>
     {
         Role GetByIdWithDetails(int id);
+
+        List<Role> GetDefaultRoles();
     }
 }

@@ -8,5 +8,6 @@ namespace Restopos.Yoklama.Business.Interfaces
     public interface IAbsenceStatusService : ICrudableService<AbsenceStatus>
     {
         List<AbsenceStatus> GetAllByDate(DateTime startDate, DateTime endDate);
+        List<AbsenceStatus> GetAllByDate(DateTime startDate, DateTime endDate, int userId);
     }
 }

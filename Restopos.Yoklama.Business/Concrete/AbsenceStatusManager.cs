@@ -30,6 +30,11 @@ namespace Restopos.Yoklama.Business.Concrete
             return absenceStatusDAL.GetAllByDate(startDate, endDate);
         }
 
+        public List<AbsenceStatus> GetAllByDate(DateTime startDate, DateTime endDate, int userId)
+        {
+            return absenceStatusDAL.GetAllByDate(startDate, endDate, userId);
+        }
+
         public AbsenceStatus GetById(int id)
         {
             return absenceStatusDAL.GetById(id);
