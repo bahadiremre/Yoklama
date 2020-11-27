@@ -23,13 +23,16 @@
 @foreach (var item in Model) {
         <tr>            
             <td>
-                @Html.DisplayFor(modelItem => item.Name)
+                @item.Name
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Description)
+                @item.Description
             </td>
             <td>
-                <a asp-action="Update" class="btn btn-sm btn-warning" asp-route-id="@item.Id">Güncelle</a>
+                @if (User.HasClaim(x => x.Value == ConstPrivileges.UPDATE_PRIVILEGES_DESC))
+                {
+                    <a asp-action="Update" class="btn btn-warning btn-sm" asp-route-id="@item.Id">Güncelle</a>
+                }
             </td>
         </tr>
 }

@@ -31,8 +31,15 @@
                         @Html.DisplayFor(modelItem => item.Name)
                     </td>
                     <td>
-                        <a asp-action="Update" asp-route-id="@item.Id" class="btn btn-warning btn-sm">Güncelle</a>
-                        <a href="#" data-toggle="modal" data-target="#customModal" data-id="@item.Id" class="btn btn-danger btn-sm">Sil</a>
+                        @if (User.HasClaim(x => x.Value == ConstPrivileges.UPDATE_DEPARTMENT))
+                        {
+                            <a asp-action="Update" class="btn btn-warning btn-sm" asp-route-id="@item.Id">Güncelle</a>
+                        }
+                        @if (User.HasClaim(x => x.Value == ConstPrivileges.DELETE_DEPARTMENT))
+                        {
+                            <a href="#" data-toggle="modal" data-target="#customModal" class="btn btn-danger btn-sm" data-id="@item.Id">Sil</a>
+                        }
+
                     </td>
                 </tr>
             }

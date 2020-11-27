@@ -36,9 +36,14 @@
                         @(item.IsHourly?"Saatlik":"Günlük")
                     </td>
                     <td>
-                        <a asp-action="Update" class="btn btn-sm btn-warning" asp-route-id="@item.Id">Güncelle</a>
-                        <a asp-action="Delete" class="btn btn-sm btn-danger" data-toggle="modal" 
-                           data-target="#customModal" data-id="@item.Id">Sil</a>
+                        @if (User.HasClaim(x => x.Value == ConstPrivileges.UPDATE_ABSENCETYPE))
+                        {
+                            <a asp-action="Update" class="btn btn-warning btn-sm" asp-route-id="@item.Id">Güncelle</a>
+                        }
+                        @if (User.HasClaim(x => x.Value == ConstPrivileges.DELETE_ABSENCETYPE))
+                        {
+                            <a href="#" data-toggle="modal" data-target="#customModal" class="btn btn-danger btn-sm" data-id="@item.Id">Sil</a>
+                        }
                     </td>
                 </tr>
             }
@@ -59,29 +64,29 @@ else
 @section Scripts{
 
     <script>
-            $(document).ready(() => {
+        $(document).ready(() => {
 
-                $("#customModal").on("show.bs.modal", event => {
-                    var button = $(event.relatedTarget);
-                    var id = button.data('id');
-                    $("#btnYes").click(() => {
-                        $.ajax({
-                            type: "GET",
-                            url: "./AbsenceType/Delete",
-                            data: { id: id },
-                            dataType: "json",
-                            contentType: "application/json; charset=utf8",
-                            success: (data) => {
-                                window.location.reload();
-                            },
-                            error: (err) => {
-                                console.log(err);
-                                alert(err.statusText);
-                            }
-                        });
-                    })
+            $("#customModal").on("show.bs.modal", event => {
+                var button = $(event.relatedTarget);
+                var id = button.data('id');
+                $("#btnYes").click(() => {
+                    $.ajax({
+                        type: "GET",
+                        url: "./AbsenceType/Delete",
+                        data: { id: id },
+                        dataType: "json",
+                        contentType: "application/json; charset=utf8",
+                        success: (data) => {
+                            window.location.reload();
+                        },
+                        error: (err) => {
+                            console.log(err);
+                            alert(err.statusText);
+                        }
+                    });
                 })
             })
+        })
     </script>
 
 }
