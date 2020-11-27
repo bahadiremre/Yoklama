@@ -18,10 +18,16 @@
                         <a asp-controller="Panel" asp-action="Index" class="form-control btn btn-info btn-lg rounded-0">Ana Sayfa</a>
                         <a asp-controller="MyAbsences" asp-action="Index" class="form-control btn btn-info btn-lg rounded-0">Yoklamam</a>
                         @{
+                            <hr />
                             if (User.HasClaim(x => x.Value == ConstPrivileges.LIST_USERS))
                             {
                                 <a asp-controller="User" asp-action="Index" class="form-control btn btn-info btn-lg rounded-0">Personel Listesi</a>
                             }
+                            if (User.HasClaim(x => x.Value == ConstPrivileges.LIST_USERS_ABSENCES))
+                            {
+                                <a asp-controller="AbsenceStatus" asp-action="Index" class="form-control btn btn-info btn-lg rounded-0">Personel Yoklaması</a>
+                            }
+                            <hr />
                             if (User.HasClaim(x => x.Value == ConstPrivileges.LIST_DEPARTMENTS))
                             {
                                 <a asp-controller="Department" asp-action="Index" class="form-control btn btn-info btn-lg rounded-0">Departmanlar</a>
@@ -30,10 +36,7 @@
                             {
                                 <a asp-controller="AbsenceType" asp-action="Index" class="form-control btn btn-info btn-lg rounded-0">Devamsızlık Türleri</a>
                             }
-                            if (User.HasClaim(x => x.Value == ConstPrivileges.LIST_USERS_ABSENCES))
-                            {
-                                <a asp-controller="AbsenceStatus" asp-action="Index" class="form-control btn btn-info btn-lg rounded-0">Personel Yoklaması</a>
-                            }
+                            <hr />
                             if (User.HasClaim(x => x.Value == ConstPrivileges.LIST_ROLES))
                             {
                                 <a asp-controller="Role" asp-action="Index" class="form-control btn btn-info btn-lg rounded-0">Rol İşlemleri</a>
@@ -43,6 +46,7 @@
                                 <a asp-controller="Privilege" asp-action="Index" class="form-control btn btn-info btn-lg rounded-0">Yetki Listesi</a>
                             }
                         }
+                        <hr />
                         <a href="#" class="form-control btn btn-info btn-lg rounded-0">Çıkış</a>
                     </div>
                 </div>
