@@ -33,7 +33,8 @@ namespace Restopos.Yoklama.DataAccess.Concrete.EntityFrameworkCore.Repositories
             List<AbsenceStatus> absenceStatuses = context.Set<AbsenceStatus>().
                 Include(x => x.AbsenceType).Include(x => x.User).
                 Where(x => x.StartDate >= startDate && x.StartDate <= endDate
-                || x.EndDate >= startDate && x.EndDate <= endDate).ToList();
+                || x.EndDate >= startDate && x.EndDate <= endDate
+                || startDate >= x.StartDate && endDate <= x.EndDate).ToList();
             return absenceStatuses;
         }
 
@@ -44,6 +45,7 @@ namespace Restopos.Yoklama.DataAccess.Concrete.EntityFrameworkCore.Repositories
                 Include(x => x.AbsenceType).Include(x => x.User).
                 Where(x => x.StartDate >= startDate && x.StartDate <= endDate
                 || x.EndDate >= startDate && x.EndDate <= endDate
+                || startDate >= x.StartDate && endDate <= x.EndDate
                 && x.UserId == userId).ToList();
             return absenceStatuses;
         }

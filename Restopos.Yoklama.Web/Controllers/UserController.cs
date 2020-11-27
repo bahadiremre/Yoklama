@@ -133,6 +133,13 @@ namespace Restopos.Yoklama.Web.Controllers
         }
 
 
+        [Authorize(Policy = ConstPrivileges.DELETE_USER)]
+        public JsonResult Delete(int id)
+        {
+            userService.Remove(new User { Id = id });
+            return Json(null);
+        }
+
         private List<Role> SetUserRolestoRoleList(List<UserRole> userRoles)
         {
             List<Role> roles = new List<Role>();

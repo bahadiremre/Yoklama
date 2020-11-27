@@ -50,3 +50,36 @@
         }
     </tbody>
 </table>
+
+
+
+<partial name="_CustomModal" model='("Silme İşlemi","Seçilen kullanıcı ve kullanıcıya ait kayıtlar kalıcı olarak silinecektir. Devam edilsin mi?")' />
+
+@section Scripts{
+    <script>
+        $(document).ready(() => {
+
+            $("#customModal").on("show.bs.modal", event => {
+                var button = $(event.relatedTarget);
+                var id = button.data('id');
+                $("#btnYes").click(() => {
+                    $.ajax({
+                        type: "GET",
+                        url: "./User/Delete",
+                        data: { id: id },
+                        dataType: "json",
+                        contentType: "application/json; charset=utf8",
+                        success: (data) => {
+                            window.location.reload();
+                        },
+                        error: (err) => {
+                            console.log(err);
+                            alert(err.statusText);
+                        }
+                    });
+                })
+            })
+        })
+    </script>
+
+}
