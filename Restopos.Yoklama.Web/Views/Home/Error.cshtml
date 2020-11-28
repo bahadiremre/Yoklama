@@ -1,0 +1,24 @@
+﻿@{
+    ViewData["Title"] = "Hata!";
+}
+
+<div class="row mt-5">
+    <div class="col-md-12">
+        <h1 class="text-danger">Hata.</h1>
+        <h2 class="text-danger">Yaptığınız işlem sırasında hata oluştu.</h2>
+        <hr />
+        <p>
+            <strong>Hata Mesajı:</strong> <code>@ViewBag?.ErrorMessage</code>
+        </p>
+        <hr />
+        <p>
+            Karşılaştığınız bu hata kaydedildi. Bu hata teknik ekibimiz tarafından en kısa sürede giderilecektir.
+        </p>
+        <p>
+            <strong>Sabrınız için teşekkür ederiz.</strong>
+        </p>
+        <p>
+            <a class="text-primary" href="#" onclick="history.go(-1)">Geri Dönün...</a>
+        </p>
+    </div>
+</div>

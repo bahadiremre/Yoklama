@@ -1,0 +1,21 @@
+﻿@{
+    ViewData["Title"] = "Hata!";
+}
+
+<div class="row mt-5">
+    <div class="col-md-12">
+        <h1 class="text-danger">@ViewBag.StatusCode</h1>
+        @if (ViewBag?.Message != null)
+        {
+            <h2 class="text-danger">@ViewBag.Message</h2>
+        }
+        else
+        {
+            <h2>Yaptığınız işlem sırasında hata oluştu.</h2>
+        }
+        <hr />
+        <p>
+            <a class="text-primary" href="#" onclick="history.go(-1)">Geri Dönün...</a>
+        </p>
+    </div>
+</div>

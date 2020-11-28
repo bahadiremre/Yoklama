@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Extensions.Logging;
@@ -60,7 +61,7 @@ namespace Restopos.Yoklama.Web.Controllers
                     {
                         foreach (var priv in privileges)
                         {
-                            claims.Add(new Claim(priv.Name,priv.Name));
+                            claims.Add(new Claim(priv.Name, priv.Name));
                         }
                     }
 
@@ -131,6 +132,26 @@ namespace Restopos.Yoklama.Web.Controllers
                 return View();
             }
             return View(model);
+        }
+
+        public IActionResult Error()
+        {
+            var exceptionHandler = HttpContext.Features.Get<IExceptionHandlerPathFeature>();
+            ViewBag.ErrorMessage = exceptionHandler.Error.Message;
+
+            return View();
+        }
+
+        public IActionResult StatusCodePage(int? code)
+        {
+            ViewBag.StatusCode = code;
+
+            if (code == 404)
+            {
+                ViewBag.Message = "Aradığınız sayfa bulunamadı";
+            }
+            
+            return View();
         }
     }
 }
