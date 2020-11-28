@@ -47,7 +47,7 @@
             }
 
             <div class="form-group mt-3">
-                <input type="submit" value="Kaydet" class="btn btn-success" />
+                <input id="btnSave" type="submit" value="Kaydet" class="btn btn-success" />
             </div>
         </form>
     </div>
@@ -59,4 +59,27 @@
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script>
+        $(document).ready(() => {
+            $("#Username").focusout(() => {
+                let username = $("#Username").val();
+                let userId = $("#Id").val();
+                $.ajax({
+                    url: "/User/IsUsernameUnique",
+                    type: "GET",
+                    dataType: "json",
+                    data: { userId: userId, username: username },
+                    success: (isUnique) => {
+                        if (!isUnique) {
+                            $("[data-valmsg-for=Username]").text("Bu isimde bir kullanıcı adı zaten var.");
+                            $("#btnSave").attr("disabled", "disabled");
+                        } else {
+                            $("[data-valmsg-for=Username]").text("");
+                            $("#btnSave").removeAttr("disabled");
+                        }
+                    }
+                });
+            })
+        })
+    </script>
 }

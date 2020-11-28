@@ -13,5 +13,6 @@ namespace Restopos.Yoklama.Business.Interfaces
         void ChangePassword(User user);
         List<User> GetByRoleName(string roleName);
         List<Role> GetRoles(int userId);
+        bool IsUsernameUnique(string username);
     }
 }

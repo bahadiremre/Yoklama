@@ -58,6 +58,11 @@ namespace Restopos.Yoklama.Business.Concrete
             return userDAL.GetRoles(userId);
         }
 
+        public bool IsUsernameUnique(string username)
+        {
+            return userDAL.IsUsernameUnique(username);
+        }
+
         public bool LoginUser(string userName, string password)
         {
             return userDAL.LoginUser(userName, password);

@@ -18,5 +18,6 @@ namespace Restopos.Yoklama.DataAccess.Interfaces
         void ChangePassword(User user);
 
         List<Role> GetRoles(int userId);
+        bool IsUsernameUnique(string username);
     }
 }

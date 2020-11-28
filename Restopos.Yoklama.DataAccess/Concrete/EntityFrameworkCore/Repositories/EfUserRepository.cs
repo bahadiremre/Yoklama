@@ -95,5 +95,12 @@ namespace Restopos.Yoklama.DataAccess.Concrete.EntityFrameworkCore.Repositories
             List<Role> roles = context.Roles.Where(x => x.UserRoles.Any(ur => ur.UserId == userId)).ToList();
             return roles;
         }
+
+        public bool IsUsernameUnique(string username)
+        {
+            using var context = new SqlDbContext();
+            User user = context.Users.FirstOrDefault(x => x.Username == username);
+            return user == null;
+        }
     }
 }

@@ -118,18 +118,25 @@ namespace Restopos.Yoklama.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                User user = new User
+                if (userService.IsUsernameUnique(model.Username))
                 {
-                    Name = model.Name,
-                    DepartmentId = model.DepartmentId > 0 ? model.DepartmentId : null,
-                    Password = model.Password,
-                    Surname = model.Surname,
-                    Username = model.Username
-                };
-                userService.Add(user);
+                    User user = new User
+                    {
+                        Name = model.Name,
+                        DepartmentId = model.DepartmentId > 0 ? model.DepartmentId : null,
+                        Password = model.Password,
+                        Surname = model.Surname,
+                        Username = model.Username
+                    };
+                    userService.Add(user);
 
-                ViewBag.SuccessMessage = "Kullanıcınız başarılı bir şekilde kaydedildi";
-                return View();
+                    ViewBag.SuccessMessage = "Kullanıcınız başarılı bir şekilde kaydedildi";
+                    return View();
+                }
+                else
+                {
+                    ModelState.AddModelError("", "Bu isimde bir kullanıcı adı zaten var.");
+                }
             }
             return View(model);
         }
@@ -150,8 +157,13 @@ namespace Restopos.Yoklama.Web.Controllers
             {
                 ViewBag.Message = "Aradığınız sayfa bulunamadı";
             }
-            
+
             return View();
+        }
+
+        public JsonResult IsUsernameUnique(string username)
+        {
+            return Json(userService.IsUsernameUnique(username));
         }
     }
 }

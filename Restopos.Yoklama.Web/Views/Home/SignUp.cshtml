@@ -8,9 +8,10 @@
 
 
 <div class="row">
-    <div class="col-md-4 shadow mx-auto mt-5 p-3 bg-white">
+    <div class="col-md-6 shadow mx-auto mt-5 p-3 bg-white">
         <form asp-action="SignUp">
             <h4 class="text-center mb-3">Kayıt Olun</h4>
+            <div class="text-success lead">@ViewBag?.SuccessMessage</div>
             <div class="form-group">
                 <label asp-for="Name" class="control-label"></label>
                 <input asp-for="Name" class="form-control" />
@@ -43,11 +44,10 @@
                 </select>
                 <span asp-validation-for="DepartmentId" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <input type="submit" value="Kaydet" class="btn btn-success" />
-            </div>
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="text-success">@ViewBag?.SuccessMessage</div>
+            <div class="form-group">
+                <input id="btnSave" type="submit" value="Kaydet" class="btn btn-success" />
+            </div>
             <div>
                 <a asp-action="Index">Giriş ekranına dönün...</a>
             </div>
@@ -58,4 +58,26 @@
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script>
+        $(document).ready(() => {
+            $("#Username").focusout(() => {
+                let username = $("#Username").val();
+                $.ajax({
+                    url: "./IsUsernameUnique",
+                    type: "GET",
+                    dataType: "json",
+                    data: { username: username },
+                    success: (isUnique) => {
+                        if (!isUnique) {
+                            $("[data-valmsg-for=Username]").text("Bu isimde bir kullanıcı adı zaten var.");
+                            $("#btnSave").attr("disabled", "disabled");
+                        } else {
+                            $("[data-valmsg-for=Username]").text("");
+                            $("#btnSave").removeAttr("disabled");
+                        }
+                    }
+                });
+            })
+        })
+    </script>
 }

@@ -101,33 +101,41 @@ namespace Restopos.Yoklama.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                User user = new User
+                if (IsUserNameValid(model.Id,model.Username))
                 {
-                    Id = model.Id,
-                    Name = model.Name,
-                    Surname = model.Surname,
-                    Username = model.Username,
-                    DepartmentId = model.Department?.Id > 0 ? (int?)model.Department.Id : null
-                };
-
-                model.RoleSelections = model.RoleSelections.FindAll(x => x.isSelected);
-
-                user.UserRoles = new List<UserRole>();
-                if (model.RoleSelections?.Count > 0)
-                {
-
-                    foreach (var item in model.RoleSelections)
+                    User user = new User
                     {
-                        user.UserRoles.Add(new UserRole
+                        Id = model.Id,
+                        Name = model.Name,
+                        Surname = model.Surname,
+                        Username = model.Username,
+                        DepartmentId = model.Department?.Id > 0 ? (int?)model.Department.Id : null
+                    };
+
+                    model.RoleSelections = model.RoleSelections.FindAll(x => x.isSelected);
+
+                    user.UserRoles = new List<UserRole>();
+                    if (model.RoleSelections?.Count > 0)
+                    {
+
+                        foreach (var item in model.RoleSelections)
                         {
-                            RoleId = item.Id
-                        });
+                            user.UserRoles.Add(new UserRole
+                            {
+                                RoleId = item.Id
+                            });
+                        }
                     }
+
+                    userService.Update(user);
+
+                    return RedirectToAction("Index");
                 }
-
-                userService.Update(user);
-
-                return RedirectToAction("Index");
+                else
+                {
+                    ModelState.AddModelError("", "Bu isimde bir kullanıcı adı zaten var.");
+                }
+               
             }
             return View(model);
         }
@@ -138,6 +146,25 @@ namespace Restopos.Yoklama.Web.Controllers
         {
             userService.Remove(new User { Id = id });
             return Json(null);
+        }
+
+
+        public JsonResult IsUsernameUnique(int userId, string username)
+        {
+            return Json(IsUserNameValid(userId, username));
+        }
+
+        private bool IsUserNameValid(int userId, string username)
+        {
+            if (userService.IsUsernameUnique(username))
+            {
+                return true;
+            }
+            else if (userService.GetById(userId)?.Username==username)
+            {
+                return true;
+            }
+            return false;
         }
 
         private List<Role> SetUserRolestoRoleList(List<UserRole> userRoles)
