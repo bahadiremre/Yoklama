@@ -11,10 +11,12 @@ namespace Restopos.Yoklama.DataAccess.Concrete.EntityFrameworkCore.Repositories
 {
     public class EfUserRepository : IUserDAL
     {
+        private readonly YoklamaDbContext db;
         private readonly ICrudableDAL<User> crudableDAL;
-        public EfUserRepository(ICrudableDAL<User> crudableDAL)
+        public EfUserRepository(ICrudableDAL<User> crudableDAL,YoklamaDbContext db)
         {
             this.crudableDAL = crudableDAL;
+            this.db = db;
         }
         public void Add(User user)
         {
@@ -23,8 +25,7 @@ namespace Restopos.Yoklama.DataAccess.Concrete.EntityFrameworkCore.Repositories
 
         public List<User> GetAll()
         {
-            using var context = new SqlDbContext();
-            return context.Set<User>().Include(x => x.Department).ToList();
+            return db.Set<User>().Include(x => x.Department).ToList();
         }
 
         public User GetById(int id)
@@ -34,27 +35,24 @@ namespace Restopos.Yoklama.DataAccess.Concrete.EntityFrameworkCore.Repositories
 
         public User GetByIdWithDetails(int id)
         {
-            using var context = new SqlDbContext();
-            User user = context.Set<User>().
+            User user = db.Set<User>().
                 Include(x => x.UserRoles).ThenInclude(x => x.Role).
                 Include(x => x.AbsenceStatuses).ThenInclude(x => x.AbsenceType).
                 Include(X => X.Department).FirstOrDefault(x => x.Id == id);
-
+            
             return user;
         }
 
         public User GetByUsername(string username)
         {
-            using var context = new SqlDbContext();
-            var user = context.Users.Include(x => x.Department).Include(x=>x.UserRoles)
+            var user = db.Users.Include(x => x.Department).Include(x=>x.UserRoles)
                 .FirstOrDefault(x => x.Username == username);
             return user;
         }
 
         public bool LoginUser(string userName, string password)
         {
-            using var context = new SqlDbContext();
-            var user = context.Set<User>().FirstOrDefault(x => x.Username == userName && x.Password == password);
+            var user = db.Set<User>().FirstOrDefault(x => x.Username == userName && x.Password == password);
 
             return user != null;
         }
@@ -66,40 +64,35 @@ namespace Restopos.Yoklama.DataAccess.Concrete.EntityFrameworkCore.Repositories
 
         public void ChangePassword(User user)
         {
-            using var context = new SqlDbContext();
-            context.Set<User>().Attach(user);
-            context.Entry(user).Property(x => x.Password).IsModified = true;
-            context.SaveChanges();
+            db.Set<User>().Attach(user);
+            db.Entry(user).Property(x => x.Password).IsModified = true;
+            db.SaveChanges();
         }
 
         public void Update(User user)
         {
-            using var context = new SqlDbContext();
-            context.Set<User>().Attach(user);
-            context.Entry(user).State = EntityState.Modified;
-            context.Entry(user).Property(x => x.Password).IsModified = false;
-            context.SaveChanges();
+            db.Set<User>().Attach(user);
+            db.Entry(user).State = EntityState.Modified;
+            db.Entry(user).Property(x => x.Password).IsModified = false;
+            db.SaveChanges();
         }
 
         public List<User> GetByRoleName(string roleName)
         {
-            using var context = new SqlDbContext();
-            List<User> users = context.Users.Where(x => x.UserRoles.Any(r => r.Role.Name == roleName)).ToList();
+            List<User> users = db.Users.Where(x => x.UserRoles.Any(r => r.Role.Name == roleName)).ToList();
 
             return users;
         }
 
         public List<Role> GetRoles(int userId)
         {
-            using var context = new SqlDbContext();
-            List<Role> roles = context.Roles.Where(x => x.UserRoles.Any(ur => ur.UserId == userId)).ToList();
+            List<Role> roles = db.Roles.Where(x => x.UserRoles.Any(ur => ur.UserId == userId)).ToList();
             return roles;
         }
 
         public bool IsUsernameUnique(string username)
         {
-            using var context = new SqlDbContext();
-            User user = context.Users.FirstOrDefault(x => x.Username == username);
+            User user = db.Users.FirstOrDefault(x => x.Username == username);
             return user == null;
         }
     }

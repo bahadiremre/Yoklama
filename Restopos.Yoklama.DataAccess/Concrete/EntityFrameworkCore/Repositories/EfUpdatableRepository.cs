@@ -8,13 +8,30 @@ using System.Text;
 
 namespace Restopos.Yoklama.DataAccess.Concrete.EntityFrameworkCore.Repositories
 {
-    public class EfUpdatableRepository<UpdatableTable> : EfReadableRepository<UpdatableTable>, IUpdatableDAL<UpdatableTable> where UpdatableTable : class, IUpdatable, new()
+    public class EfUpdatableRepository<UpdatableTable> : IUpdatableDAL<UpdatableTable> where UpdatableTable : class, IUpdatable, new()
     {
+        private readonly YoklamaDbContext db;
+        private readonly IReadableDAL<UpdatableTable> readableDAL;
+        public EfUpdatableRepository(YoklamaDbContext db, IReadableDAL<UpdatableTable> readableDAL)
+        {
+            this.db = db;
+            this.readableDAL = readableDAL;
+        }
+
+        public List<UpdatableTable> GetAll()
+        {
+            return readableDAL.GetAll();
+        }
+
+        public UpdatableTable GetById(int id)
+        {
+            return readableDAL.GetById(id);
+        }
+
         public void Update(UpdatableTable updatableTable)
         {
-            using var context = new SqlDbContext();
-            context.Set<UpdatableTable>().Update(updatableTable);
-            context.SaveChanges();
+            db.Set<UpdatableTable>().Update(updatableTable);
+            db.SaveChanges();
         }
     }
 }

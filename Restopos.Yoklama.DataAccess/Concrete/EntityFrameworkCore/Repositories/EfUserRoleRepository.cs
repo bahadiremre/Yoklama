@@ -13,13 +13,16 @@ namespace Restopos.Yoklama.DataAccess.Concrete.EntityFrameworkCore.Repositories
         private readonly ICrudableDAL<UserRole> crudableDAL;
         private readonly IMultipleAddableDAL<UserRole> multipleAddableDAL;
         private readonly IMultipleRemovableDAL<UserRole> multipleRemovableDAL;
+        private readonly YoklamaDbContext db;
         public EfUserRoleRepository(ICrudableDAL<UserRole> crudableDAL,
             IMultipleAddableDAL<UserRole> multipleAddableDAL,
-            IMultipleRemovableDAL<UserRole> multipleRemovableDAL)
+            IMultipleRemovableDAL<UserRole> multipleRemovableDAL,
+            YoklamaDbContext db)
         {
             this.crudableDAL = crudableDAL;
             this.multipleAddableDAL = multipleAddableDAL;
             this.multipleRemovableDAL = multipleRemovableDAL;
+            this.db = db;
         }
 
         public void Add(UserRole userRole)
@@ -54,10 +57,9 @@ namespace Restopos.Yoklama.DataAccess.Concrete.EntityFrameworkCore.Repositories
 
         public void RemoveByUserId(int id)
         {
-            using var context = new SqlDbContext();
-            var userRoles = context.Set<UserRole>().Where(x => x.UserId == id);
-            context.Set<UserRole>().RemoveRange(userRoles);
-            context.SaveChanges();
+            var userRoles = db.Set<UserRole>().Where(x => x.UserId == id);
+            db.Set<UserRole>().RemoveRange(userRoles);
+            db.SaveChanges();
         }
 
         public void Update(UserRole userRole)

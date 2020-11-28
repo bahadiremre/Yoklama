@@ -8,7 +8,7 @@ using Restopos.Yoklama.DataAccess.Concrete.EntityFrameworkCore.Contexts;
 
 namespace Restopos.Yoklama.DataAccess.Migrations
 {
-    [DbContext(typeof(SqlDbContext))]
+    [DbContext(typeof(YoklamaDbContext))]
     partial class SqlDbContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)

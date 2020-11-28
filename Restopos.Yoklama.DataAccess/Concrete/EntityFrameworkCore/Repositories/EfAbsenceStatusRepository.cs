@@ -9,12 +9,14 @@ using System.Text;
 
 namespace Restopos.Yoklama.DataAccess.Concrete.EntityFrameworkCore.Repositories
 {
-    public class EfAbsenceStatusRepository : IAbsenceStatusDAL
+    public class EfAbsenceStatusRepository : IAbsenceStatusDAL,ICrudableDAL<AbsenceStatus> 
     {
         private readonly ICrudableDAL<AbsenceStatus> crudableDAL;
-        public EfAbsenceStatusRepository(ICrudableDAL<AbsenceStatus> crudableDAL)
+        private readonly YoklamaDbContext db;
+        public EfAbsenceStatusRepository(ICrudableDAL<AbsenceStatus> crudableDAL, YoklamaDbContext db)
         {
             this.crudableDAL = crudableDAL;
+            this.db = db;
         }
 
         public void Add(AbsenceStatus absenceStatus)
@@ -29,8 +31,7 @@ namespace Restopos.Yoklama.DataAccess.Concrete.EntityFrameworkCore.Repositories
 
         public List<AbsenceStatus> GetAllByDate(DateTime startDate, DateTime endDate)
         {
-            using var context = new SqlDbContext();
-            List<AbsenceStatus> absenceStatuses = context.Set<AbsenceStatus>().
+            List<AbsenceStatus> absenceStatuses = db.Set<AbsenceStatus>().
                 Include(x => x.AbsenceType).Include(x => x.User).
                 Where(x => x.StartDate >= startDate && x.StartDate <= endDate
                 || x.EndDate >= startDate && x.EndDate <= endDate
@@ -40,8 +41,7 @@ namespace Restopos.Yoklama.DataAccess.Concrete.EntityFrameworkCore.Repositories
 
         public List<AbsenceStatus> GetAllByDate(DateTime startDate, DateTime endDate, int userId)
         {
-            using var context = new SqlDbContext();
-            List<AbsenceStatus> absenceStatuses = context.Set<AbsenceStatus>().
+            List<AbsenceStatus> absenceStatuses = db.Set<AbsenceStatus>().
                 Include(x => x.AbsenceType).Include(x => x.User).
                 Where(x => x.StartDate >= startDate && x.StartDate <= endDate
                 || x.EndDate >= startDate && x.EndDate <= endDate
@@ -52,8 +52,8 @@ namespace Restopos.Yoklama.DataAccess.Concrete.EntityFrameworkCore.Repositories
 
         public AbsenceStatus GetById(int id)
         {
-            using var context = new SqlDbContext();
-            return context.Set<AbsenceStatus>().Include(x => x.AbsenceType).
+            
+            return db.Set<AbsenceStatus>().Include(x => x.AbsenceType).
                 Include(x => x.User).FirstOrDefault(x => x.Id == id);
         }
 

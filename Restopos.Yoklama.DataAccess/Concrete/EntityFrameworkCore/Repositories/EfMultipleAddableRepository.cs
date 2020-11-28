@@ -10,11 +10,15 @@ namespace Restopos.Yoklama.DataAccess.Concrete.EntityFrameworkCore.Repositories
     public class EfMultipleAddableRepository<MultipleAddableTable> : IMultipleAddableDAL<MultipleAddableTable> where
         MultipleAddableTable : class, ICreatable, new()
     {
+        private readonly YoklamaDbContext db;
+        public EfMultipleAddableRepository(YoklamaDbContext db)
+        {
+            this.db = db;
+        }
         public void AddRange(List<MultipleAddableTable> multipleAddableTables)
         {
-            using var context = new SqlDbContext();
-            context.Set<MultipleAddableTable>().AddRange(multipleAddableTables);
-            context.SaveChanges();
+            db.Set<MultipleAddableTable>().AddRange(multipleAddableTables);
+            db.SaveChanges();
         }
     }
 }

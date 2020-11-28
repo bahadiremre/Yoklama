@@ -9,7 +9,7 @@ using Restopos.Yoklama.DataAccess.Concrete.EntityFrameworkCore.Contexts;
 
 namespace Restopos.Yoklama.DataAccess.Migrations
 {
-    [DbContext(typeof(SqlDbContext))]
+    [DbContext(typeof(YoklamaDbContext))]
     [Migration("20201125161746_PrivDescriptionMaxLength")]
     partial class PrivDescriptionMaxLength
     {

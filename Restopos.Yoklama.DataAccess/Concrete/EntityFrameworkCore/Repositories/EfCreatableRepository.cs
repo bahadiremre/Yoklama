@@ -9,18 +9,21 @@ namespace Restopos.Yoklama.DataAccess.Concrete.EntityFrameworkCore.Repositories
 {
     public class EfCreatableRepository<CreatableTable> : ICreatableDAL<CreatableTable> where CreatableTable : class, ICreatable, new()
     {
+        private readonly YoklamaDbContext db;
+        public EfCreatableRepository(YoklamaDbContext db)
+        {
+            this.db = db;
+        }
         public void Add(CreatableTable creatableTable)
         {
-            var context = new SqlDbContext();
-            context.Set<CreatableTable>().Add(creatableTable);
-            context.SaveChanges();
+            db.Set<CreatableTable>().Add(creatableTable);
+            db.SaveChanges();
         }
 
         public void AddRange(List<CreatableTable> creatableTables)
         {
-            var context = new SqlDbContext();
-            context.Set<CreatableTable>().AddRange(creatableTables);
-            context.SaveChanges();
+            db.Set<CreatableTable>().AddRange(creatableTables);
+            db.SaveChanges();
         }
     }
 }

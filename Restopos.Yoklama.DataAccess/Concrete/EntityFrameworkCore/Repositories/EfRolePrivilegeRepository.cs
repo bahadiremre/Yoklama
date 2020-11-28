@@ -1,4 +1,5 @@
-﻿using Restopos.Yoklama.DataAccess.Concrete.EntityFrameworkCore.Contexts;
+﻿using Microsoft.EntityFrameworkCore;
+using Restopos.Yoklama.DataAccess.Concrete.EntityFrameworkCore.Contexts;
 using Restopos.Yoklama.DataAccess.Interfaces;
 using Restopos.Yoklama.Entities.Concrete;
 using System;
@@ -13,14 +14,15 @@ namespace Restopos.Yoklama.DataAccess.Concrete.EntityFrameworkCore.Repositories
         private readonly ICrudableDAL<RolePrivilege> crudableDAL;
         private readonly IMultipleAddableDAL<RolePrivilege> multipleAddableDAL;
         private readonly IMultipleRemovableDAL<RolePrivilege> multipleRemovableDAL;
-
+        private readonly YoklamaDbContext db;
         public EfRolePrivilegeRepository(ICrudableDAL<RolePrivilege> crudableDAL,
             IMultipleAddableDAL<RolePrivilege> multipleAddableDAL,
-            IMultipleRemovableDAL<RolePrivilege> multipleRemovableDAL)
+            IMultipleRemovableDAL<RolePrivilege> multipleRemovableDAL, YoklamaDbContext db)
         {
             this.crudableDAL = crudableDAL;
             this.multipleAddableDAL = multipleAddableDAL;
             this.multipleRemovableDAL = multipleRemovableDAL;
+            this.db = db;
         }
 
         public void Add(RolePrivilege rolePrivilege)
@@ -55,10 +57,9 @@ namespace Restopos.Yoklama.DataAccess.Concrete.EntityFrameworkCore.Repositories
 
         public void RemoveByRoleId(int id)
         {
-            using var context = new SqlDbContext();
-            var rolePrivileges = context.Set<RolePrivilege>().Where(x => x.RoleId == id);
-            context.Set<RolePrivilege>().RemoveRange(rolePrivileges);
-            context.SaveChanges();
+            var rolePrivileges = db.Set<RolePrivilege>().Where(x => x.RoleId == id);
+            db.Set<RolePrivilege>().RemoveRange(rolePrivileges);
+            db.SaveChanges();
         }
 
         public void Update(RolePrivilege rolePrivilege)

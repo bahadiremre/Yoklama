@@ -13,12 +13,15 @@ namespace Restopos.Yoklama.DataAccess.Concrete.EntityFrameworkCore.Repositories
         private readonly ICreatableDAL<Privilege> creatableDAL;
         private readonly IUpdatableDAL<Privilege> updatableDAL;
         private readonly IReadableDAL<Privilege> readableDAL;
-        public EfPrivilegeRepository(ICreatableDAL<Privilege> creatableDAL, IUpdatableDAL<Privilege> updatableDAL,
-            IReadableDAL<Privilege> readableDAL)
+        private readonly YoklamaDbContext db;
+        public EfPrivilegeRepository(
+            ICreatableDAL<Privilege> creatableDAL, IUpdatableDAL<Privilege> updatableDAL,
+            IReadableDAL<Privilege> readableDAL, YoklamaDbContext db)
         {
             this.creatableDAL = creatableDAL;
             this.updatableDAL = updatableDAL;
             this.readableDAL = readableDAL;
+            this.db = db;
         }
 
         public void Add(Privilege privilege)
@@ -38,8 +41,7 @@ namespace Restopos.Yoklama.DataAccess.Concrete.EntityFrameworkCore.Repositories
 
         public Privilege GetByName(string privilegeName)
         {
-            using var context = new SqlDbContext();
-            return context.Set<Privilege>().FirstOrDefault(x => x.Name == privilegeName);
+            return db.Set<Privilege>().FirstOrDefault(x => x.Name == privilegeName);
         }
 
         public void Update(Privilege privilege)

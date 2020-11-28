@@ -11,10 +11,12 @@ namespace Restopos.Yoklama.DataAccess.Concrete.EntityFrameworkCore.Repositories
 {
     public class EfRoleRepository : IRoleDAL
     {
+        private readonly YoklamaDbContext db;
         private ICrudableDAL<Role> crudableDAL;
-        public EfRoleRepository(ICrudableDAL<Role> crudableDAL)
+        public EfRoleRepository(ICrudableDAL<Role> crudableDAL,YoklamaDbContext db)
         {
             this.crudableDAL = crudableDAL;
+            this.db = db;
         }
 
         public void Add(Role role)
@@ -34,8 +36,7 @@ namespace Restopos.Yoklama.DataAccess.Concrete.EntityFrameworkCore.Repositories
 
         public Role GetByIdWithDetails(int id)
         {
-            using var context = new SqlDbContext();
-            Role role = context.Set<Role>().
+            Role role = db.Set<Role>().
                 Include(x => x.RolePrivileges).ThenInclude(x => x.Privilege).
                 Include(x => x.UserRoles).ThenInclude(x => x.User).
                 FirstOrDefault(x => x.Id == id);
@@ -45,8 +46,7 @@ namespace Restopos.Yoklama.DataAccess.Concrete.EntityFrameworkCore.Repositories
 
         public List<Privilege> GetPrivileges(int roleId)
         {
-            using var context = new SqlDbContext();
-            List<Privilege> privileges = context.Set<Privilege>().
+            List<Privilege> privileges = db.Set<Privilege>().
                 Where(x => x.RolePrivileges.Any(rp => rp.RoleId == roleId)).ToList();
             return privileges;
         }
