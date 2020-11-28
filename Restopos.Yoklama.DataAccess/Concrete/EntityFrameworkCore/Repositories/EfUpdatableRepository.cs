@@ -12,7 +12,7 @@ namespace Restopos.Yoklama.DataAccess.Concrete.EntityFrameworkCore.Repositories
     {
         private readonly YoklamaDbContext db;
         private readonly IReadableDAL<UpdatableTable> readableDAL;
-        public EfUpdatableRepository(YoklamaDbContext db, IReadableDAL<UpdatableTable> readableDAL)
+        public EfUpdatableRepository(YoklamaDbContext db, IReadableDAL<UpdatableTable> readableDAL) 
         {
             this.db = db;
             this.readableDAL = readableDAL;
