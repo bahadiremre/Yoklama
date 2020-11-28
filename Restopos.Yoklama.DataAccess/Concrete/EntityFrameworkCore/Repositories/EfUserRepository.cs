@@ -13,7 +13,7 @@ namespace Restopos.Yoklama.DataAccess.Concrete.EntityFrameworkCore.Repositories
     {
         private readonly YoklamaDbContext db;
         private readonly ICrudableDAL<User> crudableDAL;
-        public EfUserRepository(ICrudableDAL<User> crudableDAL,YoklamaDbContext db)
+        public EfUserRepository(ICrudableDAL<User> crudableDAL, YoklamaDbContext db)
         {
             this.crudableDAL = crudableDAL;
             this.db = db;
@@ -39,13 +39,13 @@ namespace Restopos.Yoklama.DataAccess.Concrete.EntityFrameworkCore.Repositories
                 Include(x => x.UserRoles).ThenInclude(x => x.Role).
                 Include(x => x.AbsenceStatuses).ThenInclude(x => x.AbsenceType).
                 Include(X => X.Department).FirstOrDefault(x => x.Id == id);
-            
+
             return user;
         }
 
         public User GetByUsername(string username)
         {
-            var user = db.Users.Include(x => x.Department).Include(x=>x.UserRoles)
+            var user = db.Users.Include(x => x.Department).Include(x => x.UserRoles)
                 .FirstOrDefault(x => x.Username == username);
             return user;
         }

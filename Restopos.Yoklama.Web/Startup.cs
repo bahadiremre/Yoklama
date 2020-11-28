@@ -37,7 +37,10 @@ namespace Restopos.Yoklama.Web
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<YoklamaDbContext>(options =>
-            options.UseSqlServer(Configuration["ConnectionStrings:DefaultConnection"]));
+            {
+                options.UseSqlServer(Configuration["ConnectionStrings:DefaultConnection"]);
+                options.UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
+            });
 
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(opt =>
             {

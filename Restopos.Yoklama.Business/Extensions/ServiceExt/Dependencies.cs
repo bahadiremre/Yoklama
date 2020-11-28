@@ -16,16 +16,12 @@ namespace Restopos.Yoklama.Business.Extensions.ServiceExt
         {
             services.AddScoped<IPrivilegeDAL, EfPrivilegeRepository>();
             services.AddScoped<IPrivilegeService, PrivilegeManager>();
-            services.AddScoped(typeof(ICreatableService<Privilege>), typeof(PrivilegeManager));
-            services.AddScoped(typeof(IReadableService<Privilege>), typeof(PrivilegeManager));
-            services.AddScoped(typeof(IUpdatableService<Privilege>), typeof(PrivilegeManager));
             services.AddScoped(typeof(IReadableDAL<Privilege>), typeof(EfReadableRepository<Privilege>));
             services.AddScoped(typeof(IUpdatableDAL<Privilege>), typeof(EfUpdatableRepository<Privilege>));
             services.AddScoped(typeof(ICreatableDAL<Privilege>), typeof(EfCreatableRepository<Privilege>));
 
-            services.AddScoped<IUserDAL, EfUserRepository>();
             services.AddScoped<IUserService, UserManager>();
-            services.AddScoped(typeof(ICrudableService<User>), typeof(UserManager));
+            services.AddScoped<IUserDAL, EfUserRepository>();
             services.AddScoped(typeof(ICrudableDAL<User>), typeof(EfCrudableRepository<User>));
             services.AddScoped(typeof(ICreatableDAL<User>), typeof(EfCreatableRepository<User>));
             services.AddScoped(typeof(IUpdatableDAL<User>), typeof(EfUpdatableRepository<User>));
@@ -55,7 +51,7 @@ namespace Restopos.Yoklama.Business.Extensions.ServiceExt
             services.AddScoped(typeof(IReadableDAL<Role>), typeof(EfReadableRepository<Role>));
 
             services.AddScoped(typeof(IRolePrivilegeService), typeof(RolePrivilegeManager));
-            services.AddScoped(typeof(ICrudableService<RolePrivilege>), typeof(RolePrivilegeManager));
+            //services.AddScoped(typeof(ICrudableService<RolePrivilege>), typeof(RolePrivilegeManager));
             services.AddScoped(typeof(IRolePrivilegeDAL), typeof(EfRolePrivilegeRepository));
             services.AddScoped(typeof(ICrudableDAL<RolePrivilege>), typeof(EfCrudableRepository<RolePrivilege>));
             services.AddScoped(typeof(IMultipleAddableDAL<RolePrivilege>), typeof(EfMultipleAddableRepository<RolePrivilege>));
@@ -66,7 +62,7 @@ namespace Restopos.Yoklama.Business.Extensions.ServiceExt
             services.AddScoped(typeof(IReadableDAL<RolePrivilege>), typeof(EfReadableRepository<RolePrivilege>));
 
             services.AddScoped(typeof(IUserRoleService), typeof(UserRoleManager));
-            services.AddScoped(typeof(ICrudableService<UserRole>), typeof(UserRoleManager));
+            //services.AddScoped(typeof(ICrudableService<UserRole>), typeof(UserRoleManager));
             services.AddScoped(typeof(IUserRoleDAL), typeof(EfUserRoleRepository));
             services.AddScoped(typeof(ICrudableDAL<UserRole>), typeof(EfCrudableRepository<UserRole>));
             services.AddScoped(typeof(IMultipleAddableDAL<UserRole>), typeof(EfMultipleAddableRepository<UserRole>));
@@ -77,7 +73,7 @@ namespace Restopos.Yoklama.Business.Extensions.ServiceExt
             services.AddScoped(typeof(IReadableDAL<UserRole>), typeof(EfReadableRepository<UserRole>));
 
             services.AddScoped(typeof(IAbsenceStatusService), typeof(AbsenceStatusManager));
-            services.AddScoped(typeof(ICrudableService<AbsenceStatus>), typeof(AbsenceStatusManager));
+            //services.AddScoped(typeof(ICrudableService<AbsenceStatus>), typeof(AbsenceStatusManager));
             services.AddScoped(typeof(IAbsenceStatusDAL), typeof(EfAbsenceStatusRepository));
             services.AddScoped(typeof(ICrudableDAL<AbsenceStatus>), typeof(EfCrudableRepository<AbsenceStatus>));
             services.AddScoped(typeof(ICreatableDAL<AbsenceStatus>), typeof(EfCreatableRepository<AbsenceStatus>));
