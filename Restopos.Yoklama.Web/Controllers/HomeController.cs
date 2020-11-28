@@ -110,7 +110,7 @@ namespace Restopos.Yoklama.Web.Controllers
         public IActionResult SignUp()
         {
             ViewBag.Departments = new SelectList(departmentCrudService.GetAll(), "Id", "Name");
-            return View(new UserSignUpViewModel());
+            return View();
         }
 
         [HttpPost]
@@ -138,6 +138,7 @@ namespace Restopos.Yoklama.Web.Controllers
                     ModelState.AddModelError("", "Bu isimde bir kullanıcı adı zaten var.");
                 }
             }
+            ViewBag.Departments = new SelectList(departmentCrudService.GetAll(), "Id", "Name");
             return View(model);
         }
 

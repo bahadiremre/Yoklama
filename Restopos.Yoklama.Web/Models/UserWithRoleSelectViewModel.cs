@@ -1,4 +1,5 @@
 ﻿using Restopos.Yoklama.Entities.Concrete;
+using Restopos.Yoklama.Web.CustomValidators;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -11,12 +12,15 @@ namespace Restopos.Yoklama.Web.Models
     {
         public int Id { get; set; }
 
+        [Required(ErrorMessage = "Ad alanı boş geçilemez")]
         [Display(Name = "Ad")]
         public string Name { get; set; }
 
+        [Required(ErrorMessage = "Soyad alanı boş geçilemez")]
         [Display(Name = "Soyad")]
         public string Surname { get; set; }
 
+        [UsernameValidator]
         [Display(Name = "Kullanıcı Adı")]
         public string Username { get; set; }
 

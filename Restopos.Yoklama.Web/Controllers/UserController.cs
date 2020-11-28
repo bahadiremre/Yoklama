@@ -137,6 +137,7 @@ namespace Restopos.Yoklama.Web.Controllers
                 }
                
             }
+            ViewBag.Departments = new SelectList(departmentService.GetAll(), "Id", "Name");
             return View(model);
         }
 

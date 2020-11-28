@@ -10,6 +10,7 @@ namespace Restopos.Yoklama.Web.Models
     {
         public int Id { get; set; }
 
+        [Required(ErrorMessage ="Rol adı boş geçilemez")]
         [Display(Name="Rol Adı")]
         public string Name { get; set; }
     }
