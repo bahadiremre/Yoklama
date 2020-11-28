@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Restopos.Yoklama.Web.CustomValidators;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -16,7 +17,7 @@ namespace Restopos.Yoklama.Web.Models
         public string OldPassword { get; set; }
 
         [Display(Name = "Yeni Şifre")]
-        [Required(ErrorMessage = "Yeni şifre boş geçilemez")]
+        [PasswordValidator]
         [DataType(DataType.Password)]
         public string NewPassword { get; set; }
 

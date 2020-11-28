@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Restopos.Yoklama.Web.CustomValidators;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -7,7 +8,7 @@ using System.Threading.Tasks;
 namespace Restopos.Yoklama.Web.Models
 {
     public class UserSignUpViewModel
-    {
+    {   
         [Display(Name = "Ad:")]
         [Required(ErrorMessage = "Ad alanı boş geçilemez")]
         public string Name { get; set; }
@@ -20,9 +21,9 @@ namespace Restopos.Yoklama.Web.Models
         [MinLength(3,ErrorMessage ="Kullanıcı adı en az 3 harfli olmalıdır")]
         [Required(ErrorMessage = "Kullanıcı Adı alanı boş geçilemez")]
         public string Username { get; set; }
-
+        
+        [PasswordValidator]
         [Display(Name = "Şifre")]
-        [Required(ErrorMessage = "Şifre boş geçilemez")]
         [DataType(DataType.Password)]
         public string Password { get; set; }
 
