@@ -93,11 +93,10 @@
                                 dataType: "json",
                                 contentType: "application/json; charset=utf8",
                                 success: (data) => {
+                                    if (data && data.includes("Hata")) {
+                                        window.location.href = "/Home/Error";
+                                    }
                                     window.location.reload();
-                                },
-                                error: (err) => {
-                                    //console.log(err);
-                                    alert(err.statusText + " İşlem sırasında hata oluştu");
                                 }
                             });
                         })

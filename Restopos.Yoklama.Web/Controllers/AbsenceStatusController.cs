@@ -137,8 +137,16 @@ namespace Restopos.Yoklama.Web.Controllers
         [Authorize(Policy = ConstPrivileges.DELETE_USERS_ABSENCE)]
         public JsonResult Delete(int id)
         {
-            absenceService.Remove(new AbsenceStatus { Id = id });
-            return Json(null);
+            try
+            {
+                absenceService.Remove(new AbsenceStatus { Id = id });
+                return Json(null);
+            }
+            catch (Exception)
+            {
+                return Json("Hata");
+            }
+
 
         }
     }

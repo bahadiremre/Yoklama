@@ -145,8 +145,16 @@ namespace Restopos.Yoklama.Web.Controllers
         [Authorize(Policy = ConstPrivileges.DELETE_USER)]
         public JsonResult Delete(int id)
         {
-            userService.Remove(new User { Id = id });
-            return Json(null);
+            try
+            {
+                userService.Remove(new User { Id = id });
+                return Json(null);
+            }
+            catch (Exception ex)
+            {
+                return Json("Hata");
+            }
+            
         }
 
 

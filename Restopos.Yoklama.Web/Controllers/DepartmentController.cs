@@ -4,6 +4,7 @@ using Restopos.Yoklama.Business.Interfaces;
 using Restopos.Yoklama.Entities.Concrete;
 using Restopos.Yoklama.Entities.Concrete.Constants;
 using Restopos.Yoklama.Web.Models;
+using System;
 using System.Collections.Generic;
 
 namespace Restopos.Yoklama.Web.Controllers
@@ -83,8 +84,16 @@ namespace Restopos.Yoklama.Web.Controllers
         [Authorize(Policy = ConstPrivileges.DELETE_DEPARTMENT)]
         public JsonResult Delete(int id)
         {
-            departmentService.Remove(new Department { Id = id });
-            return Json(null);
+            try
+            {
+                departmentService.Remove(new Department { Id = id });
+
+                return Json(null);
+            }
+            catch (Exception ex)
+            {
+                return Json("Hata");
+            }
         }
     }
 }
