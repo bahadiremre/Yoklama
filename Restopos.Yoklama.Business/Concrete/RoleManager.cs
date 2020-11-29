@@ -45,21 +45,20 @@ namespace Restopos.Yoklama.Business.Concrete
 
         public void Remove(Role role)
         {
-            roleDAL.Remove(role);
+            if (role.Name!=ConstRoles.ADMIN)
+            {
+                roleDAL.Remove(role);
+            }
+            else
+            {
+                throw new Exception("Admin rolü silinemez");
+            }
+            
         }
 
         public void Update(Role role)
         {
-            List<RolePrivilege> rolePrivileges = new List<RolePrivilege>();
             rolePrivilegeService.RemoveByRoleId(role.Id);
-
-            if (role.RolePrivileges?.Count > 0)
-            {
-                foreach (var item in role.RolePrivileges)
-                {
-                    rolePrivileges.Add(new RolePrivilege { RoleId = role.Id, PrivilegeId = item.PrivilegeId });
-                }
-            }
 
             roleDAL.Update(role);
         }
