@@ -14,7 +14,7 @@ namespace Restopos.Yoklama.DataAccess.Concrete.EntityFrameworkCore.Mapping
             builder.HasKey(x => x.Id);
             builder.Property(x => x.Id).UseIdentityColumn();
 
-            builder.HasOne(x => x.AbsenceType).WithMany(x => x.AbsenceStatuses).HasForeignKey(x => x.AbsenceTypeId);
+            builder.HasOne(x => x.AbsenceType).WithMany(x => x.AbsenceStatuses).HasForeignKey(x => x.AbsenceTypeId).OnDelete(DeleteBehavior.Restrict);
             builder.HasOne(x => x.User).WithMany(x => x.AbsenceStatuses).HasForeignKey(x => x.UserId);
 
             builder.Property(x => x.StartDate).HasColumnType("datetime2");

@@ -16,7 +16,7 @@ namespace Restopos.Yoklama.DataAccess.Concrete.EntityFrameworkCore.Mapping
 
             builder.Property(x => x.Name).HasMaxLength(100).IsRequired();
 
-            builder.HasMany(x => x.AbsenceStatuses).WithOne(x => x.AbsenceType).HasForeignKey(x => x.AbsenceTypeId);
+            //builder.HasMany(x => x.AbsenceStatuses).WithOne(x => x.AbsenceType).HasForeignKey(x => x.AbsenceTypeId);
         }
     }
 }

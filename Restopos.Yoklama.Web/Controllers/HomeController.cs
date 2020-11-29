@@ -143,7 +143,7 @@ namespace Restopos.Yoklama.Web.Controllers
         public IActionResult Error()
         {
             var exceptionHandler = HttpContext.Features.Get<IExceptionHandlerPathFeature>();
-            ViewBag.ErrorMessage = exceptionHandler.Error.Message;
+            ViewBag.ErrorMessage = exceptionHandler?.Error?.Message;
 
             return View();
         }

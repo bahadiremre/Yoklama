@@ -9,7 +9,7 @@ using System.Text;
 
 namespace Restopos.Yoklama.DataAccess.Concrete.EntityFrameworkCore.Repositories
 {
-    public class EfAbsenceStatusRepository : IAbsenceStatusDAL,ICrudableDAL<AbsenceStatus> 
+    public class EfAbsenceStatusRepository : IAbsenceStatusDAL
     {
         private readonly ICrudableDAL<AbsenceStatus> crudableDAL;
         private readonly YoklamaDbContext db;
@@ -29,7 +29,7 @@ namespace Restopos.Yoklama.DataAccess.Concrete.EntityFrameworkCore.Repositories
             return crudableDAL.GetAll();
         }
 
-        public List<AbsenceStatus> GetAllByDate(DateTime startDate, DateTime endDate)
+        public List<AbsenceStatus> GetByDate(DateTime startDate, DateTime endDate)
         {
             List<AbsenceStatus> absenceStatuses = db.Set<AbsenceStatus>().
                 Include(x => x.AbsenceType).Include(x => x.User).
@@ -39,7 +39,7 @@ namespace Restopos.Yoklama.DataAccess.Concrete.EntityFrameworkCore.Repositories
             return absenceStatuses;
         }
 
-        public List<AbsenceStatus> GetAllByDate(DateTime startDate, DateTime endDate, int userId)
+        public List<AbsenceStatus> GetByDate(DateTime startDate, DateTime endDate, int userId)
         {
             List<AbsenceStatus> absenceStatuses = db.Set<AbsenceStatus>().
                 Include(x => x.AbsenceType).Include(x => x.User).
@@ -55,6 +55,11 @@ namespace Restopos.Yoklama.DataAccess.Concrete.EntityFrameworkCore.Repositories
             
             return db.Set<AbsenceStatus>().Include(x => x.AbsenceType).
                 Include(x => x.User).FirstOrDefault(x => x.Id == id);
+        }
+
+        public List<AbsenceStatus> GetByType(int typeId)
+        {
+            return db.Set<AbsenceStatus>().Where(x => x.AbsenceTypeId == typeId).ToList();
         }
 
         public void Remove(AbsenceStatus absenceStatus)

@@ -37,7 +37,7 @@ namespace Restopos.Yoklama.Web.Controllers
             ViewData["User"] = user.Name + " " + user.Surname;
 
             List<AbsenceStatus> absenceStatuses =
-                absenceService.GetAllByDate(model.SearchingStartDate, model.SearchingEndDate, user.Id);
+                absenceService.GetByDate(model.SearchingStartDate, model.SearchingEndDate, user.Id);
 
             model.absenceStatuses = new List<AbsenceStatusViewModel>();
             if (absenceStatuses?.Count > 0)

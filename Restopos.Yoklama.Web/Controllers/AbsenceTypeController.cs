@@ -15,10 +15,11 @@ namespace Restopos.Yoklama.Web.Controllers
     public class AbsenceTypeController : Controller
     {
         private readonly IAbsenceTypeService absenceTypeService;
-
-        public AbsenceTypeController(IAbsenceTypeService absenceTypeService)
+        private readonly IAbsenceStatusService absenceStatusService;
+        public AbsenceTypeController(IAbsenceTypeService absenceTypeService, IAbsenceStatusService absenceStatusService)
         {
             this.absenceTypeService = absenceTypeService;
+            this.absenceStatusService = absenceStatusService;
         }
 
         public IActionResult Index()
@@ -89,9 +90,9 @@ namespace Restopos.Yoklama.Web.Controllers
             {
                 absenceTypeService.Update(new AbsenceType
                 {
-                    Id=model.Id,
-                    IsHourly=model.IsHourly,
-                    Name=model.Name
+                    Id = model.Id,
+                    IsHourly = model.IsHourly,
+                    Name = model.Name
                 });
                 return RedirectToAction("Index");
             }
@@ -101,8 +102,24 @@ namespace Restopos.Yoklama.Web.Controllers
         [Authorize(Policy = ConstPrivileges.DELETE_ABSENCETYPE)]
         public JsonResult Delete(int id)
         {
-            absenceTypeService.Remove(new AbsenceType { Id = id });
-            return Json(null);
+            try
+            {
+                if (absenceStatusService.GetByType(id) == null)
+                {
+                    absenceTypeService.Remove(new AbsenceType { Id = id });
+                }
+                else
+                {
+                    return Json("Uyarı: Bu devamsızlık türüne ait yoklama kaydı olduğu için işlem gerçekleştirilemiyor!");
+                }
+
+                return Json(null);
+            }
+            catch (Exception ex)
+            {
+                return Json("Hata");
+            }
+
         }
     }
 }

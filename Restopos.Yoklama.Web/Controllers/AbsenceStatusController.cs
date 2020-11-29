@@ -37,7 +37,7 @@ namespace Restopos.Yoklama.Web.Controllers
                 model.SearchingEndDate = DateTime.Now.Date.AddHours(23).AddMinutes(59);
             }
 
-            List<AbsenceStatus> absenceStatuses = absenceService.GetAllByDate(model.SearchingStartDate, model.SearchingEndDate);
+            List<AbsenceStatus> absenceStatuses = absenceService.GetByDate(model.SearchingStartDate, model.SearchingEndDate);
 
             model.absenceStatuses = new List<AbsenceStatusViewModel>();
             if (absenceStatuses?.Count > 0)
