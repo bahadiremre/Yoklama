@@ -17,10 +17,10 @@ namespace Restopos.Yoklama.Web.Controllers
     {
         private readonly IUserService userService;
         private readonly IRoleService roleService;
-        private readonly ICrudableService<Department> departmentService;
+        private readonly IDepartmentService departmentService;
         public UserController(IUserService userService,
             IRoleService roleService,
-            ICrudableService<Department> departmentService)
+            IDepartmentService departmentService)
         {
             this.userService = userService;
             this.roleService = roleService;

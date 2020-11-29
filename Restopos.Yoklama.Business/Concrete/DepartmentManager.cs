@@ -7,7 +7,7 @@ using System.Text;
 
 namespace Restopos.Yoklama.Business.Concrete
 {
-    public class DepartmentManager : ICrudableService<Department>
+    public class DepartmentManager : IDepartmentService
     {
         private readonly ICrudableDAL<Department> crudableDAL;
         public DepartmentManager(ICrudableDAL<Department> crudableDAL)

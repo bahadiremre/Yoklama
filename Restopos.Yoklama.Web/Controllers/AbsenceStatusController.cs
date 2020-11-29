@@ -17,14 +17,13 @@ namespace Restopos.Yoklama.Web.Controllers
     {
         private readonly IAbsenceStatusService absenceService;
         private readonly IUserService userService;
-        private readonly ICrudableService<AbsenceType> absenceTypeCrudService;
+        private readonly IAbsenceTypeService absenceTypeService;
 
-        public AbsenceStatusController(IAbsenceStatusService absenceService,
-            IUserService userService, ICrudableService<AbsenceType> absenceTypeCrudService)
+        public AbsenceStatusController(IAbsenceStatusService absenceService, IUserService userService, IAbsenceTypeService absenceTypeService)
         {
             this.absenceService = absenceService;
             this.userService = userService;
-            this.absenceTypeCrudService = absenceTypeCrudService;
+            this.absenceTypeService = absenceTypeService;
         }
 
         public IActionResult Index(AbsenceStatusesByDateViewModel model)
@@ -65,7 +64,7 @@ namespace Restopos.Yoklama.Web.Controllers
         {
             AbsenceStatusViewModel model =
                 new AbsenceStatusViewModel { StartDate = DateTime.Now.Date.AddHours(8), EndDate = DateTime.Now.Date.AddHours(18) };
-            ViewBag.AbsenceTypes = new SelectList(absenceTypeCrudService.GetAll(), "Id", "Name");
+            ViewBag.AbsenceTypes = new SelectList(absenceTypeService.GetAll(), "Id", "Name");
 
             ViewBag.Users = new SelectList((from u in userService.GetAll()
                                             select new
@@ -110,7 +109,7 @@ namespace Restopos.Yoklama.Web.Controllers
             model.StartDate = absenceStatus.StartDate;
             model.User = absenceStatus.User;
 
-            ViewBag.AbsenceTypes = new SelectList(absenceTypeCrudService.GetAll(), "Id", "Name", absenceStatus.AbsenceTypeId);
+            ViewBag.AbsenceTypes = new SelectList(absenceTypeService.GetAll(), "Id", "Name", absenceStatus.AbsenceTypeId);
 
             return View(model);
         }

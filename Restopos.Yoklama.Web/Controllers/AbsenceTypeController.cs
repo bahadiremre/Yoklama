@@ -14,9 +14,9 @@ namespace Restopos.Yoklama.Web.Controllers
     [Authorize(Policy = ConstPrivileges.LIST_ABSENCETYPES)]
     public class AbsenceTypeController : Controller
     {
-        private readonly ICrudableService<AbsenceType> absenceTypeService;
+        private readonly IAbsenceTypeService absenceTypeService;
 
-        public AbsenceTypeController(ICrudableService<AbsenceType> absenceTypeService)
+        public AbsenceTypeController(IAbsenceTypeService absenceTypeService)
         {
             this.absenceTypeService = absenceTypeService;
         }

@@ -11,8 +11,8 @@ namespace Restopos.Yoklama.Web.Controllers
     [Authorize(Policy = ConstPrivileges.LIST_DEPARTMENTS)]
     public class DepartmentController : Controller
     {
-        private readonly ICrudableService<Department> departmentService;
-        public DepartmentController(ICrudableService<Department> departmentService)
+        private readonly IDepartmentService departmentService;
+        public DepartmentController(IDepartmentService departmentService)
         {
             this.departmentService = departmentService;
         }

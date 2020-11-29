@@ -18,14 +18,12 @@ namespace Restopos.Yoklama.Web.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ICrudableService<Department> departmentCrudService;
+        private readonly IDepartmentService departmentService;
         private readonly IUserService userService;
         private readonly IRoleService roleService;
-        public HomeController(ICrudableService<Department> departmentCrudService,
-            IUserService userService,
-            IRoleService roleService)
+        public HomeController(IDepartmentService departmentService, IUserService userService, IRoleService roleService)
         {
-            this.departmentCrudService = departmentCrudService;
+            this.departmentService = departmentService;
             this.userService = userService;
             this.roleService = roleService;
         }
@@ -109,7 +107,7 @@ namespace Restopos.Yoklama.Web.Controllers
 
         public IActionResult SignUp()
         {
-            ViewBag.Departments = new SelectList(departmentCrudService.GetAll(), "Id", "Name");
+            ViewBag.Departments = new SelectList(departmentService.GetAll(), "Id", "Name");
             return View();
         }
 
@@ -138,7 +136,7 @@ namespace Restopos.Yoklama.Web.Controllers
                     ModelState.AddModelError("", "Bu isimde bir kullanıcı adı zaten var.");
                 }
             }
-            ViewBag.Departments = new SelectList(departmentCrudService.GetAll(), "Id", "Name");
+            ViewBag.Departments = new SelectList(departmentService.GetAll(), "Id", "Name");
             return View(model);
         }
 

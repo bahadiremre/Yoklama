@@ -28,9 +28,10 @@ namespace Restopos.Yoklama.Business.Extensions.ServiceExt
             services.AddScoped<IUserService, UserManager>();
             services.AddScoped<IUserDAL, EfUserRepository>();
 
-            services.AddScoped(typeof(ICrudableService<Department>), typeof(DepartmentManager));
-
-            services.AddScoped(typeof(ICrudableService<AbsenceType>), typeof(AbsenceTypeManager));
+            services.AddScoped(typeof(IDepartmentService), typeof(DepartmentManager));
+            //services.AddScoped(typeof(ICrudableService<Department>), typeof(DepartmentManager));
+            services.AddScoped(typeof(IAbsenceTypeService), typeof(AbsenceTypeManager));
+            //services.AddScoped(typeof(ICrudableService<AbsenceType>), typeof(AbsenceTypeManager));
 
             services.AddScoped(typeof(IRoleService), typeof(RoleManager));
             services.AddScoped(typeof(IRoleDAL), typeof(EfRoleRepository));

@@ -7,7 +7,7 @@ using System.Text;
 
 namespace Restopos.Yoklama.Business.Concrete
 {
-    public class AbsenceTypeManager : ICrudableService<AbsenceType>
+    public class AbsenceTypeManager : IAbsenceTypeService
     {
         private readonly ICrudableDAL<AbsenceType> crudableDAL;
         public AbsenceTypeManager(ICrudableDAL<AbsenceType> crudableDAL)
