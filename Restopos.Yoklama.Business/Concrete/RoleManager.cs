@@ -9,7 +9,7 @@ using System.Text;
 
 namespace Restopos.Yoklama.Business.Concrete
 {
-    public class RoleManager : IRoleService, ICrudableService<Role>
+    public class RoleManager : IRoleService
     {
         private readonly IRoleDAL roleDAL;
         private readonly IRolePrivilegeService rolePrivilegeService;
@@ -36,6 +36,11 @@ namespace Restopos.Yoklama.Business.Concrete
         public Role GetByIdWithDetails(int id)
         {
             return roleDAL.GetByIdWithDetails(id);
+        }
+
+        public Role GetByName(string roleName)
+        {
+            return roleDAL.GetByName(roleName);
         }
 
         public List<Privilege> GetPrivileges(int roleId)

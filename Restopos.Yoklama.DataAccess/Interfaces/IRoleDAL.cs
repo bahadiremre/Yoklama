@@ -10,5 +10,6 @@ namespace Restopos.Yoklama.DataAccess.Interfaces
         Role GetByIdWithDetails(int id);
 
         List<Privilege> GetPrivileges(int roleId);
+        Role GetByName(string roleName);
     }
 }

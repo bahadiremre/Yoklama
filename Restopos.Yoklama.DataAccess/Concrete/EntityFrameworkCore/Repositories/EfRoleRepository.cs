@@ -44,6 +44,11 @@ namespace Restopos.Yoklama.DataAccess.Concrete.EntityFrameworkCore.Repositories
             return role;
         }
 
+        public Role GetByName(string roleName)
+        {
+            return db.Set<Role>().FirstOrDefault(x => x.Name == roleName);
+        }
+
         public List<Privilege> GetPrivileges(int roleId)
         {
             List<Privilege> privileges = db.Set<Privilege>().
