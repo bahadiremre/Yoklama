@@ -73,29 +73,38 @@ namespace Restopos.Yoklama.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                Role role = new Role
+                if (roleService.GetByName(model.Name) == null)
                 {
-                    Name = model.Name
-                };
 
-                List<PrivilegeSelectionViewModel> selectedPrivilegeModels =
-                    model.PrivilegesWithSelection.FindAll(x => x.isSelected);
-
-                if (selectedPrivilegeModels?.Count > 0)
-                {
-                    List<RolePrivilege> rolePrivileges = new List<RolePrivilege>();
-
-                    foreach (var item in selectedPrivilegeModels)
+                    Role role = new Role
                     {
-                        rolePrivileges.Add(new RolePrivilege { PrivilegeId = item.Id });
+                        Name = model.Name
+                    };
+
+                    List<PrivilegeSelectionViewModel> selectedPrivilegeModels =
+                        model.PrivilegesWithSelection.FindAll(x => x.isSelected);
+
+                    if (selectedPrivilegeModels?.Count > 0)
+                    {
+                        List<RolePrivilege> rolePrivileges = new List<RolePrivilege>();
+
+                        foreach (var item in selectedPrivilegeModels)
+                        {
+                            rolePrivileges.Add(new RolePrivilege { PrivilegeId = item.Id });
+                        }
+
+                        role.RolePrivileges = rolePrivileges;
                     }
 
-                    role.RolePrivileges = rolePrivileges;
+                    roleService.Add(role);
+
+                    return RedirectToAction("Index");
+                }
+                else
+                {
+                    ModelState.AddModelError("", "Bu isimde bir rol zaten var.");
                 }
 
-                roleService.Add(role);
-
-                return RedirectToAction("Index");
             }
 
             return View(model);
@@ -148,37 +157,42 @@ namespace Restopos.Yoklama.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                if (model.Name!=ConstRoles.ADMIN)
+                Role searchingRole = roleService.GetByName(model.Name);
+                if (model.Name == searchingRole?.Name && model.Id != searchingRole?.Id)
                 {
-                    Role role = new Role
-                    {
-                        Id = model.Id,
-                        Name = model.Name
-                    };
-
-                    List<PrivilegeSelectionViewModel> selectedPrivilegeModels =
-                        model.PrivilegesWithSelection.FindAll(x => x.isSelected);
-
-                    if (selectedPrivilegeModels?.Count > 0)
-                    {
-                        List<RolePrivilege> rolePrivileges = new List<RolePrivilege>();
-
-                        foreach (var item in selectedPrivilegeModels)
-                        {
-                            rolePrivileges.Add(new RolePrivilege { PrivilegeId = item.Id });
-                        }
-
-                        role.RolePrivileges = rolePrivileges;
-                    }
-
-                    roleService.Update(role);
-
-                    return RedirectToAction("Index");
+                    ModelState.AddModelError("", "Bu isimde başka bir rol zaten var");
+                    return View(model);
                 }
-                else
+                else if (model.Name == ConstRoles.ADMIN)
                 {
                     ModelState.AddModelError("", "Admin rolü değiştirelemez");
+                    return View(model);
                 }
+
+                Role role = new Role
+                {
+                    Id = model.Id,
+                    Name = model.Name
+                };
+
+                List<PrivilegeSelectionViewModel> selectedPrivilegeModels =
+                    model.PrivilegesWithSelection.FindAll(x => x.isSelected);
+
+                if (selectedPrivilegeModels?.Count > 0)
+                {
+                    List<RolePrivilege> rolePrivileges = new List<RolePrivilege>();
+
+                    foreach (var item in selectedPrivilegeModels)
+                    {
+                        rolePrivileges.Add(new RolePrivilege { PrivilegeId = item.Id });
+                    }
+
+                    role.RolePrivileges = rolePrivileges;
+                }
+
+                roleService.Update(role);
+
+                return RedirectToAction("Index");
             }
             return View(model);
         }
@@ -202,7 +216,7 @@ namespace Restopos.Yoklama.Web.Controllers
             {
                 return Json("Hata");
             }
-            
+
         }
     }
 }
