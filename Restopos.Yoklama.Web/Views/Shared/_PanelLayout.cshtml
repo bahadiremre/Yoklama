@@ -12,41 +12,40 @@
     <div class="container-fluid h-100">
         <main role="main" class="h-100">
             <div class="row h-100">
-                <div class="col-3 form-group p-0 bg-info m-0">
+                <div class="col-md-3 @*d-md-inline*@ p-0 bg-info m-0">
                     <div class="sticky-top">
-
-                        <a asp-controller="Panel" asp-action="Index" class="form-control btn btn-info btn-lg border-bottom rounded-0">Ana Sayfa</a>
-                        <a asp-controller="MyAbsences" asp-action="Index" class="form-control btn btn-info btn-lg border-bottom rounded-0">Yoklamam</a>
+                        <a asp-controller="Panel" asp-action="Index" class="d-block btn btn-info btn-lg border-bottom rounded-0">Ana Sayfa</a>
+                        <a asp-controller="MyAbsences" asp-action="Index" class="d-block btn btn-info btn-lg border-bottom rounded-0">Yoklamam</a>
                         @{
                             if (User.HasClaim(x => x.Value == ConstPrivileges.LIST_USERS))
                             {
-                                <a asp-controller="User" asp-action="Index" class="form-control btn btn-info btn-lg border-bottom rounded-0">Personel Listesi</a>
+                                <a asp-controller="User" asp-action="Index" class="d-block btn btn-info btn-lg border-bottom rounded-0">Personel Listesi</a>
                             }
                             if (User.HasClaim(x => x.Value == ConstPrivileges.LIST_USERS_ABSENCES))
                             {
-                                <a asp-controller="AbsenceStatus" asp-action="Index" class="form-control btn btn-info btn-lg border-bottom rounded-0">Personel Yoklaması</a>
+                                <a asp-controller="AbsenceStatus" asp-action="Index" class="d-block btn btn-info btn-lg border-bottom rounded-0">Personel Yoklaması</a>
                             }
                             if (User.HasClaim(x => x.Value == ConstPrivileges.LIST_DEPARTMENTS))
                             {
-                                <a asp-controller="Department" asp-action="Index" class="form-control btn btn-info btn-lg border-bottom rounded-0">Departmanlar</a>
+                                <a asp-controller="Department" asp-action="Index" class="d-block btn btn-info btn-lg border-bottom rounded-0">Departmanlar</a>
                             }
                             if (User.HasClaim(x => x.Value == ConstPrivileges.LIST_ABSENCETYPES))
                             {
-                                <a asp-controller="AbsenceType" asp-action="Index" class="form-control btn btn-info btn-lg border-bottom rounded-0">Devamsızlık Türleri</a>
+                                <a asp-controller="AbsenceType" asp-action="Index" class="d-block btn btn-info btn-lg border-bottom rounded-0">Devamsızlık Türleri</a>
                             }
                             if (User.HasClaim(x => x.Value == ConstPrivileges.LIST_ROLES))
                             {
-                                <a asp-controller="Role" asp-action="Index" class="form-control btn btn-info btn-lg border-bottom rounded-0">Rol İşlemleri</a>
+                                <a asp-controller="Role" asp-action="Index" class="d-block btn btn-info btn-lg border-bottom rounded-0">Rol İşlemleri</a>
                             }
                             if (User.HasClaim(x => x.Value == ConstPrivileges.LIST_PRIVILEGES))
                             {
-                                <a asp-controller="Privilege" asp-action="Index" class="form-control btn btn-info btn-lg border-bottom rounded-0">Yetki Listesi</a>
+                                <a asp-controller="Privilege" asp-action="Index" class="d-block btn btn-info btn-lg border-bottom rounded-0">Yetki Listesi</a>
                             }
                         }
-                        <a asp-controller="Panel" asp-action="LogOut" class="form-control btn btn-info btn-lg border-bottom rounded-0">Çıkış</a>
+                        <a asp-controller="Panel" asp-action="LogOut" class="d-block btn btn-info btn-lg border-bottom rounded-0">Çıkış</a>
                     </div>
                 </div>
-                <div class="col-8 pt-2 pb-3 text-dark">
+                <div class="col-md-9 pr-md-5 p-3 text-dark">
                     @RenderBody()
                 </div>
             </div>
