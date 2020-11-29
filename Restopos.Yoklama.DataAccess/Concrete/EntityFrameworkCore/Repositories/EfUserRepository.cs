@@ -92,7 +92,7 @@ namespace Restopos.Yoklama.DataAccess.Concrete.EntityFrameworkCore.Repositories
 
         public bool IsUsernameUnique(string username)
         {
-            User user = db.Users.FirstOrDefault(x => x.Username == username);
+            User user = db.Users.FirstOrDefault(x => x.Username.ToLower() == username.ToLower());
             return user == null;
         }
     }
