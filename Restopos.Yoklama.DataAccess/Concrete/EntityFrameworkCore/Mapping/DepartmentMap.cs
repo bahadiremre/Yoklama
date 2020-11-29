@@ -14,7 +14,7 @@ namespace Restopos.Yoklama.DataAccess.Concrete.EntityFrameworkCore.Mapping
             builder.HasKey(x => x.Id);
             builder.Property(x => x.Id).UseIdentityColumn();
 
-            builder.HasMany(x => x.Users).WithOne(x => x.Department).HasForeignKey(x => x.DepartmentId);
+            builder.HasMany(x => x.Users).WithOne(x => x.Department).HasForeignKey(x => x.DepartmentId).OnDelete(DeleteBehavior.SetNull);
         }
     }
 }
