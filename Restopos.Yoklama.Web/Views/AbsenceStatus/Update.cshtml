@@ -13,6 +13,8 @@
             <div class="form-group">
                 <label class="control-label" asp-for="User"></label>
                 <input asp-for="User.Id" class="form-control" type="hidden" />
+                <input asp-for="User.Name" class="form-control" type="hidden" />
+                <input asp-for="User.Surname" class="form-control" type="hidden" />
                 <input class="form-control" type="text" readonly value="@Model.User.Name @Model.User.Surname" />
             </div>
             <div class="form-group">

@@ -23,35 +23,37 @@ namespace Restopos.Yoklama.Web.Controllers
 
         public IActionResult Index(AbsenceStatusesByDateViewModel model)
         {
-            if (model.SearchingStartDate == DateTime.MinValue)
-            {
-                model.SearchingStartDate = DateTime.Now.Date;
-            }
-            if (model.SearchingEndDate == DateTime.MinValue)
-            {
-                model.SearchingEndDate = DateTime.Now.Date.AddHours(23).AddMinutes(59);
-            }
-
             User user = userService.GetByUsername(User.Identity.Name);
-
             ViewData["User"] = user.Name + " " + user.Surname;
 
-            List<AbsenceStatus> absenceStatuses =
-                absenceService.GetByDate(model.SearchingStartDate, model.SearchingEndDate, user.Id);
-
-            model.absenceStatuses = new List<AbsenceStatusViewModel>();
-            if (absenceStatuses?.Count > 0)
+            if (ModelState.IsValid)
             {
-                foreach (var item in absenceStatuses)
+                if (model.SearchingStartDate == DateTime.MinValue)
                 {
-                    model.absenceStatuses.Add(new AbsenceStatusViewModel
+                    model.SearchingStartDate = DateTime.Now.Date;
+                }
+                if (model.SearchingEndDate == DateTime.MinValue)
+                {
+                    model.SearchingEndDate = DateTime.Now.Date.AddHours(23).AddMinutes(59);
+                }
+
+                List<AbsenceStatus> absenceStatuses =
+                    absenceService.GetByDate(model.SearchingStartDate, model.SearchingEndDate, user.Id);
+
+                model.absenceStatuses = new List<AbsenceStatusViewModel>();
+                if (absenceStatuses?.Count > 0)
+                {
+                    foreach (var item in absenceStatuses)
                     {
-                        AbsenceType = item.AbsenceType,
-                        EndDate = item.EndDate,
-                        Id = item.Id,
-                        StartDate = item.StartDate,
-                        User = item.User
-                    });
+                        model.absenceStatuses.Add(new AbsenceStatusViewModel
+                        {
+                            AbsenceType = item.AbsenceType,
+                            EndDate = item.EndDate,
+                            Id = item.Id,
+                            StartDate = item.StartDate,
+                            User = item.User
+                        });
+                    }
                 }
             }
 

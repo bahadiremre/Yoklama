@@ -16,11 +16,11 @@
 
 <form class="col-md-12 px-0" asp-action="Index">
     <label class="control-label">Gün Seçin</label>
+    <span asp-validation-for="SearchingStartDate" class="text-danger"></span>
+    <span asp-validation-for="SearchingEndDate" class="text-danger"></span>
     <div class="form-inline">
         <input asp-for="SearchingStartDate" class="form-control mr-2" />
-        <span asp-validation-for="SearchingStartDate" class="text-danger"></span>
         <input asp-for="SearchingEndDate" class="form-control mr-2" />
-        <span asp-validation-for="SearchingEndDate" class="text-danger"></span>
         <input type="submit" value="Getir" class="btn btn-success" />
     </div>
 </form>

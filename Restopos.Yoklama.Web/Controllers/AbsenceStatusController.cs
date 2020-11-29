@@ -28,30 +28,33 @@ namespace Restopos.Yoklama.Web.Controllers
 
         public IActionResult Index(AbsenceStatusesByDateViewModel model)
         {
-            if (model.SearchingStartDate == DateTime.MinValue)
+            if (ModelState.IsValid)
             {
-                model.SearchingStartDate = DateTime.Now.Date;
-            }
-            if (model.SearchingEndDate == DateTime.MinValue)
-            {
-                model.SearchingEndDate = DateTime.Now.Date.AddHours(23).AddMinutes(59);
-            }
-
-            List<AbsenceStatus> absenceStatuses = absenceService.GetByDate(model.SearchingStartDate, model.SearchingEndDate);
-
-            model.absenceStatuses = new List<AbsenceStatusViewModel>();
-            if (absenceStatuses?.Count > 0)
-            {
-                foreach (var item in absenceStatuses)
+                if (model.SearchingStartDate == DateTime.MinValue)
                 {
-                    model.absenceStatuses.Add(new AbsenceStatusViewModel
+                    model.SearchingStartDate = DateTime.Now.Date;
+                }
+                if (model.SearchingEndDate == DateTime.MinValue)
+                {
+                    model.SearchingEndDate = DateTime.Now.Date.AddHours(23).AddMinutes(59);
+                }
+
+                List<AbsenceStatus> absenceStatuses = absenceService.GetByDate(model.SearchingStartDate, model.SearchingEndDate);
+
+                model.absenceStatuses = new List<AbsenceStatusViewModel>();
+                if (absenceStatuses?.Count > 0)
+                {
+                    foreach (var item in absenceStatuses)
                     {
-                        AbsenceType = item.AbsenceType,
-                        EndDate = item.EndDate,
-                        Id = item.Id,
-                        StartDate = item.StartDate,
-                        User = item.User
-                    });
+                        model.absenceStatuses.Add(new AbsenceStatusViewModel
+                        {
+                            AbsenceType = item.AbsenceType,
+                            EndDate = item.EndDate,
+                            Id = item.Id,
+                            StartDate = item.StartDate,
+                            User = item.User
+                        });
+                    }
                 }
             }
 
@@ -64,22 +67,21 @@ namespace Restopos.Yoklama.Web.Controllers
         {
             AbsenceStatusViewModel model =
                 new AbsenceStatusViewModel { StartDate = DateTime.Now.Date.AddHours(8), EndDate = DateTime.Now.Date.AddHours(18) };
-            ViewBag.AbsenceTypes = new SelectList(absenceTypeService.GetAll(), "Id", "Name");
 
-            ViewBag.Users = new SelectList((from u in userService.GetAll()
-                                            select new
-                                            {
-                                                u.Id,
-                                                FullName = u.Name + " " + u.Surname
-                                            }), "Id", "FullName");
+            AddUsersToViewBag();
+            AddAbsenceTypesToViewBag();
 
             return View(model);
         }
+
+        
 
         [Authorize(Policy = ConstPrivileges.ADD_USERS_ABSENCE)]
         [HttpPost]
         public IActionResult Add(AbsenceStatusViewModel model)
         {
+            AddUsersToViewBag();
+            AddAbsenceTypesToViewBag();
             if (ModelState.IsValid)
             {
                 AbsenceStatus absenceStatus = new AbsenceStatus()
@@ -94,7 +96,7 @@ namespace Restopos.Yoklama.Web.Controllers
 
                 return RedirectToAction("Index");
             }
-            return View();
+            return View(model);
         }
 
         [Authorize(Policy = ConstPrivileges.UPDATE_USERS_ABSENCE)]
@@ -109,7 +111,7 @@ namespace Restopos.Yoklama.Web.Controllers
             model.StartDate = absenceStatus.StartDate;
             model.User = absenceStatus.User;
 
-            ViewBag.AbsenceTypes = new SelectList(absenceTypeService.GetAll(), "Id", "Name", absenceStatus.AbsenceTypeId);
+            AddAbsenceTypesToViewBag();
 
             return View(model);
         }
@@ -118,6 +120,7 @@ namespace Restopos.Yoklama.Web.Controllers
         [HttpPost]
         public IActionResult Update(AbsenceStatusViewModel model)
         {
+            AddAbsenceTypesToViewBag();
             if (ModelState.IsValid)
             {
                 AbsenceStatus absenceStatus = new AbsenceStatus();
@@ -148,6 +151,21 @@ namespace Restopos.Yoklama.Web.Controllers
             }
 
 
+        }
+
+        private void AddUsersToViewBag()
+        {
+            ViewBag.Users = new SelectList((from u in userService.GetAll()
+                                            select new
+                                            {
+                                                u.Id,
+                                                FullName = u.Name + " " + u.Surname
+                                            }), "Id", "FullName");
+        }
+
+        private void AddAbsenceTypesToViewBag()
+        {
+            ViewBag.AbsenceTypes = new SelectList(absenceTypeService.GetAll(), "Id", "Name");
         }
     }
 }

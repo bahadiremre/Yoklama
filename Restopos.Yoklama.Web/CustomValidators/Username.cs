@@ -18,10 +18,11 @@ namespace Restopos.Yoklama.Web.CustomValidators
             return regex.IsMatch((string)value);
         }
 
-        public override string FormatErrorMessage(string name)
+        public override string FormatErrorMessage(string errorMessage)
         {
-            return
-                "Kullanıcı adınız en az 5 en fazla 20 karakter olabilir ve büyük/küçük harf, sayı ve alt çizgi barındırabilir. Türkçe karakter içeremez.";
+            return "Kullanıcı adınız en az 5 en fazla 20 karakter olabilir." +
+                " Büyük/küçük harf, sayı ve alt çizgi barındırabilir." +
+                " Türkçe karakter içeremez.";
         }
     }
 }
