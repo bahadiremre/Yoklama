@@ -11,15 +11,29 @@ namespace Restopos.Yoklama.Web.Initializer
     {
         public static void SeedData(IPrivilegeService privilegeService)
         {
-            List<Privilege> privileges = privilegeService.GetAllConstPrivileges();
+            List<Privilege> privilegesHardCoded = privilegeService.GetAllConstPrivileges();
+            List<Privilege> privilegesOnDB = privilegeService.GetAll();
 
-            foreach (var priv in privileges)
+            foreach (var priv in privilegesHardCoded)
             {
-                if (privilegeService.GetByName(priv.Name) == null)
+                if (!IsHardCodedPrivInDB(priv,privilegesOnDB))
                 {
                     privilegeService.Add(priv);
                 }
             }
+        }
+
+        private static bool IsHardCodedPrivInDB(Privilege privilege, List<Privilege> privilegesOnDB)
+        {
+            foreach (var item in privilegesOnDB)
+            {
+                if (item.Name == privilege.Name)
+                {
+                    return true;
+                }
+            }
+
+            return false;
         }
     }
 }
