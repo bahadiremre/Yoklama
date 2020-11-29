@@ -20,7 +20,7 @@ namespace Restopos.Yoklama.Web.Models
         [Display(Name = "Soyad")]
         public string Surname { get; set; }
 
-        [UsernameValidator]
+        [Username]
         [Display(Name = "Kullanıcı Adı")]
         public string Username { get; set; }
 

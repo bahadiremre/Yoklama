@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace Restopos.Yoklama.Web.CustomValidators
 {
     [AttributeUsage(AttributeTargets.Property | AttributeTargets.Field, AllowMultiple = false)]
-    sealed public class UsernameValidator : ValidationAttribute
+    sealed public class Username : ValidationAttribute
     {
         public override bool IsValid(object value)
         {

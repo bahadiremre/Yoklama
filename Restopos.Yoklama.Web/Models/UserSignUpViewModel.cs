@@ -18,10 +18,10 @@ namespace Restopos.Yoklama.Web.Models
         public string Surname { get; set; }
 
         [Display(Name = "Kullanıcı Adı:")]
-        [UsernameValidator]
+        [Username]
         public string Username { get; set; }
         
-        [PasswordValidator]
+        [Password]
         [Display(Name = "Şifre")]
         [DataType(DataType.Password)]
         public string Password { get; set; }

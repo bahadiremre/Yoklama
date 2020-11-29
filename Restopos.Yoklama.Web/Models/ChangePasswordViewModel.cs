@@ -17,7 +17,7 @@ namespace Restopos.Yoklama.Web.Models
         public string OldPassword { get; set; }
 
         [Display(Name = "Yeni Şifre")]
-        [PasswordValidator]
+        [Password]
         [DataType(DataType.Password)]
         public string NewPassword { get; set; }
 
