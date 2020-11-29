@@ -35,11 +35,11 @@
                     </td>
                     <td>
                         <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-info btn-sm">Ayrıntılar</a>
-                        @if (User.HasClaim(x => x.Value == ConstPrivileges.UPDATE_ROLE))
+                        @if (User.HasClaim(x => x.Value == ConstPrivileges.UPDATE_ROLE) && item.Name != ConstRoles.ADMIN)
                         {
                             <a asp-action="Update" asp-route-id="@item.Id" class="btn btn-warning btn-sm">Güncelle</a>
                         }
-                        @if (User.HasClaim(x => x.Value == ConstPrivileges.DELETE_ROLE))
+                        @if (User.HasClaim(x => x.Value == ConstPrivileges.DELETE_ROLE) && item.Name != ConstRoles.ADMIN)
                         {
                             <a href="#" data-toggle="modal" data-target="#customModal" data-id="@item.Id" class="btn btn-danger btn-sm">Sil</a>
                         }
@@ -58,7 +58,6 @@ else
     </div>
 }
 
-
 <partial name="_CustomModal" model='("Silme İşlemi","Seçilen rol kalıcı olarak silinecektir. Devam edilsin mi?")' />
 
 @section Scripts{
@@ -76,11 +75,12 @@ else
                         dataType: "json",
                         contentType: "application/json; charset=utf8",
                         success: (data) => {
+                            if (data.includes("Hata")) {
+                                window.location.href = "/Home/Error";
+                            } else if (data.includes("Uyarı")) {
+                                alert(data);
+                            }
                             window.location.reload();
-                        },
-                        error: (err) => {
-                            console.log(err);
-                            alert(err.statusText);
                         }
                     });
                 })

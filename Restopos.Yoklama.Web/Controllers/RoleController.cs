@@ -148,31 +148,37 @@ namespace Restopos.Yoklama.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                Role role = new Role
+                if (model.Name!=ConstRoles.ADMIN)
                 {
-                    Id = model.Id,
-                    Name = model.Name
-                };
-
-                List<PrivilegeSelectionViewModel> selectedPrivilegeModels =
-                    model.PrivilegesWithSelection.FindAll(x => x.isSelected);
-
-                if (selectedPrivilegeModels?.Count > 0)
-                {
-                    List<RolePrivilege> rolePrivileges = new List<RolePrivilege>();
-
-                    foreach (var item in selectedPrivilegeModels)
+                    Role role = new Role
                     {
-                        rolePrivileges.Add(new RolePrivilege { PrivilegeId = item.Id });
+                        Id = model.Id,
+                        Name = model.Name
+                    };
+
+                    List<PrivilegeSelectionViewModel> selectedPrivilegeModels =
+                        model.PrivilegesWithSelection.FindAll(x => x.isSelected);
+
+                    if (selectedPrivilegeModels?.Count > 0)
+                    {
+                        List<RolePrivilege> rolePrivileges = new List<RolePrivilege>();
+
+                        foreach (var item in selectedPrivilegeModels)
+                        {
+                            rolePrivileges.Add(new RolePrivilege { PrivilegeId = item.Id });
+                        }
+
+                        role.RolePrivileges = rolePrivileges;
                     }
 
-                    role.RolePrivileges = rolePrivileges;
+                    roleService.Update(role);
+
+                    return RedirectToAction("Index");
                 }
-
-                roleService.Update(role);
-
-
-                return RedirectToAction("Index");
+                else
+                {
+                    ModelState.AddModelError("", "Admin rolü değiştirelemez");
+                }
             }
             return View(model);
         }
@@ -180,8 +186,23 @@ namespace Restopos.Yoklama.Web.Controllers
         [Authorize(Policy = ConstPrivileges.DELETE_ROLE)]
         public JsonResult Delete(int id)
         {
-            roleService.Remove(new Role { Id = id });
-            return Json(null);
+            try
+            {
+                if (roleService.GetById(id)?.Name != ConstRoles.ADMIN)
+                {
+                    roleService.Remove(new Role { Id = id });
+                    return Json(null);
+                }
+                else
+                {
+                    return Json("Uyarı: Admin rolü silinemez");
+                }
+            }
+            catch (Exception)
+            {
+                return Json("Hata");
+            }
+            
         }
     }
 }
