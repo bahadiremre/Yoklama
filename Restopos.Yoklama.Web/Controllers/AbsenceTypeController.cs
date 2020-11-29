@@ -104,7 +104,7 @@ namespace Restopos.Yoklama.Web.Controllers
         {
             try
             {
-                if (absenceStatusService.GetByType(id) == null)
+                if (absenceStatusService.GetByType(id)?.Count == 0)
                 {
                     absenceTypeService.Remove(new AbsenceType { Id = id });
                 }

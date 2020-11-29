@@ -75,9 +75,9 @@ else
                         dataType: "json",
                         contentType: "application/json; charset=utf8",
                         success: (data) => {
-                            if (data.includes("Hata")) {
+                            if (data && data.includes("Hata")) {
                                 window.location.href = "/Home/Error";
-                            } else if (data.includes("Uyarı")) {
+                            } else if (data && data.includes("Uyarı")) {
                                 alert(data);
                             }
                             window.location.reload();
