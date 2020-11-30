@@ -18,10 +18,6 @@ namespace Restopos.Yoklama.DataAccess.Concrete.EntityFrameworkCore.Mapping
             builder.Property(x => x.Surname).HasMaxLength(50).IsRequired();
             builder.Property(x => x.Username).HasMaxLength(20).IsRequired();
             builder.Property(x => x.Password).HasMaxLength(20).IsRequired();
-
-            //builder.HasOne(x => x.Department).WithMany(x => x.Users).HasForeignKey(x => x.DepartmentId).OnDelete(DeleteBehavior.ClientSetNull);
-
-            builder.HasMany(x => x.AbsenceStatuses).WithOne(x => x.User).HasForeignKey(x => x.UserId);
         }
     }
 }

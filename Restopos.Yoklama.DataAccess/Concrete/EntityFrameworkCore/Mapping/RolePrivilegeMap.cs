@@ -11,8 +11,7 @@ namespace Restopos.Yoklama.DataAccess.Concrete.EntityFrameworkCore.Mapping
     {
         public void Configure(EntityTypeBuilder<RolePrivilege> builder)
         {
-            builder.HasKey(x => x.Id);
-            builder.Property(x => x.Id).UseIdentityColumn();
+            builder.HasKey(x => new {x.RoleId,x.PrivilegeId });
 
             builder.HasOne(x => x.Role).WithMany(x => x.RolePrivileges).HasForeignKey(x => x.RoleId);
 

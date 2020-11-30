@@ -7,8 +7,6 @@ namespace Restopos.Yoklama.Entities.Concrete
 {
     public class RolePrivilege : ICrudable
     {
-        public int Id { get; set; }
-
         public int RoleId { get; set; }
         public Role Role { get; set; }
 

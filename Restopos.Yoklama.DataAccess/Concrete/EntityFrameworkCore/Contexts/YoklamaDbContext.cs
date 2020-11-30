@@ -12,12 +12,6 @@ namespace Restopos.Yoklama.DataAccess.Concrete.EntityFrameworkCore.Contexts
     {
         public YoklamaDbContext(DbContextOptions<YoklamaDbContext> options) : base(options) { }
 
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            //optionsBuilder.UseSqlServer("server=localhost; database=AbsenceDb; integrated security=true;");
-            //base.OnConfiguring(optionsBuilder);
-        }
-
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfiguration(new AbsenceStatusMap());
