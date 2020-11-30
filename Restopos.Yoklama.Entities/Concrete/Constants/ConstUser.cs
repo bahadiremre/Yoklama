@@ -9,7 +9,7 @@ namespace Restopos.Yoklama.Entities.Concrete.Constants
         public const string NAME = "Yönetici";
         public const string SURNAME = "Yönetici";
         public const string USERNAME = "admin";
-        public const string PASSWORD = "admin123";
+        public const string PASSWORD = "Admin123";
 
         public User AdminUser { get; } = new User { Name = NAME, Surname = SURNAME, Password = PASSWORD, Username = USERNAME };
     }
