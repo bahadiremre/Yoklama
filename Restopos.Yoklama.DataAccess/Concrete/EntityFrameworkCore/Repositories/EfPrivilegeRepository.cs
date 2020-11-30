@@ -31,7 +31,7 @@ namespace Restopos.Yoklama.DataAccess.Concrete.EntityFrameworkCore.Repositories
 
         public List<Privilege> GetAll()
         {
-            return readableDAL.GetAll();
+            return readableDAL.GetAll().OrderBy(x=>x.Name).ToList();
         }
 
         public Privilege GetById(int id)

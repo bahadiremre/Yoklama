@@ -116,7 +116,7 @@ namespace Restopos.Yoklama.Web.Controllers
             RoleDetailsViewModel model = new RoleDetailsViewModel();
             model.Id = role.Id;
             model.Name = role.Name;
-            model.RolePrivileges = role.RolePrivileges;
+            model.RolePrivileges = role.RolePrivileges.OrderBy(x=>x.Privilege.Name).ToList();
             model.UserRoles = role.UserRoles;
 
             return View(model);
