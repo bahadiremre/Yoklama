@@ -10,47 +10,43 @@ namespace Restopos.Yoklama.Business.Concrete
     public class UserRoleManager : IUserRoleService
     {
         private readonly IUserRoleDAL userRoleDAL;
-        private readonly ICrudableDAL<UserRole> crudableDAL;
-        private readonly IMultipleAddableDAL<UserRole> multipleAddableDAL;
-        private readonly IMultipleRemovableDAL<UserRole> multipleRemovableDAL;
-        public UserRoleManager(ICrudableDAL<UserRole> crudableDAL,
-            IMultipleAddableDAL<UserRole> multipleAddableDAL,
-            IMultipleRemovableDAL<UserRole> multipleRemovableDAL,
-            IUserRoleDAL userRoleDAL)
+        public UserRoleManager(IUserRoleDAL userRoleDAL)
         {
-            this.crudableDAL = crudableDAL;
-            this.multipleAddableDAL = multipleAddableDAL;
-            this.multipleRemovableDAL = multipleRemovableDAL;
             this.userRoleDAL = userRoleDAL;
         }
         public void Add(UserRole userRole)
         {
-            crudableDAL.Add(userRole);
+            userRoleDAL.Add(userRole);
         }
 
         public void AddRange(List<UserRole> userRoles)
         {
-            multipleAddableDAL.AddRange(userRoles);
+            userRoleDAL.AddRange(userRoles);
         }
 
         public List<UserRole> GetAll()
         {
-            return crudableDAL.GetAll();
+            return userRoleDAL.GetAll();
         }
 
         public UserRole GetById(int id)
         {
-            return crudableDAL.GetById(id);
+            return userRoleDAL.GetById(id);
+        }
+
+        public List<UserRole> GetByUserId(int userId)
+        {
+            return userRoleDAL.GetByUserId(userId);
         }
 
         public void Remove(UserRole userRole)
         {
-            crudableDAL.Remove(userRole);
+            userRoleDAL.Remove(userRole);
         }
 
         public void RemoveAll(List<UserRole> userRoles)
         {
-            multipleRemovableDAL.RemoveAll(userRoles);
+            userRoleDAL.RemoveAll(userRoles);
         }
 
         public void RemoveByUserId(int id)
@@ -60,7 +56,7 @@ namespace Restopos.Yoklama.Business.Concrete
 
         public void Update(UserRole userRole)
         {
-            crudableDAL.Update(userRole);
+            userRoleDAL.Update(userRole);
         }
     }
 }

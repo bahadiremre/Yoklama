@@ -10,48 +10,44 @@ namespace Restopos.Yoklama.Business.Concrete
     public class RolePrivilegeManager : IRolePrivilegeService
     {
         private readonly IRolePrivilegeDAL rolePrivilegeDAL;
-        private readonly ICrudableDAL<RolePrivilege> crudableDAL;
-        private readonly IMultipleAddableDAL<RolePrivilege> multipleAddableDAL;
-        private readonly IMultipleRemovableDAL<RolePrivilege> multipleRemovableDAL;
-        public RolePrivilegeManager(ICrudableDAL<RolePrivilege> crudableDAL,
-            IMultipleAddableDAL<RolePrivilege> multipleAddableDAL,
-            IMultipleRemovableDAL<RolePrivilege> multipleRemovableDAL,
-            IRolePrivilegeDAL rolePrivilegeDAL)
+        public RolePrivilegeManager(IRolePrivilegeDAL rolePrivilegeDAL)
         {
-            this.crudableDAL = crudableDAL;
-            this.multipleAddableDAL = multipleAddableDAL;
-            this.multipleRemovableDAL = multipleRemovableDAL;
             this.rolePrivilegeDAL = rolePrivilegeDAL;
         }
 
         public void Add(RolePrivilege rolePrivilege)
         {
-            crudableDAL.Add(rolePrivilege);
+            rolePrivilegeDAL.Add(rolePrivilege);
         }
 
         public void AddRange(List<RolePrivilege> rolePrivileges)
         {
-            multipleAddableDAL.AddRange(rolePrivileges);
+            rolePrivilegeDAL.AddRange(rolePrivileges);
         }
 
         public List<RolePrivilege> GetAll()
         {
-            return crudableDAL.GetAll();
+            return rolePrivilegeDAL.GetAll();
         }
 
         public RolePrivilege GetById(int id)
         {
-            return crudableDAL.GetById(id);
+            return rolePrivilegeDAL.GetById(id);
+        }
+
+        public List<RolePrivilege> GetByRoleId(int RoleId)
+        {
+            return rolePrivilegeDAL.GetByRoleId(RoleId);
         }
 
         public void Remove(RolePrivilege rolePrivilege)
         {
-            crudableDAL.Remove(rolePrivilege);
+            rolePrivilegeDAL.Remove(rolePrivilege);
         }
 
         public void RemoveAll(List<RolePrivilege> rolePrivileges)
         {
-            multipleRemovableDAL.RemoveAll(rolePrivileges);
+            rolePrivilegeDAL.RemoveAll(rolePrivileges);
         }
 
         public void RemoveByRoleId(int id)
@@ -61,7 +57,7 @@ namespace Restopos.Yoklama.Business.Concrete
 
         public void Update(RolePrivilege rolePrivilege)
         {
-            crudableDAL.Update(rolePrivilege);
+            rolePrivilegeDAL.Update(rolePrivilege);
         }
     }
 }

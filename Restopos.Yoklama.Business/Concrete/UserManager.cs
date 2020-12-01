@@ -1,7 +1,7 @@
 ﻿using Restopos.Yoklama.Business.Interfaces;
 using Restopos.Yoklama.DataAccess.Interfaces;
 using Restopos.Yoklama.Entities.Concrete;
-using System;
+using System.Linq;
 using System.Collections.Generic;
 using System.Text;
 
@@ -75,20 +75,25 @@ namespace Restopos.Yoklama.Business.Concrete
 
         public void Update(User user)
         {
-            List<UserRole> userRoles = new List<UserRole>();
-            
-            userRoleService.RemoveByUserId(user.Id);
+            List<UserRole> userRolesFromService = userRoleService.GetByUserId(user.Id);
+
+            List<UserRole> userRolesToBeAdded;
+            List<UserRole> userRolesToBeRemoved;
 
             if (user.UserRoles?.Count > 0)
             {
-                foreach (var item in user.UserRoles)
+                if (userRolesFromService?.Count > 0)
                 {
-                    userRoles.Add(new UserRole
-                    {
-                        RoleId = item.RoleId,
-                        UserId = user.Id
-                    });
-                }               
+                    userRolesToBeAdded = user.UserRoles.Where(x => userRolesFromService.Any(ur => ur.UserId != x.UserId)).ToList();
+                    userRolesToBeRemoved = userRolesFromService.Where(x => user.UserRoles.Any(ur => ur.UserId != x.UserId)).ToList();
+
+                    userRoleService.RemoveAll(userRolesToBeRemoved);
+                    user.UserRoles = userRolesToBeAdded;
+                }
+            }
+            else
+            {
+                userRoleService.RemoveByUserId(user.Id);
             }
 
             userDAL.Update(user);

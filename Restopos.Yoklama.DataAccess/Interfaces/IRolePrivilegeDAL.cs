@@ -9,5 +9,6 @@ namespace Restopos.Yoklama.DataAccess.Interfaces
         IMultipleAddableDAL<RolePrivilege>, IMultipleRemovableDAL<RolePrivilege>
     {
         void RemoveByRoleId(int id);
+        List<RolePrivilege> GetByRoleId(int roleId);
     }
 }

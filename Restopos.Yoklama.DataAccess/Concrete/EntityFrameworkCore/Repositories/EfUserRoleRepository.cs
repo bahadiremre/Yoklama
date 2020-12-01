@@ -45,6 +45,11 @@ namespace Restopos.Yoklama.DataAccess.Concrete.EntityFrameworkCore.Repositories
             return crudableDAL.GetById(id);
         }
 
+        public List<UserRole> GetByUserId(int userId)
+        {
+            return db.Set<UserRole>().Where(x => x.UserId == userId).ToList();
+        }
+
         public void Remove(UserRole userRole)
         {
             crudableDAL.Remove(userRole);

@@ -9,6 +9,7 @@ namespace Restopos.Yoklama.Business.Interfaces
         IMultipleAddableService<UserRole>, IMultipleRemovableService<UserRole>
     {
         void RemoveByUserId(int id);
+        List<UserRole> GetByUserId(int userId);
     }
 }
 

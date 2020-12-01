@@ -3,6 +3,7 @@ using Restopos.Yoklama.DataAccess.Interfaces;
 using Restopos.Yoklama.Entities.Concrete;
 using Restopos.Yoklama.Entities.Concrete.Constants;
 using System;
+using System.Linq;
 using System.Collections.Generic;
 using System.Reflection;
 using System.Text;
@@ -63,7 +64,26 @@ namespace Restopos.Yoklama.Business.Concrete
 
         public void Update(Role role)
         {
-            rolePrivilegeService.RemoveByRoleId(role.Id);
+            List<RolePrivilege> rolePrivileges = rolePrivilegeService.GetByRoleId(role.Id);
+
+            List<RolePrivilege> rolePrivilegesToBeAdded;
+            List<RolePrivilege> rolePrivilegesToBeRemoved;
+
+            if (role.RolePrivileges?.Count>0)
+            {
+                if (rolePrivileges?.Count>0)
+                {
+                    rolePrivilegesToBeAdded = role.RolePrivileges.Where(x => rolePrivileges.Any(rp => rp.PrivilegeId != x.PrivilegeId)).ToList();
+                    rolePrivilegesToBeRemoved = rolePrivileges.Where(x => role.RolePrivileges.Any(r => r.PrivilegeId != x.PrivilegeId)).ToList();
+
+                    rolePrivilegeService.RemoveAll(rolePrivilegesToBeRemoved);
+                    role.RolePrivileges = rolePrivilegesToBeAdded;
+                }
+            }
+            else
+            {
+                rolePrivilegeService.RemoveByRoleId(role.Id);
+            }
 
             roleDAL.Update(role);
         }
